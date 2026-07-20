@@ -21,11 +21,12 @@ Tk, SDL2 or AndroWish sources — you supply those from upstream.
 | Path | What it is |
 | --- | --- |
 | `docs/PORT.md` | The full port: roadmap, analysis, and every runtime fix (**start here**) |
+| `docs/AGENT-BOOTSTRAP.md` | Working notes: exact build/test commands, environment traps, and how the config macros were derived |
 | `docs/SDL2TK-GRAFT.md` | How the `sdl/` + `xlib/` backend was grafted onto stock Tk 9.1 |
 | `docs/BATTERIES-TRIAGE.md` | Per-extension Tcl 9 migration matrix (~80 extensions) |
 | `patches/jni-tcl/` | ndk-build module config for Tcl 9.1 (`Android.mk`, `tcl-config.mk`) |
 | `patches/jni-sdl2tk/` | ndk-build module config + regenerated source list for Tk 9.1 |
-| `scripts/` | Tcl 9.1 module regeneration + a native Tcl smoke test |
+| `scripts/` | Tcl 9.1 module regeneration, a native Tcl/ABI assertion test, an on-device regression smoke test, and a config-macro audit |
 
 ## Why the port is tractable
 
@@ -103,7 +104,10 @@ See [Releases](https://github.com/johnbuckman/androwish-tcl91/releases) for a si
 
 - Tracks Tcl/Tk **9.1b0**; will want a rebuild against 9.1 final.
 - **arm64-v8a only** — no 32-bit or x86 ABI in this build.
-- Verified on emulators (320 dpi tablet, 420 dpi phone); not yet broadly tested on physical devices.
+- Verified on emulators only — but now by a repeatable check rather than by eye:
+  `scripts/emulator-smoke.sh` asserts all four bugs above on-device and passes
+  15/15 at both 320 dpi/API 34 and 420 dpi/API 31. Not yet tested on physical
+  hardware.
 - Alpha polish outstanding: default icon, and the main `.` window is an empty placeholder.
 
 ## License
