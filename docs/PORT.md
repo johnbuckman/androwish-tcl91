@@ -191,29 +191,65 @@ with a `.`-menubar fallback (`aw_demos_fallback`). Placement matches undroidwish
 `.` + console beside it; no custom menu/hint on `.` per John's feedback). The earlier `console eval`
 "failure" was only a too-short retry — bumped to 80 (150ms).
 
-## OPEN — the one remaining runtime issue: high-DPI content font is too small
-On high-DPI AVDs (320-dpi pixel_tablet, 420-dpi phone) the menu/console **text renders ~13px (tiny)**
-where the from-source 8.6 build renders large. Diagnosis so far:
-- `tk scaling` = 4.45 and `winfo fpixels . 1i` = 320 are **correct** (screen mwidth/DPI init in SdlTkX.c
-  is right), yet `font actual TkDefaultFont -size` = 3 and the console XLFD comes out ~12px.
-- Mechanism: the named default fonts (TkDefaultFont, TkFixedFont, …) appear to be **created/cached at a
-  pixel size derived from a pre-320 DPI** (≈13px = "size 10pt @ 96dpi"). Because `ttk/fonts.tcl` guards
-  its DPI-aware sizing with **TIP-145** (`variable tip145 [catch {font create TkDefaultFont}]`; the whole
-  `font configure` block runs only `if {!$tip145}`), once the fonts already exist the block is skipped and
-  they keep the tiny cached size. `::tk::FontScalingFactor` also returns 1 on Android (no `~/.config/
-  monitors.xml`), so even the x11 branch would under-size.
-- Runtime `console eval {font configure TkConsoleFont -size 40}` did **not** change it (`font actual`
-  stayed 2/3), so a Tcl-level fix from main.tcl is not sufficient — the **real fix is in C**: ensure the
-  screen DPI (320) is finalised *before* Tk creates the default fonts, or rescale the cached pixel sizes
-  afterward, in the SDL font layer's point→pixel path.
-- **Needs live `font actual` / `tk scaling` introspection on a stable emulator to finish** (a fix here is
-  hard to validate blind). Emulator caveat: launch **windowed + detached** (`nohup … & disown`); do NOT
-  `pkill -9 qemu` mid-session — the windowed AVDs are unstable when killed. Tablet AVD =
-  `aw_tablet_api34` (pixel_tablet, android-34 arm64, density 320, 2560×1600).
+## RESOLVED (2026-07-20) — high-DPI fonts were tiny: XListFonts reported a fixed bitmap size
+On high-DPI AVDs (320-dpi pixel_tablet, 420-dpi phone) menu/console text rendered **~13px** while the
+from-source 8.6 build renders it large. Several plausible theories were **wrong** and are recorded here so
+nobody re-treads them: it was *not* the screen DPI being finalised late, *not* `ttk/fonts.tcl`'s TIP-145
+guard (`ttk::tip145` measured **0** on-device, so the sizing block *did* run and *did* set `-size 10`), and
+*not* `tk scaling`. Instrumenting `CreateClosestFont()` (sdl/tkSDLFont.c) proved Tk was already correct:
 
-## Status 2026-07-19
-P0–P6 complete. Signed **0.1-alpha APK boots to an interactive Tcl console + Demos menu** on Android
-arm64 (full batteries, 84 native libs). Remaining: (a) high-DPI content-font-size C fix (above);
-(b) Phase 7 release — publish public repo `androwish-tcl91` + APK, bump version, add icon (awaits John's
-review, [[no_commit_until_review]]). Working source with all fixes is committed locally in
-`~/androwish-tcl91-work/build-tree` (git `c747645`).
+    CreateClosestFont: req=10.0 -> px=44.5   screen w=2560 mw=203mm dpi=320   fam=Helvetica
+    bitmap path: want=44.5px loading AS-IS '-unknown-droid sans mono-*-r-normal-*-12-...'
+
+**Root cause — `SdlTkListFonts()` (sdl/SdlTkUtils.c).** Tk asks `XListFonts` for generic X11 families
+("Helvetica", "courier", "fixed"), but the bundled faces are named "DejaVu LGC Sans" etc., so nothing
+matched. The old no-match fallback returned a **hardcoded XLFD with pixel size 12**. In X11 a *non-zero*
+pixel size means a fixed **bitmap** font, so `GetScreenFont()` took its bitmapped branch and loaded that
+font **as-is at 12px**, discarding the correctly-computed 44.5px. (12px ≈ 3pt at 320dpi — hence
+`font actual -size` reporting 3.)
+
+**Fix:** on no exact-family match, map the generic name onto the matching bundled DejaVu LGC family
+(mono/serif/sans by keyword) and emit those faces with **pixel size 0 (= scalable)**; the last-resort
+fallback is scalable too. Now Helvetica→DejaVu LGC Sans @44px, courier→DejaVu LGC Sans Mono @44px.
+
+**LESSON: in this X11-emulation layer, pixel size 0 in an XLFD means "scalable".** Any synthesized font
+list entry MUST use 0, or Tk will lock the font to that literal pixel size.
+
+**Verified on-device** (`aw_tablet_api34`, 320dpi): TkDefaultFont linespace 15→**52**; `-size 10/12/20` →
+actual 10/12/20 (linespace 52/63/104) instead of everything collapsing to 3/15; runtime
+`font configure -size` now takes effect; sans/mono/bold families resolve distinctly. (`-size -12` →
+actual 3, linespace 15 is *correct*: negative means absolute pixels, and 12px really is ~3pt at 320dpi.)
+
+## RESOLVED (2026-07-20) — app would not start at all on Android 14+ (API 34+)
+`AndroWish.java` called `LocationManager.addGpsStatusListener()` / `addNmeaListener()` in `onCreate`.
+Android 14 **removed** the `GpsStatus.Listener` / `GpsStatus.NmeaListener` APIs for apps targeting
+SDK ≥ 34 (this build is `targetSdkVersion 36`); they now throw `UnsupportedOperationException`. That
+killed the **`:CONSOLE` process — which is where wish actually runs** — during startup, so the app died
+immediately on any modern device/AVD.
+**Fix:** guard both registrations with `if (android.os.Build.VERSION.SDK_INT < 34)` plus try/catch, and
+wrap the matching `remove*Listener` teardown in try/catch. `GnssStatus.Callback` /
+`OnNmeaMessageListener` are the modern replacements; wiring those through to the Tcl layer (for
+`borg gps` / NMEA on API 34+) is a separate task.
+
+## Debugging notes for this port (reusable)
+- **Run a Tcl script on-device without touching the GUI:**
+  `am start -a android.intent.action.VIEW -d "file://$DIR/x.tcl" -n tk.tcl.wish.tcl91/tk.tcl.wish.AndroWishLauncher`
+  (runs in a separate `:S0` process with the same Tk/DPI paths). Two traps: **scoped storage blocks
+  `/sdcard/x.tcl`** — put the script in `/sdcard/Android/data/<pkg>/files/` and have it write results
+  there to `adb pull`; and `am start -n <pkg>/<activity>` **without** `-a android.intent.action.MAIN
+  -c android.intent.category.LAUNCHER` throws an NPE in `AndroWishLauncher.onCreate` (null action).
+- **Font tracing:** set `#define TRACE_FONTS 1` at the top of sdl/SdlTkUtils.c → `SDLFONT` logcat tag
+  (FONTLIST / FONTMATCH / FONTADD). Turn it back **off** before building a release.
+- **⚠ `--rerun-tasks` is mandatory.** A plain `./gradlew assembleRelease` can package a **stale
+  `libtk.so`**, so a correct native fix silently appears not to work. Always:
+  `(cd jni && ndk-build NDK_APPLICATION_MK=Application64.mk -j8)` then
+  `./gradlew --no-daemon assembleRelease --rerun-tasks`. Verify by comparing
+  `strings libs/arm64-v8a/libtk.so` against the `.so` unzipped from the built APK.
+- **Emulator:** launch windowed + detached (`nohup … & disown`); do not `pkill -9 qemu` mid-session.
+  Tablet AVD = `aw_tablet_api34` (pixel_tablet, android-34 arm64, density 320, 2560×1600).
+
+## Status 2026-07-20
+P0–P6 complete. The signed **0.1-alpha APK boots to an interactive Tcl console + Demos menu** on Android
+arm64 (full batteries, 84 native libs), with correct high-DPI font scaling and no startup crash on
+API 34+. Remaining: Phase 7 release polish — attach the APK + SHA256 to a GitHub release, bump the alpha
+version, add an icon. Working source with all fixes lives in `~/androwish-tcl91-work/build-tree`.
