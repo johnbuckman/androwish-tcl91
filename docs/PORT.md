@@ -1,6 +1,6 @@
 # androwish-tcl91 — porting AndroWish to Tcl/Tk 9.1
 
-> **Update 2026-11-01:** the port is now on the Tcl/Tk **9.1.0** release (1.0b0). This document records the original 9.1b0 work; for the 9.1.0 move see `AGENT-BOOTSTRAP.md` §12.
+> **Update 2026-11-01:** the port is now on the Tcl/Tk **9.1.0** release (1.0b0, then 1.0b1). This document records the original 9.1b0 work; for the 9.1.0 move see `AGENT-BOOTSTRAP.md` §12, for 1.0b1 §13.
 
 
 **Goal:** Build AndroWish (Tcl/Tk on Android, SDL/AGG X11-emulation backend) on **Tcl/Tk 9.1b0**
@@ -140,6 +140,10 @@ fixes the AndroWish console itself on 9.1 (why the earlier build showed only a b
 The "bad level #0" block above is **FIXED**, along with all remaining boot-time crashes. The signed
 **0.1-alpha APK now boots on Android arm64 to a working interactive Tcl console + a Demos menu whose
 entries launch real demos** (Tk widget demo, borg, BLE, goldberg, tkzinc, tkpath, zint, vu, tktable, …).
+> **Correction (1.0b1):** this was not checked per demo. Running each entry on its own showed only the
+> widget demo worked in 0.1-alpha and 1.0b0; the others errored or crashed (wrong demo paths,
+> `int*`/`Tcl_Size*` stack corruption in tkpath/tkzinc/zint/vu, Tktable). All eight run in 1.0b1;
+> Tktable is disabled. See `AGENT-BOOTSTRAP.md` §13.
 APK: `AndroWish-tcl91-0.1-alpha-arm64.apk` (~28.5MB, 84 native libs = full batteries,
 pkg `tk.tcl.wish.tcl91`, John's release cert).
 

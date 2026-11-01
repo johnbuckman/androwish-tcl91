@@ -27,7 +27,7 @@ CRASHED=""
 $A push "$SELF/pkgsweep.tcl" /data/local/tmp/pkgsweep.tcl >/dev/null
 $A shell chmod 644 /data/local/tmp/pkgsweep.tcl
 
-for round in $(seq 1 25); do
+for round in $(seq 1 100); do
     printf '%s\n' $SKIP | $A shell "cat > /data/local/tmp/pkgskip.txt; chmod 644 /data/local/tmp/pkgskip.txt"
     $A shell am force-stop $PKG
     $A logcat -c

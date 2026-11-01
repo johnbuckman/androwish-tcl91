@@ -7,9 +7,10 @@ from its bundled **Tcl/Tk 8.6.10** to **Tcl/Tk 9.1.0** (the 9.1 release; the 0.1
 Upstream AndroWish (both the `trunk` and `wtf-8-experiment` Fossil branches) ships Tcl/Tk 8.6.10,
 and there is no Tk-9-on-SDL upstream.
 
-> **Status: 1.0b0 (beta), on the Tcl/Tk 9.1.0 release.** A signed arm64 APK boots on Android to an
-> interactive Tcl console with a **Demos** menu, and the bundled demos launch. All 84 native libraries
-> build. 1.0b0 passes the same checks the 0.1-alpha passed on 9.1b0.
+> **Status: 1.0b1 (beta), on the Tcl/Tk 9.1.0 release.** A signed arm64 APK boots on Android to an
+> interactive Tcl console with a **Demos** menu, and all eight demos run. All 84 native libraries build.
+> 754 bundled packages load, and Tcl's and Tk's own test suites run on the device with no regressions
+> against 1.0b0. (1.0b0 and the 0.1-alpha claimed the demos launched; only the widget demo did.)
 
 Part of the [johnbuckman.github.io/tcltk](https://johnbuckman.github.io/tcltk/) collection ·
 [project page](https://johnbuckman.github.io/tcltk/androwish-tcl91.html).
@@ -29,7 +30,8 @@ Tk, SDL2 or AndroWish sources; those are supplied from upstream.
 | `docs/BATTERIES-TRIAGE.md` | Per-extension Tcl 9 migration matrix (~80 extensions) |
 | `patches/jni-tcl/` | ndk-build module config for Tcl 9.1 (`Android.mk`, `tcl-config.mk`, `srclist.mk`) |
 | `patches/jni-sdl2tk/` | ndk-build module config + regenerated source list for Tk 9.1; `sdl/tk-9.1.0-backend.diff` is the backend change 9.1.0 needed |
-| `scripts/` | Tcl 9.1 module regeneration, a native Tcl/ABI assertion test, an on-device regression smoke test, an on-device package-load sweep, and a config-macro audit |
+| `patches/build-tree/1.0b1.diff` | Every 1.0b1 change to the AndroWish tree: extension Tcl 9 fixes, package indexes, the Demos menu |
+| `scripts/` | Tcl 9.1 module regeneration, a native Tcl/ABI assertion test, an on-device regression smoke test, an on-device package-load sweep, Tcl's and Tk's test suites run on the device, a config-macro audit, and `fix_tclsize.py` (the `int*`→`Tcl_Size*` fixer) |
 
 ## Port structure
 
@@ -108,13 +110,22 @@ See [Releases](https://github.com/johnbuckman/androwish-tcl91/releases) for a si
 ## Known limitations
 
 - **Not every bundled package loads on Tcl 9 yet.** `scripts/emulator-pkgsweep.sh` tries every
-  package: 113 load, 192 fail and 7 crash the app (Expect, the awdark/awlight themes, `fsdialog`,
-  `ttk::icons`). Most failures are package indexes that still ask for `Tcl 8.x`, or extensions whose
-  init function isn't found (tdom, nsf/nx, tdbc). The 0.1-alpha gives exactly the same result.
+  package: 754 load, 128 fail, and only Expect crashes the app (its channel type must be
+  `TCL_CHANNEL_VERSION_5`). The failures are mostly nsf/nx/XOTcl (32), Tclx, Ffidl, Tix, Itcl/Itk and
+  Thread, and the packages that need them. (1.0b0: 113 load, 192 fail, 7 crash.)
+- **Some extensions still pass `int*` where Tcl 9 wants `Tcl_Size*`.** That corrupts the stack, and
+  the app aborts with `stack corruption detected`. 1.0b1 fixed the extensions that load (tdom, tkimg,
+  imgjp2, tkpsvg, tkpath, tkzinc, zint, vu, trofs, tclJBlend); over a thousand call sites remain in
+  others (snack, BLT, tktreectrl, Tix, Tclx, …). `scripts/fix_tclsize.py` fixes most of them from
+  clang's `-Werror=incompatible-pointer-types` output.
+- **Tktable is disabled.** Tktable 2.11 calls Tk 9's `Tk_ConfigureWidget` with strings and crashes.
 - **arm64-v8a only** — no 32-bit or x86 ABI in this build.
 - In production use by a number of people. The automated checks run on emulators:
   `scripts/emulator-smoke.sh` asserts all four bugs above on-device and passes
-  15/15 at both 320 dpi/API 34 and 420 dpi/API 31.
+  15/15 at both 320 dpi/API 34 and 420 dpi/API 31. `scripts/emulator-suite.sh` runs Tcl's and
+  Tk's own test suites inside the app: 54,102 Tcl tests pass and 438 fail; 7,704 Tk tests pass
+  and 199 fail. Most failures are the device, not the port: no `tclsh` to `exec`, no network,
+  shared storage, and no standard channels.
 - On API 34+, GPS/NMEA (`borg gps`) is inactive: the legacy listeners are guarded off to keep launch
   from crashing, and the modern `GnssStatus`/`OnNmeaMessageListener` replacements aren't wired to Tcl yet.
 - Polish outstanding: default icon, and the main `.` window is an empty placeholder.

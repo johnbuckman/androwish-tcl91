@@ -107,6 +107,39 @@ reports through logcat (tag `AWSMOKE`), exits 0 on pass. Asserts all four of the
 release-notes bugs plus console wiring. **Baseline: 15/15 pass on both
 emulators with the released v0.1-alpha.**
 
+### Package-load sweep
+
+```sh
+scripts/emulator-pkgsweep.sh emulator-5560 sweep.txt
+```
+
+`package require`s every package the app can find (`scripts/pkgsweep.tcl`,
+logcat tag `AWPKG`). A package that takes the app down is added to a skip list
+and the sweep reruns, so one run gives the full picture. Diff the
+`FAILPKG` lines between builds. A crash in the sweep can depend on load order:
+before chasing one, `package require` it alone in a fresh app. If it loads
+alone, bisect the packages loaded before it (1.0b1: awarc crashed only after
+MaterialIcons, which loaded tksvg; shtmlview only after img::xpm + imgjp2).
+
+### Tcl's and Tk's own test suites, in the app
+
+```sh
+scripts/emulator-suite.sh emulator-5580 tcl ~/androwish-tcl91-work/engine91/tcl9.1.0/tests OUTDIR
+scripts/emulator-suite.sh emulator-5580 tk  ~/androwish-tcl91-work/engine91/tk9.1.0/tests  OUTDIR
+```
+
+Pushes the tests and `scripts/suite.tcl`, runs them single-process with
+`-verbose bps`, and restarts after a crash or hang, skipping the file that
+caused it. `OUTDIR/summary.txt` counts distinct test names (tcltest prints each
+failure twice). About an hour for Tcl, 20 minutes for Tk. Run it on one
+emulator at a time and don't reinstall the APK on it while it runs.
+
+### Demos
+
+Each Demos-menu entry is launched in its own app start and screenshotted;
+check `WINDOWS` in the log and look at the pictures. An entry that only adds to
+`.` (vu) shows no extra window.
+
 Config-macro audit after any Tcl version bump:
 
 ```sh
@@ -158,6 +191,12 @@ Released v1.0b0 (Tcl/Tk 9.1.0, versionCode 2):
 - md5 `c6fc624c46ef90b624df551c8efcb77a`
 - 32,155,127 bytes
 - signed with the same certificate as v0.1-alpha, so it installs over it
+
+Released v1.0b1 (Tcl/Tk 9.1.0, versionCode 3):
+- sha256 `bebac259b73c0ab05b3aa374490b9e8cf6638f74b642b282739faf7c9839a6f6`
+- md5 `4353618a6ed89a1e4274d4fa118ada8f`
+- 32,452,095 bytes, 84 native libraries
+- same certificate again
 
 ---
 
@@ -344,9 +383,14 @@ Nothing is broken. Remaining items, none urgent:
    placeholder.
 3. ~~Tcl/Tk 9.1 final~~ — done: 1.0b0 is on 9.1.0 (§12).
 4. **Other ABIs** — arm64-v8a only.
-7. **Packages that don't load on Tcl 9** — see §12's sweep baseline. The 7
-   that crash the app (Tcl_Panic) are the most urgent; Expect's is its
-   channel type (`TCL_CHANNEL_VERSION_5` required).
+7. **Packages that don't load on Tcl 9** — see §13. Only Expect still crashes
+   the app (its channel type must be `TCL_CHANNEL_VERSION_5`). Load failures
+   left: nsf/nx/XOTcl, Itcl/Itk, Thread, Tclx, Ffidl, Tix, and what needs them.
+8. **`int*`→`Tcl_Size*` in the rest of the extensions** — over a thousand
+   call sites (snack, BLT, tktreectrl, Tix, Tclx, …). Each one can abort the app
+   with `stack corruption detected`. `scripts/fix_tclsize.py` does most of a
+   module from clang's output (§13).
+9. **Tktable** — disabled; 2.11 uses the string `Tk_ConfigureWidget`. Port 2.12.
 5. Consider per-build `versionCode` bumps (§4).
 6. Upstream candidate, not yet reported: the pixel-size-12 XLFD bug exists in
    upstream AndroWish 8.6 too, masked there because 8.6 ships the fonts so the
@@ -430,3 +474,83 @@ Its baseline (both builds):
 - Downgrading to compare builds: `adb install -r -d <old.apk>` works on the
   emulators (same signing key).
 
+---
+
+## 13. Release 1.0b1 (2026-11-01): demos, packages, test suites
+
+John asked whether each demo had been run on 9.1 and whether Tcl's and Tk's
+regression tests had been run. Neither had. **Correction:** 1.0b0 and the
+0.1-alpha said the Demos menu "launches real demos". Run one at a time, only
+the widget demo worked; the rest errored or crashed. All eight work in 1.0b1.
+
+All build-tree changes are in `patches/build-tree/1.0b1.diff` (build tree
+commit 5ac39bcc, local only).
+
+### What was wrong, and the fixes
+
+1. **Tk 9 option defaults must be NULL, not `"-1"`.** `sdl/tkSDLDefault.h`
+   still had `"-1"` for the message widget's `-padx`/`-pady` and the scrollbar
+   element border width. 49 Tk message-widget test failures.
+2. **Version requirements excluded 9.** `"8.5"` means 8.5 ≤ v < 9. Relaxed
+   to `"8.5-"`: 160 `Tcl_InitStubs`/`Tk_InitStubs`/`Tcl_PkgRequire` calls in 82
+   C files, 93 `package require`/`vsatisfies` in 75 scripts, plus the
+   `TKPATH_REQUIRE` and Tix `MIN_TK_VERSION` macros. Keep each file's line
+   endings: rewrite in binary mode, or the diff becomes every line.
+   Not relaxed: Tktable (it crashes), and the packages that then crashed
+   (Itcl/Itk/Thread indexes, nsf, Tclx, Ffidl): they stay failing, not crashing.
+3. **tcllib and tklib were invisible.** Their top-level `pkgIndex.tcl` starts
+   with `if {![package vsatisfies [package provide Tcl] 8]} {return}`, so on
+   Tcl 9 they never added themselves to `auto_path`. Relaxed to `8-`. This
+   alone took the sweep from 196 to 734 loading packages.
+4. **`load` uses the prefix literally in Tcl 9.** `load libtdom.so tdom`
+   looks for `tdom_Init`; the library exports `Tdom_Init`. Capitalized in 19
+   indexes (tdom, tdbc, tcllibc, treectrl, rl_json, vlerq, …).
+5. **`int*` where Tcl 9 wants `Tcl_Size*`** (the alpha's `wm title` bug,
+   again, in extensions). Found with
+   `ndk-build APP_MODULES="<mod>" APP_CFLAGS="-Werror=incompatible-pointer-types -ferror-limit=0"`;
+   `scripts/fix_tclsize.py <file:line:col list>` retypes the local variable,
+   and prints what it can't do for hand fixing. Fixed in:
+   - tkpath, tkzinc, zint, vu (the demos);
+   - **tdom**: `generic/dom.h` hardcoded `#define domLength int`; now
+     `Tcl_Size` on Tcl 9, as upstream does. 66 errors became 3;
+   - **tkimg**: its own `int*` API is kept (other modules call it through
+     stubs) with `Tcl_Size` temporaries inside; pixmap passed strings to Tk 9's
+     object-only `Tk_ConfigureWidget`;
+   - **imgjp2**: its format probe ran on every `image create photo -data`, so
+     with imgjp2 loaded any `-data` image could abort the app;
+   - tkpsvg, trofs, tclJBlend (`JavaGetString` wrote an `int` into
+     `Tcl_Obj.length`).
+6. **tksvg 0.14 replaced Tk 9's built-in svg format and then crashed.** Tk 9
+   has svg built in with the same options, so on Tk 9 `package require tksvg`
+   now just provides the package.
+7. **Demos menu** (`assets/main.tcl`): goldberg sources the widget demo first;
+   tkpath runs `demos/tiger.tcl` (the demos were copied into the assets); vu
+   runs `demos/vu.tcl`; zint draws a QR code; ixset, tksqlite and Tktable
+   removed.
+
+### Test-runner bug worth knowing
+
+`emulator-suite.sh` stopped the Tcl run at file 148 of 177. tcltest.test runs a
+nested `all-single.tcl` that prints its own `Sourced 2 Test Files.`, which the
+runner took as the end. It now waits for the real summary, `^:<tab>Total`, and
+treats a "done" whose pulled output lacks it as a crash. The 1.0b0 and alpha
+baselines ran all their files.
+
+### Results
+
+| Check | 1.0b0 | 1.0b1 |
+| --- | --- | --- |
+| Package sweep: load / fail / crash the app | 113 / 192 / 7 | **754 / 128 / 1** (Expect) |
+| Tcl 9.1.0 suite: passed / failed | 54,102 / 438 | 54,102 / 438 (identical) |
+| Tk 9.1.0 suite: passed / failed | 7,132 / 247 | **7,704 / 199** |
+| Tk files that hang | event, textDisp, textIndex | event |
+| Demos that work | 1 of 8 | **8 of 8**, both emulators |
+| `emulator-smoke.sh` | 15/15 | 15/15, both emulators |
+
+No package that loaded on 1.0b0 fails on 1.0b1. Tk: 63 tests fixed, none
+regressed. The 0.1-alpha on its own 9.1b0 tests: Tcl 53,522 / 602 (binary.test
+crashed), Tk 6,961 / 160.
+
+Most remaining test failures are the device, not the port: no `tclsh` to
+`exec`, no network for http, shared storage for fCmd, `info frame` depth, and
+standard channels that are `none`.

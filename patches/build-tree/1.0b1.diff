@@ -1,0 +1,4472 @@
+diff --git a/assets/Tclxml3.2/sgml-8.1.tcl b/assets/Tclxml3.2/sgml-8.1.tcl
+index 5e65bf83..8b78343a 100644
+--- a/assets/Tclxml3.2/sgml-8.1.tcl
++++ b/assets/Tclxml3.2/sgml-8.1.tcl
+@@ -15,7 +15,7 @@
+ #
+ # $Id: sgml-8.1.tcl,v 1.7 2003/12/09 04:43:15 balls Exp $
+ 
+-package require Tcl 8.1
++package require Tcl 8.1-
+ 
+ package provide sgml 1.9
+ 
+diff --git a/assets/Tclxml3.2/tclparser-8.1.tcl b/assets/Tclxml3.2/tclparser-8.1.tcl
+index 295ddad9..ce3e4cc8 100644
+--- a/assets/Tclxml3.2/tclparser-8.1.tcl
++++ b/assets/Tclxml3.2/tclparser-8.1.tcl
+@@ -16,7 +16,7 @@
+ #
+ # $Id: tclparser-8.1.tcl,v 1.26.2.1 2005/12/28 06:49:51 balls Exp $
+ 
+-package require Tcl 8.1
++package require Tcl 8.1-
+ 
+ package provide xml::tclparser 3.2
+ 
+diff --git a/assets/Tclxml3.2/xml-8.1.tcl b/assets/Tclxml3.2/xml-8.1.tcl
+index c701b625..0e9ab802 100644
+--- a/assets/Tclxml3.2/xml-8.1.tcl
++++ b/assets/Tclxml3.2/xml-8.1.tcl
+@@ -15,7 +15,7 @@
+ #
+ # $Id: xml-8.1.tcl,v 1.16.2.1 2005/12/28 06:49:51 balls Exp $
+ 
+-package require Tcl 8.1
++package require Tcl 8.1-
+ 
+ package provide xmldefs 3.2
+ 
+diff --git a/assets/Tix8.4.3/Init.tcl b/assets/Tix8.4.3/Init.tcl
+index 4aeaf60b..e72bcd62 100644
+--- a/assets/Tix8.4.3/Init.tcl
++++ b/assets/Tix8.4.3/Init.tcl
+@@ -39,7 +39,7 @@ proc ::tix::Init {dir} {
+     # STEP 1: Version checking
+     #
+     #
+-    package require Tcl 8.4
++    package require Tcl 8.4-
+     package require -exact Tix 8.4.3
+ 
+     # STEP 2: Initialize file compatibility modules
+diff --git a/assets/VecTcLab/vectclab.tcl b/assets/VecTcLab/vectclab.tcl
+index 7a7b20f4..e92031ed 100644
+--- a/assets/VecTcLab/vectclab.tcl
++++ b/assets/VecTcLab/vectclab.tcl
+@@ -44,7 +44,7 @@ exec wish "$0" ${1+"$@"}
+ if {$tcl_version < 8.4} {
+     return -code error "tkcon requires at least Tcl/Tk 8.4"
+ } else {
+-    package require Tk 8.4
++    package require Tk 8.4-
+ }
+ 
+ # add the current dir as an auto_path
+@@ -733,7 +733,7 @@ proc ::tkcon::InitUI {title} {
+     }
+ 
+     # If we can locate the XDG icon file then make use of it.
+-    if {[package vsatisfies [package provide Tk] 8.6]} {
++    if {[package vsatisfies [package provide Tk] 8.6-]} {
+         if {0 && [tk windowingsystem] eq "x11"} {
+             if {[set icon [locate_xdg_icon tkcon-icon.png]] ne ""} {
+                 image create photo tkcon_icon -file $icon
+diff --git a/assets/autoopts0/autoopts.tcl b/assets/autoopts0/autoopts.tcl
+index e06d3fbe..32197a23 100644
+--- a/assets/autoopts0/autoopts.tcl
++++ b/assets/autoopts0/autoopts.tcl
+@@ -17,7 +17,7 @@ namespace eval ::autoopts {
+     variable usageMessage {usage: %s}
+ }
+ if {!$::autoopts::jim} {
+-    package require Tcl 8.5
++    package require Tcl 8.5-
+     package require msgcat
+ }
+ 
+diff --git a/assets/bwidget1.10/entry.tcl b/assets/bwidget1.10/entry.tcl
+index 06cca77b..71ebcd50 100644
+--- a/assets/bwidget1.10/entry.tcl
++++ b/assets/bwidget1.10/entry.tcl
+@@ -49,7 +49,7 @@ namespace eval Entry {
+ 		[list -bg           Synonym     -background] \
+ 		[list -bd           Synonym     -borderwidth]
+ 
+-	if {![package vsatisfies [package provide Tk] 8.4]} {
++	if {![package vsatisfies [package provide Tk] 8.4-]} {
+ 	    ## If we're not running version 8.4 or higher, get our
+ 	    ## disabled resources from the button widget.
+ 	    lappend declare [list -disabledforeground TkResource "" 0 button]
+diff --git a/assets/calc0/calc.tcl b/assets/calc0/calc.tcl
+index 1bb8c7d8..6a9d874d 100644
+--- a/assets/calc0/calc.tcl
++++ b/assets/calc0/calc.tcl
+@@ -6,7 +6,7 @@
+ 
+ # Load required packages.
+ lappend auto_path [file join [file dirname [info script]] lib]
+-package require Tcl 8.6
++package require Tcl 8.6-
+ package require Tk
+ package require yeti
+ package require ylex
+diff --git a/assets/can2svg0.3/svg2can.tcl b/assets/can2svg0.3/svg2can.tcl
+index 49585774..7ed72bc1 100644
+--- a/assets/can2svg0.3/svg2can.tcl
++++ b/assets/can2svg0.3/svg2can.tcl
+@@ -33,7 +33,7 @@
+ 
+ # We need URN decoding for the file path in images. From my whiteboard code.
+ 
+-package require Tcl 8.5
++package require Tcl 8.5-
+ package require uriencode
+ package require tinydom 0.2
+ 
+diff --git a/assets/csp0.1.0/csp.tcl b/assets/csp0.1.0/csp.tcl
+index 3de1d25a..ba656835 100644
+--- a/assets/csp0.1.0/csp.tcl
++++ b/assets/csp0.1.0/csp.tcl
+@@ -24,7 +24,7 @@
+ # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ 
+ package provide csp 0.1.0
+ 
+diff --git a/assets/gridplus2.11/gridplus.tcl b/assets/gridplus2.11/gridplus.tcl
+index ab6184d3..b55791fb 100644
+--- a/assets/gridplus2.11/gridplus.tcl
++++ b/assets/gridplus2.11/gridplus.tcl
+@@ -205,7 +205,7 @@
+ #        :                   "dateIcon" specified.                       #
+ ##########################################################################
+ 
+-package require Tk 8.5
++package require Tk 8.5-
+ 
+ package require msgcat
+ namespace import msgcat::*
+diff --git a/assets/helpviewer3.0.2/lib3/rframe0.1.1/pkgIndex.tcl b/assets/helpviewer3.0.2/lib3/rframe0.1.1/pkgIndex.tcl
+index 6aa64914..88c20814 100644
+--- a/assets/helpviewer3.0.2/lib3/rframe0.1.1/pkgIndex.tcl
++++ b/assets/helpviewer3.0.2/lib3/rframe0.1.1/pkgIndex.tcl
+@@ -8,6 +8,6 @@
+ # script is sourced, the variable $dir must contain the
+ # full path name of this file's directory.
+ 
+-if { ![package vsatisfies [package provide Tcl] 8.4] } { return }
++if { ![package vsatisfies [package provide Tcl] 8.4-] } { return }
+ package ifneeded rframe 0.1.1 [list source [file join $dir rframe.tcl]]
+ 
+diff --git a/assets/icons2/icons.tcl b/assets/icons2/icons.tcl
+index dce24b1b..7fd1cb1d 100644
+--- a/assets/icons2/icons.tcl
++++ b/assets/icons2/icons.tcl
+@@ -24,7 +24,7 @@
+ #    -items                                                             #
+ #=======================================================================#
+ 
+-package require Tk    8.5
++package require Tk    8.5-
+ package provide icons 2.0
+ 
+ #=======================================================================#
+diff --git a/assets/imgjp2/pkgIndex.tcl b/assets/imgjp2/pkgIndex.tcl
+index 5b111810..c61a2fd3 100644
+--- a/assets/imgjp2/pkgIndex.tcl
++++ b/assets/imgjp2/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+ package ifneeded imgjp2 0.1 \
+-    [list load libimgjp2[info sharedlibextension] imgjp2]
++    [list load libimgjp2[info sharedlibextension] Imgjp2]
+diff --git a/assets/lmdb0.4.3/pkgIndex.tcl b/assets/lmdb0.4.3/pkgIndex.tcl
+index b20aea8b..58ade789 100644
+--- a/assets/lmdb0.4.3/pkgIndex.tcl
++++ b/assets/lmdb0.4.3/pkgIndex.tcl
+@@ -2,4 +2,4 @@
+ # Tcl package index file
+ #
+ package ifneeded lmdb 0.4.3 \
+-    [list load liblmdb[info sharedlibextension] lmdb]
++    [list load liblmdb[info sharedlibextension] Lmdb]
+diff --git a/assets/main.tcl b/assets/main.tcl
+index 9c211d62..40f48222 100644
+--- a/assets/main.tcl
++++ b/assets/main.tcl
+@@ -39,15 +39,12 @@ set ::aw_demos [list \
+     bledemo     [list "Bluetooth LE debugger"           "source $D/androwish-demos/bledemo.tcl"  "$D/androwish-demos/bledemo.tcl"] \
+     -sep1       {} \
+     widget      [list "Tk widget demo"                  "set ::argv0 $D/sdl2tk9.1/demos/widget; set ::argv {}; source $D/sdl2tk9.1/demos/widget" "$D/sdl2tk9.1/demos/widget"] \
+-    goldberg    [list "Goldberg (animation)"            "source $D/sdl2tk9.1/demos/goldberg.tcl" "$D/sdl2tk9.1/demos/goldberg.tcl"] \
+-    ixset       [list "ixset"                           "source $D/sdl2tk9.1/demos/ixset" "$D/sdl2tk9.1/demos/ixset"] \
++    goldberg    [list "Goldberg (animation)"            "set ::argv0 $D/sdl2tk9.1/demos/widget; set ::argv {}; source $D/sdl2tk9.1/demos/widget; source $D/sdl2tk9.1/demos/goldberg.tcl" "$D/sdl2tk9.1/demos/goldberg.tcl"] \
+     -sep2       {} \
+-    tksqlite    [list "TkSQLite — SQLite GUI"      {package require tksqlite; tksqlite::openDatabase :memory:} ""] \
+     zinc-widget [list "Tkzinc widget tour"              "set ::argv0 [glob -nocomplain $D/Tkzinc*/demos/zinc-widget]; source \[glob $D/Tkzinc*/demos/zinc-widget\]" "$D"] \
+-    tkpdemo     [list "tkpath demos"                    "source \[glob $D/tkpath*/demos/pathApp.tcl\]" "$D"] \
+-    zint        [list "zint — barcodes"            {package require zint; toplevel .zt; pack [label .zt.l -image [zint encode 1234567 -barcode 20]] } ""] \
+-    vu-demo     [list "vu widgets"                      "source \[glob $D/vu*/demos/*.tcl\]" "$D"] \
+-    tktable     [list "Tktable — spreadsheet"      {package require Tktable; toplevel .tt; pack [table .tt.t -rows 12 -cols 6 -titlerows 1 -titlecols 1]} ""] \
++    tkpdemo     [list "tkpath demos"                    "source \[glob $D/tkpath*/demos/tiger.tcl\]" "$D"] \
++    zint        [list "zint — barcodes"            {package require zint; image create photo ::zintimg; zint encode "AndroWish 1.0b1" ::zintimg -barcode QR -scale 6; toplevel .zt; wm title .zt "zint"; pack [label .zt.l -image ::zintimg] -padx 20 -pady 20} ""] \
++    vu-demo     [list "vu widgets"                      "source \[glob $D/vu*/demos/vu.tcl\]" "$D"] \
+ ]
+ 
+ proc aw_demo_probe {probe} {
+diff --git a/assets/mqtt2.0/mqtt.tcl b/assets/mqtt2.0/mqtt.tcl
+index 938ad86a..3e109555 100644
+--- a/assets/mqtt2.0/mqtt.tcl
++++ b/assets/mqtt2.0/mqtt.tcl
+@@ -3,7 +3,7 @@
+ # Based on code by Mark Lawson
+ # BTW, some of this stuff only makes sense if you have the MQTT spec handy.
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ 
+ namespace eval mqtt {
+     variable logpfx list
+diff --git a/assets/mqtt3.1/mqtt.tcl b/assets/mqtt3.1/mqtt.tcl
+index e048692b..a54f944c 100644
+--- a/assets/mqtt3.1/mqtt.tcl
++++ b/assets/mqtt3.1/mqtt.tcl
+@@ -3,7 +3,7 @@
+ # All normative statement references refer to the mqtt-v5.0-os document:
+ # https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.pdf
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ 
+ namespace eval mqtt {
+     variable logpfx list
+diff --git a/assets/msgpack2/msgpack.tcl b/assets/msgpack2/msgpack.tcl
+index 7226c2a2..4e59bb72 100644
+--- a/assets/msgpack2/msgpack.tcl
++++ b/assets/msgpack2/msgpack.tcl
+@@ -1,4 +1,4 @@
+-package require Tcl 8.6
++package require Tcl 8.6-
+ package provide msgpack 2.0.0
+ 
+ namespace eval msgpack {}
+diff --git a/assets/notebook2.2/lib/combobox/combobox.tcl b/assets/notebook2.2/lib/combobox/combobox.tcl
+index a14bc0d4..35530c02 100755
+--- a/assets/notebook2.2/lib/combobox/combobox.tcl
++++ b/assets/notebook2.2/lib/combobox/combobox.tcl
+@@ -27,7 +27,7 @@
+ #
+ # ... and many others over the years.
+ 
+-package require Tk 8.4
++package require Tk 8.4-
+ package provide combobox 2.3
+ 
+ namespace eval ::combobox {
+diff --git a/assets/notebook2.2/notebook.tcl b/assets/notebook2.2/notebook.tcl
+index abd0e14e..9846a5c8 100755
+--- a/assets/notebook2.2/notebook.tcl
++++ b/assets/notebook2.2/notebook.tcl
+@@ -41,7 +41,7 @@ if {([info command sdltk] eq "sdltk") && [sdltk android]} {
+ set auto_path [linsert $auto_path 0 $libdir]
+ 
+ # -quill-tcl-begin
+-package require Tcl 8.6.1
++package require Tcl 8.6.1-
+ # -quill-tcl-end
+ 
+ # quillinfo(n) is a generated package containing this project's 
+@@ -51,7 +51,7 @@ package require quillinfo
+ # If it's a gui, load Tk.
+ if {[quillinfo isgui notebook]} {
+ # -quill-tk-begin
+-package require Tk 8.6.1
++package require Tk 8.6.1-
+ package require tile
+ # -quill-tk-end
+ }
+diff --git a/assets/oauth2/oauth2.tcl b/assets/oauth2/oauth2.tcl
+index fffb52a0..42df8d0e 100644
+--- a/assets/oauth2/oauth2.tcl
++++ b/assets/oauth2/oauth2.tcl
+@@ -26,7 +26,7 @@
+ #              talking to any real OAuth provider. Already present on this box.
+ # Nothing from Tcllib: JSON is parsed by the small decoder below, base64 by the
+ # core `binary encode base64`.
+-package require Tcl 8.6
++package require Tcl 8.6-
+ package require http
+ package require tls
+ 
+diff --git a/assets/parse_args0.5/pkgIndex.tcl b/assets/parse_args0.5/pkgIndex.tcl
+index 4010bab8..49756289 100644
+--- a/assets/parse_args0.5/pkgIndex.tcl
++++ b/assets/parse_args0.5/pkgIndex.tcl
+@@ -1 +1 @@
+-package ifneeded parse_args 0.5.1 [list load libparse_args[info sharedlibextension] parse_args]
++package ifneeded parse_args 0.5.1 [list load libparse_args[info sharedlibextension] Parse_args]
+diff --git a/assets/photoframe1/photoframe.tcl b/assets/photoframe1/photoframe.tcl
+index 28d47f65..fae6772f 100644
+--- a/assets/photoframe1/photoframe.tcl
++++ b/assets/photoframe1/photoframe.tcl
+@@ -7,7 +7,7 @@
+ # Source: https://wiki.tcl-lang.org/page/Photo+Frames
+ # Author: ABU
+ 
+-package require Tk 8.6
++package require Tk 8.6-
+ 
+ namespace eval ::photoframe {
+ 
+diff --git a/assets/retcl0/retcl.tcl b/assets/retcl0/retcl.tcl
+index b36be995..aa889843 100644
+--- a/assets/retcl0/retcl.tcl
++++ b/assets/retcl0/retcl.tcl
+@@ -25,7 +25,7 @@
+ # SUCH DAMAGE.
+ #
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ package require TclOO
+ 
+ package provide retcl 0.6.0
+diff --git a/assets/rl_json0.15/pkgIndex.tcl b/assets/rl_json0.15/pkgIndex.tcl
+index 801d89ce..0f0df5ba 100644
+--- a/assets/rl_json0.15/pkgIndex.tcl
++++ b/assets/rl_json0.15/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+ package ifneeded rl_json 0.15.1 \
+-    [list load librl_json[info sharedlibextension] rl_json]
++    [list load librl_json[info sharedlibextension] Rl_json]
+diff --git a/assets/stbimage1.2/pkgIndex.tcl b/assets/stbimage1.2/pkgIndex.tcl
+index 27a0285a..1b5d237e 100644
+--- a/assets/stbimage1.2/pkgIndex.tcl
++++ b/assets/stbimage1.2/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+ package ifneeded stbimage 1.2 \
+-    [list load libstbimage[info sharedlibextension] stbimage]
++    [list load libstbimage[info sharedlibextension] Stbimage]
+diff --git a/assets/tclJBlend2.1/pkgIndex.tcl b/assets/tclJBlend2.1/pkgIndex.tcl
+index 62bb1fbe..a095bda7 100644
+--- a/assets/tclJBlend2.1/pkgIndex.tcl
++++ b/assets/tclJBlend2.1/pkgIndex.tcl
+@@ -1,7 +1,7 @@
+ # tclJBlend pkgIndex.tcl for AndroWish
+ 
+ package ifneeded tclJBlend 2.1.0 [list apply {dir {
+-    load libtclJBlend[info sharedlibextension] tclblend
++    load libtclJBlend[info sharedlibextension] Tclblend
+     source [file join $dir javalock.tcl]
+     source [file join $dir javaUtils.tcl]
+     package provide tclJBlend 2.1.0
+diff --git a/assets/tcllib1.21/base32/base32.tcl b/assets/tcllib1.21/base32/base32.tcl
+index 539c7eb5..f8344575 100644
+--- a/assets/tcllib1.21/base32/base32.tcl
++++ b/assets/tcllib1.21/base32/base32.tcl
+@@ -33,7 +33,7 @@ proc ::base32::LoadAccelerator {key} {
+     switch -exact -- $key {
+ 	critcl {
+ 	    # Critcl implementation of base32 requires Tcl 8.4.
+-	    if {![package vsatisfies [package provide Tcl] 8.4]} {return 0}
++	    if {![package vsatisfies [package provide Tcl] 8.4-]} {return 0}
+ 	    if {[catch {package require tcllibc}]} {return 0}
+ 	    set isok [llength [info commands ::base32::critcl_encode]]
+ 	}
+diff --git a/assets/tcllib1.21/base32/base32hex.tcl b/assets/tcllib1.21/base32/base32hex.tcl
+index 1be14279..e9f348af 100644
+--- a/assets/tcllib1.21/base32/base32hex.tcl
++++ b/assets/tcllib1.21/base32/base32hex.tcl
+@@ -33,7 +33,7 @@ proc ::base32::hex::LoadAccelerator {key} {
+     switch -exact -- $key {
+ 	critcl {
+ 	    # Critcl implementation of base32 requires Tcl 8.4.
+-	    if {![package vsatisfies [package provide Tcl] 8.4]} {return 0}
++	    if {![package vsatisfies [package provide Tcl] 8.4-]} {return 0}
+ 	    if {[catch {package require tcllibc}]} {return 0}
+ 	    set isok [llength [info commands ::base32::hex::critcl_encode]]
+ 	}
+diff --git a/assets/tcllib1.21/clay/clay.tcl b/assets/tcllib1.21/clay/clay.tcl
+index 543d1e7c..371a1437 100644
+--- a/assets/tcllib1.21/clay/clay.tcl
++++ b/assets/tcllib1.21/clay/clay.tcl
+@@ -774,7 +774,7 @@ namespace eval ::clay::dialect {
+     variable flag
+     variable test
+     foreach {flag test} {
+-	tip470 {package vsatisfies [package provide Tcl] 8.7}
++	tip470 {package vsatisfies [package provide Tcl] 8.7-}
+     } {
+ 	if {![info exists ::clay::dialect::has($flag)]} {
+ 	    set ::clay::dialect::has($flag) [eval $test]
+diff --git a/assets/tcllib1.21/doctools2base/config.tcl b/assets/tcllib1.21/doctools2base/config.tcl
+index e53f4a68..3c02e0aa 100644
+--- a/assets/tcllib1.21/doctools2base/config.tcl
++++ b/assets/tcllib1.21/doctools2base/config.tcl
+@@ -13,7 +13,7 @@
+ # ### ### ### ######### ######### #########
+ ## Requisites
+ 
+-package require Tcl 8.4
++package require Tcl 8.4-
+ package require snit
+ 
+ # ### ### ### ######### ######### #########
+diff --git a/assets/tcllib1.21/doctools2base/paths.tcl b/assets/tcllib1.21/doctools2base/paths.tcl
+index dfc0c4db..9e222b20 100644
+--- a/assets/tcllib1.21/doctools2base/paths.tcl
++++ b/assets/tcllib1.21/doctools2base/paths.tcl
+@@ -12,7 +12,7 @@
+ # ### ### ### ######### ######### #########
+ ## Requisites
+ 
+-package require Tcl 8.4
++package require Tcl 8.4-
+ package require snit
+ 
+ # ### ### ### ######### ######### #########
+diff --git a/assets/tcllib1.21/json/json.tcl b/assets/tcllib1.21/json/json.tcl
+index ff6c8398..95e64324 100644
+--- a/assets/tcllib1.21/json/json.tcl
++++ b/assets/tcllib1.21/json/json.tcl
+@@ -29,7 +29,7 @@ proc ::json::LoadAccelerator {key} {
+     switch -exact -- $key {
+ 	critcl {
+ 	    # Critcl implementation of json requires Tcl 8.4.
+-	    if {![package vsatisfies [package provide Tcl] 8.4]} {return 0}
++	    if {![package vsatisfies [package provide Tcl] 8.4-]} {return 0}
+ 	    if {[catch {package require tcllibc}]} {return 0}
+ 	    # Check for the jsonc 1.1.1 API we are fixing later.
+ 	    set r [llength [info commands ::json::many_json2dict_critcl]]
+diff --git a/assets/tcllib1.21/math/bessel.tcl b/assets/tcllib1.21/math/bessel.tcl
+index 42f2ae48..61ef8444 100755
+--- a/assets/tcllib1.21/math/bessel.tcl
++++ b/assets/tcllib1.21/math/bessel.tcl
+@@ -179,7 +179,7 @@ proc ::math::special::I_n {n x} {
+ if { 0 } {
+ set prec $::tcl_precision
+ if {![package vsatisfies [package provide Tcl] 9]} {
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/bigfloat.tcl b/assets/tcllib1.21/math/bigfloat.tcl
+index f6f5febe..815a4d67 100755
+--- a/assets/tcllib1.21/math/bigfloat.tcl
++++ b/assets/tcllib1.21/math/bigfloat.tcl
+@@ -45,7 +45,7 @@
+ #
+ ########################################################################
+ 
+-package require Tcl 8.4
++package require Tcl 8.4-
+ package require math::bignum
+ 
+ # this line helps when I want to source this file again and again
+diff --git a/assets/tcllib1.21/math/classic_polyns.tcl b/assets/tcllib1.21/math/classic_polyns.tcl
+index 73347904..a6f197bd 100755
+--- a/assets/tcllib1.21/math/classic_polyns.tcl
++++ b/assets/tcllib1.21/math/classic_polyns.tcl
+@@ -170,7 +170,7 @@ proc ::math::special::hermite {n} {
+ if { 0 } {
+ if {![package vsatisfies [package provide Tcl] 9]} {
+     set prec $::tcl_precision
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/constants.tcl b/assets/tcllib1.21/math/constants.tcl
+index 67abaa68..bbd526e0 100755
+--- a/assets/tcllib1.21/math/constants.tcl
++++ b/assets/tcllib1.21/math/constants.tcl
+@@ -186,7 +186,7 @@ if { [info exists ::argv0]
+     ::math::constants::constants pi e ln10 onethird eps
+     if {![package vsatisfies [package provide Tcl] 9]} {
+         set prec $::tcl_precision
+-        if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++        if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+             set ::tcl_precision 17
+         } else {
+             set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/elliptic.tcl b/assets/tcllib1.21/math/elliptic.tcl
+index 59ef4a67..93c79abc 100755
+--- a/assets/tcllib1.21/math/elliptic.tcl
++++ b/assets/tcllib1.21/math/elliptic.tcl
+@@ -225,7 +225,7 @@ puts "1/cosh(1): [::math::special::cn 1.0 0.999] -- [expr {1.0/cosh(1.0)}]"
+ if { 0 } {
+ if {![package vsatisfies [package provide Tcl] 9]} {
+     set prec $::tcl_precision
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/filtergen.tcl b/assets/tcllib1.21/math/filtergen.tcl
+index 4030648d..f1870970 100644
+--- a/assets/tcllib1.21/math/filtergen.tcl
++++ b/assets/tcllib1.21/math/filtergen.tcl
+@@ -17,7 +17,7 @@
+ #     Note:
+ #     We can implement band pass/stop filters from the same source.
+ #
+-package require Tcl 8.6 9
++package require Tcl 8.6- 9
+ package require TclOO
+ 
+ namespace eval ::math::filters {}
+diff --git a/assets/tcllib1.21/math/optimize.tcl b/assets/tcllib1.21/math/optimize.tcl
+index e4b843b5..7e4bf17a 100755
+--- a/assets/tcllib1.21/math/optimize.tcl
++++ b/assets/tcllib1.21/math/optimize.tcl
+@@ -1304,7 +1304,7 @@ proc g {a b} {
+ 
+ if {![package vsatisfies [package provide Tcl] 9]} {
+     set prec $::tcl_precision
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/polynomials.tcl b/assets/tcllib1.21/math/polynomials.tcl
+index c2c2c1fb..53cecab2 100755
+--- a/assets/tcllib1.21/math/polynomials.tcl
++++ b/assets/tcllib1.21/math/polynomials.tcl
+@@ -498,7 +498,7 @@ package provide math::polynomials 1.0.2
+ if { 0 } {
+ if {![package vsatisfies [package provide Tcl] 9]} {
+     set prec $::tcl_precision
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/math/rational_funcs.tcl b/assets/tcllib1.21/math/rational_funcs.tcl
+index 393a371c..2541e0ea 100755
+--- a/assets/tcllib1.21/math/rational_funcs.tcl
++++ b/assets/tcllib1.21/math/rational_funcs.tcl
+@@ -307,7 +307,7 @@ package provide math::rationalfunctions 1.0.2
+ if { 0 } {
+ if {![package vsatisfies [package provide Tcl] 9]} {
+     set prec $::tcl_precision
+-    if {![package vsatisfies [package provide Tcl] 8.5 9]} {
++    if {![package vsatisfies [package provide Tcl] 8.5- 9]} {
+         set ::tcl_precision 17
+     } else {
+         set ::tcl_precision 0
+diff --git a/assets/tcllib1.21/pkgIndex.tcl b/assets/tcllib1.21/pkgIndex.tcl
+index b2a2888f..c52a1c3e 100644
+--- a/assets/tcllib1.21/pkgIndex.tcl
++++ b/assets/tcllib1.21/pkgIndex.tcl
+@@ -3,7 +3,7 @@
+ # Generated by tcllib installer for version 1.21
+ 
+ # All tcllib packages need Tcl 8 (use [namespace])
+-if {![package vsatisfies [package provide Tcl] 8]} {return}
++if {![package vsatisfies [package provide Tcl] 8-]} {return}
+ 
+ # Extend the auto_path to make tcllib packages available
+ if {[lsearch -exact $::auto_path $dir] == -1} {
+@@ -11,7 +11,7 @@ if {[lsearch -exact $::auto_path $dir] == -1} {
+ }
+ 
+ # For Tcl 8.3.1 and later, that's all we need
+-if {[package vsatisfies [package provide Tcl] 8.4]} {return}
++if {[package vsatisfies [package provide Tcl] 8.4-]} {return}
+ if {(0 == [catch {
+     package vcompare [info patchlevel] [info patchlevel]
+ }]) && (
+@@ -21,7 +21,7 @@ if {(0 == [catch {
+ # For older Tcl releases, here are equivalent contents
+ # of the pkgIndex.tcl files of all the modules
+ 
+-if {![package vsatisfies [package provide Tcl] 8.0]} {return}
++if {![package vsatisfies [package provide Tcl] 8.0-]} {return}
+ 
+ 
+ set maindir $dir
+diff --git a/assets/tcllib1.21/practcl/practcl.tcl b/assets/tcllib1.21/practcl/practcl.tcl
+index 4b52ee78..3d09f859 100644
+--- a/assets/tcllib1.21/practcl/practcl.tcl
++++ b/assets/tcllib1.21/practcl/practcl.tcl
+@@ -721,7 +721,7 @@ namespace eval ::clay::dialect {
+     variable flag
+     variable test
+     foreach {flag test} {
+-	tip470 {package vsatisfies [package provide Tcl] 8.7}
++	tip470 {package vsatisfies [package provide Tcl] 8.7-}
+     } {
+ 	if {![info exists ::clay::dialect::has($flag)]} {
+ 	    set ::clay::dialect::has($flag) [eval $test]
+diff --git a/assets/tcllib1.21/struct/matrix1.tcl b/assets/tcllib1.21/struct/matrix1.tcl
+index e36d34f4..57b7a730 100644
+--- a/assets/tcllib1.21/struct/matrix1.tcl
++++ b/assets/tcllib1.21/struct/matrix1.tcl
+@@ -10,7 +10,7 @@
+ # See the file "license.terms" for information on usage and redistribution
+ # of this file, and for a DISCLAIMER OF ALL WARRANTIES.
+ 
+-package require Tcl 8.2
++package require Tcl 8.2-
+ 
+ namespace eval ::struct {}
+ 
+diff --git a/assets/tcllib1.21/struct/queue_tcl.tcl b/assets/tcllib1.21/struct/queue_tcl.tcl
+index 0c31d546..0612f99d 100644
+--- a/assets/tcllib1.21/struct/queue_tcl.tcl
++++ b/assets/tcllib1.21/struct/queue_tcl.tcl
+@@ -90,7 +90,7 @@ proc ::struct::queue::queue_tcl {args} {
+ # Results:
+ #	Varies based on command to perform
+ 
+-if {[package vsatisfies [package provide Tcl] 8.5 9]} {
++if {[package vsatisfies [package provide Tcl] 8.5- 9]} {
+     # In 8.5+ we can do an ensemble for fast dispatch.
+ 
+     proc ::struct::queue::QueueProc {name cmd args} {
+diff --git a/assets/tcllib1.21/struct/sets_tcl.tcl b/assets/tcllib1.21/struct/sets_tcl.tcl
+index 9a477ff5..f262070e 100644
+--- a/assets/tcllib1.21/struct/sets_tcl.tcl
++++ b/assets/tcllib1.21/struct/sets_tcl.tcl
+@@ -11,7 +11,7 @@
+ #
+ #----------------------------------------------------------------------
+ 
+-package require Tcl 8.5 9
++package require Tcl 8.5- 9
+ 
+ ##########################
+ # Public functions
+diff --git a/assets/tcllib1.21/struct/stack_tcl.tcl b/assets/tcllib1.21/struct/stack_tcl.tcl
+index 4b1cc358..39ecb7b3 100644
+--- a/assets/tcllib1.21/struct/stack_tcl.tcl
++++ b/assets/tcllib1.21/struct/stack_tcl.tcl
+@@ -84,7 +84,7 @@ proc ::struct::stack::stack_tcl {args} {
+ # Results:
+ #	Varies based on command to perform
+ 
+-if {[package vsatisfies [package provide Tcl] 8.5 9]} {
++if {[package vsatisfies [package provide Tcl] 8.5- 9]} {
+     # In 8.5+ we can do an ensemble for fast dispatch.
+ 
+     proc ::struct::stack::StackProc {name cmd args} {
+@@ -393,7 +393,7 @@ proc ::struct::stack::I::pop {name {count 1}} {
+ # Results:
+ #	None.
+ 
+-if {[package vsatisfies [package provide Tcl] 8.5 9]} {
++if {[package vsatisfies [package provide Tcl] 8.5- 9]} {
+ 
+     proc ::struct::stack::I::push {name args} {
+ 	if {![llength $args]} {
+diff --git a/assets/tcllibc1.21/pkgIndex.tcl b/assets/tcllibc1.21/pkgIndex.tcl
+index 8671d2b1..37c3ce6b 100644
+--- a/assets/tcllibc1.21/pkgIndex.tcl
++++ b/assets/tcllibc1.21/pkgIndex.tcl
+@@ -1,4 +1,4 @@
+ package ifneeded tcllibc 1.21 [list apply {dir {
+-    load libtcllibc[info sharedlibextension] tcllibc
++    load libtcllibc[info sharedlibextension] Tcllibc
+     package provide tcllibc 1.21
+ }} $dir]
+diff --git a/assets/tdbc1.1.1/pkgIndex.tcl b/assets/tdbc1.1.1/pkgIndex.tcl
+index 62b8e72c..f017649d 100644
+--- a/assets/tdbc1.1.1/pkgIndex.tcl
++++ b/assets/tdbc1.1.1/pkgIndex.tcl
+@@ -8,5 +8,5 @@ if {[catch {package present Tcl 8.5-}]} {
+ }
+ package ifneeded tdbc 1.1.1 \
+     "package require TclOO 1.0;\
+-    [list load libtdbc[info sharedlibextension] tdbc]\;\
++    [list load libtdbc[info sharedlibextension] Tdbc]\;\
+     [list source [file join $dir tdbc.tcl]]"
+diff --git a/assets/tdbc1.1.1/tdbc.tcl b/assets/tdbc1.1.1/tdbc.tcl
+index 2a167cbe..8759e2c3 100644
+--- a/assets/tdbc1.1.1/tdbc.tcl
++++ b/assets/tdbc1.1.1/tdbc.tcl
+@@ -527,7 +527,7 @@ oo::class create tdbc::statement {
+ 
+     # WORKAROUND: Take out the '0 &&' from the next line when 
+     # Bug 2649975 is fixed
+-    if {0 && [package vsatisfies [package provide Tcl] 8.6]} {
++    if {0 && [package vsatisfies [package provide Tcl] 8.6-]} {
+ 	method execute args {
+ 	    tailcall my resultSetCreate \
+ 		[namespace current]::ResultSet::[incr resultSetSeq]  \
+diff --git a/assets/tdbcjdbc0.2/tdbcjdbc.tcl b/assets/tdbcjdbc0.2/tdbcjdbc.tcl
+index 41635a39..5659e10c 100644
+--- a/assets/tdbcjdbc0.2/tdbcjdbc.tcl
++++ b/assets/tdbcjdbc0.2/tdbcjdbc.tcl
+@@ -5,7 +5,7 @@
+ #
+ #------------------------------------------------------------------------------
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ package require tdbc
+ package require tclJBlend
+ 
+diff --git a/assets/tdom0.9/pkgIndex.tcl b/assets/tdom0.9/pkgIndex.tcl
+index bbac81af..410ab96b 100644
+--- a/assets/tdom0.9/pkgIndex.tcl
++++ b/assets/tdom0.9/pkgIndex.tcl
+@@ -1,5 +1,5 @@
+ package ifneeded tdom 0.9.6 \
+-    "[list load libtdom[info sharedlibextension] tdom];\
++    "[list load libtdom[info sharedlibextension] Tdom];\
+      [list source [file join $dir tdom.tcl]]"
+ package ifneeded tnc 0.3 \
+     [list load libtnc[info sharedlibextension] Tnc]
+diff --git a/assets/tfirmata/src/tfirmata.tcl b/assets/tfirmata/src/tfirmata.tcl
+index 16ec2b9f..3694c761 100644
+--- a/assets/tfirmata/src/tfirmata.tcl
++++ b/assets/tfirmata/src/tfirmata.tcl
+@@ -6,7 +6,7 @@
+ # chw 2017: reviewed, updated to protocol version 2.5,
+ #           added stepper, encoder, onewire, serial, and task functions
+ 
+-package require Tcl 8.5
++package require Tcl 8.5-
+ package provide tfirmata 2.5
+ 
+ namespace eval tfirmata {
+diff --git a/assets/tile-extras/keynav.tcl b/assets/tile-extras/keynav.tcl
+index d7e320a5..7e0755f3 100644
+--- a/assets/tile-extras/keynav.tcl
++++ b/assets/tile-extras/keynav.tcl
+@@ -35,8 +35,8 @@
+ 
+ namespace eval keynav {} 
+ 
+-package require Tcl 8.4
+-package require Tk 8.4
++package require Tcl 8.4-
++package require Tk 8.4-
+ package provide keynav 1.0
+ 
+ event add <<Help>> <KeyPress-F1> 
+@@ -179,8 +179,8 @@ proc keynav::traverseTo {w} {
+ #
+ # Provide TIP #204 functionality if we're running 8.4:
+ #
+-if {[catch {package require Tk 8.5}]} {
+-# SB: if {![package vsatisfies [package provide Tk] 8.5]} 
++if {[catch {package require Tk 8.5-}]} {
++# SB: if {![package vsatisfies [package provide Tk] 8.5-]} 
+     bind all <Tab> 		{ keynav::traverseTo [tk_focusNext %W] ; break}
+     bind all <<PrevWindow>>	{ keynav::traverseTo [tk_focusPrev %W] }
+     bind Entry <<TraverseIn>> 	{ %W selection range 0 end; %W icursor end }
+diff --git a/assets/tkbugz/tk_bugz.tcl b/assets/tkbugz/tk_bugz.tcl
+index ab62f839..79655561 100644
+--- a/assets/tkbugz/tk_bugz.tcl
++++ b/assets/tkbugz/tk_bugz.tcl
+@@ -1,4 +1,4 @@
+-package require Tk 8.4
++package require Tk 8.4-
+ 
+ proc main {} {
+     catch {
+diff --git a/assets/tkbugz/vr_bugz.tcl b/assets/tkbugz/vr_bugz.tcl
+index fc1598d8..4314357c 100644
+--- a/assets/tkbugz/vr_bugz.tcl
++++ b/assets/tkbugz/vr_bugz.tcl
+@@ -1,4 +1,4 @@
+-package require Tk 8.4
++package require Tk 8.4-
+ 
+ proc main {} {
+     catch {
+diff --git a/assets/tkchat1.500/rssrdr/rssrdr.tcl b/assets/tkchat1.500/rssrdr/rssrdr.tcl
+index 288ef386..a5f1a2ea 100644
+--- a/assets/tkchat1.500/rssrdr/rssrdr.tcl
++++ b/assets/tkchat1.500/rssrdr/rssrdr.tcl
+@@ -201,7 +201,7 @@ proc ::rss::StreamParseAtom {Rss xlist} {
+ # RSS specifies pubDate as RFC822 time format
+ # ie: Sat, 07 Sep 2002 00:00:01 GMT
+ # Atom uses RFC3339 (ISO8601)
+-if {[package vsatisfies [package provide Tcl] 8.5]} {
++if {[package vsatisfies [package provide Tcl] 8.5-]} {
+ 
+     proc ::rss::ParseAtomDate {date} {
+         set date [string trim $date]
+diff --git a/assets/tkchat1.500/tkchat.tcl b/assets/tkchat1.500/tkchat.tcl
+index 6be76c72..70c3f9f7 100644
+--- a/assets/tkchat1.500/tkchat.tcl
++++ b/assets/tkchat1.500/tkchat.tcl
+@@ -81,8 +81,8 @@ set tkchat_dir [file dirname [file normalize $script]]
+ set imgdir [file join $tkchat_dir images]
+ set auto_path [linsert $::auto_path 0 $tkchat_dir [file join $tkchat_dir lib]]
+ 
+-package require Tcl 8.6         ; # core Tcl
+-package require Tk 8.6          ; # core Tk
++package require Tcl 8.6-         ; # core Tcl
++package require Tk 8.6-          ; # core Tk
+ package require http 2		; # core Tcl
+ package require msgcat		; # core Tcl
+ package require textutil	; # tcllib 1.0
+@@ -99,10 +99,10 @@ catch {::http::register https 443 \
+ catch {package require picoirc}   ; # irc client (optional)
+ catch {package require img::jpeg} ; # more image types (optional)
+ 
+-if {![package vsatisfies [package provide Tk] 8.6]} {
++if {![package vsatisfies [package provide Tk] 8.6-]} {
+     catch {package require img::png}  ; # more image types (optional)
+ }
+-set have_png [expr {[package vsatisfies [package provide Tk] 8.6] \
++set have_png [expr {[package vsatisfies [package provide Tk] 8.6-] \
+                         || [package provide img::png] ne {}}]
+ 
+ package require sha1		; # tcllib
+@@ -284,7 +284,7 @@ if {$tcl_platform(platform) eq "windows"
+ # will try ipv6 and then ipv4 before returning to tcl. To work around this
+ # we can force http requests to use ipv4 until a fix is enabled. We could
+ # also enable an ipv6 capable tclhttpd at tclers.tk too :)
+-if {[package vsatisfies [package provide Tcl] 8.6]} {
++if {[package vsatisfies [package provide Tcl] 8.6-]} {
+     proc ::socket_inet4 {args} {
+         variable ::tcl::unsupported::socketAF
+         set AF [expr {[info exists socketAF] ? $socketAF : ""}]
+@@ -9560,7 +9560,7 @@ proc ::tkjabber::ParseLogMsg { when nick msg {opts ""} args } {
+     set HaveHistory 1
+     set fail 1 ; set timestamp 0
+     if {[llength $HistoryLines] < 10} { log::log debug "parsing $when" }
+-    if {[package vsatisfies [package provide Tcl] 8.5]} {
++    if {[package vsatisfies [package provide Tcl] 8.5-]} {
+         foreach format [list "%Y-%m-%dT%H:%M:%SZ" "%Y%m%dT%H:%M:%S"] {
+             set fail [catch {clock scan $when -format $format -gmt 1} timestamp]
+             if {!$fail} break
+diff --git a/assets/tkcon2.7/tkcon.tcl b/assets/tkcon2.7/tkcon.tcl
+index e09e7f6f..ce0856e5 100644
+--- a/assets/tkcon2.7/tkcon.tcl
++++ b/assets/tkcon2.7/tkcon.tcl
+@@ -41,7 +41,7 @@ exec wish "$0" ${1+"$@"}
+ #    tkcon master set ::tkcon:PRIV(proxy) wwwproxy:8080
+ #
+ 
+-package require Tk 8.4
++package require Tk 8.4-
+ if {$::tcl_platform(platform) eq "windows"} {
+     catch {package require winsend}
+     catch {winsend appname tkcon -increment}
+@@ -696,7 +696,7 @@ proc ::tkcon::InitUI {title} {
+     }
+ 
+     # If we can locate the XDG icon file then make use of it.
+-    if {[package vsatisfies [package provide Tk] 8.6]} {
++    if {[package vsatisfies [package provide Tk] 8.6-]} {
+         if {0 && [tk windowingsystem] eq "x11"} {
+             if {[set icon [locate_xdg_icon tkcon-icon.png]] ne ""} {
+                 image create photo tkcon_icon -file $icon
+diff --git a/assets/tkhtml3/combobox.tcl b/assets/tkhtml3/combobox.tcl
+index 8feb2eb5..c1f4c5dc 100644
+--- a/assets/tkhtml3/combobox.tcl
++++ b/assets/tkhtml3/combobox.tcl
+@@ -27,7 +27,7 @@
+ #
+ # ... and many others over the years.
+ 
+-package require Tk 8.4
++package require Tk 8.4-
+ package provide combobox 2.3
+ 
+ namespace eval ::combobox {
+diff --git a/assets/tklib0.7/crosshair/pkgIndex.tcl b/assets/tklib0.7/crosshair/pkgIndex.tcl
+index f2cebc6d..d83c01a1 100644
+--- a/assets/tklib0.7/crosshair/pkgIndex.tcl
++++ b/assets/tklib0.7/crosshair/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+-if {![package vsatisfies [package provide Tcl] 8.4]} {return}
++if {![package vsatisfies [package provide Tcl] 8.4-]} {return}
+ package ifneeded crosshair 1.2.1 [list source [file join $dir crosshair.tcl]]
+diff --git a/assets/tklib0.7/ipentry/ipentry.tcl b/assets/tklib0.7/ipentry/ipentry.tcl
+index 21d1414f..7f77fb73 100644
+--- a/assets/tklib0.7/ipentry/ipentry.tcl
++++ b/assets/tklib0.7/ipentry/ipentry.tcl
+@@ -39,7 +39,7 @@ namespace eval ::ipentry {
+     bind IPEntrybindtag6 <colon>            {::ipentry::dot %W}
+     bind IPEntrybindtag6 <period>           {}
+ 
+-    #if {[package vsatisfies [package provide Tk] 8.5]} {
++    #if {[package vsatisfies [package provide Tk] 8.5-]} {
+     #     ttk::style layout IPEntryFrame {
+     #         Entry.field -sticky news -border 1 -children {
+     #             IPEntryFrame.padding -sticky news
+@@ -67,7 +67,7 @@ namespace eval ::ipentry {
+ #
+ proc ::ipentry::ipentry {w args} {
+     upvar #0 [namespace current]::widget_$w state
+-    #set state(themed) [package vsatisfies [package provide Tk] 8.5]
++    #set state(themed) [package vsatisfies [package provide Tk] 8.5-]
+     set state(themed) 0
+     foreach {name val} $args {
+         if {$name eq "-themed"} {
+@@ -128,7 +128,7 @@ proc ::ipentry::ipentry {w args} {
+ #
+ proc ::ipentry::ipentry6 {w args} {
+     upvar #0 [namespace current]::widget_$w state
+-    #set state(themed) [package vsatisfies [package provide Tk] 8.5]
++    #set state(themed) [package vsatisfies [package provide Tk] 8.5-]
+     set state(themed) 0
+     foreach {name val} $args {
+         if {$name eq "-themed"} {
+diff --git a/assets/tklib0.7/pkgIndex.tcl b/assets/tklib0.7/pkgIndex.tcl
+index f2292610..3fc1165e 100644
+--- a/assets/tklib0.7/pkgIndex.tcl
++++ b/assets/tklib0.7/pkgIndex.tcl
+@@ -3,7 +3,7 @@
+ # Generated by tklib installer for version 0.7
+ 
+ # All tklib packages need Tcl 8 (use [namespace])
+-if {![package vsatisfies [package provide Tcl] 8]} {return}
++if {![package vsatisfies [package provide Tcl] 8-]} {return}
+ 
+ # Extend the auto_path to make tklib packages available
+ if {[lsearch -exact $::auto_path $dir] == -1} {
+@@ -11,7 +11,7 @@ if {[lsearch -exact $::auto_path $dir] == -1} {
+ }
+ 
+ # For Tcl 8.3.1 and later, that's all we need
+-if {[package vsatisfies [package provide Tcl] 8.4]} {return}
++if {[package vsatisfies [package provide Tcl] 8.4-]} {return}
+ if {(0 == [catch {
+     package vcompare [info patchlevel] [info patchlevel]
+ }]) && (
+@@ -21,7 +21,7 @@ if {(0 == [catch {
+ # For older Tcl releases, here are equivalent contents
+ # of the pkgIndex.tcl files of all the modules
+ 
+-if {![package vsatisfies [package provide Tcl] 8.0]} {return}
++if {![package vsatisfies [package provide Tcl] 8.0-]} {return}
+ 
+ 
+ set maindir $dir
+diff --git a/assets/tklib0.7/tsw/scripts/mwutil/mwutil.tcl b/assets/tklib0.7/tsw/scripts/mwutil/mwutil.tcl
+index 4e974c4f..df410fd9 100644
+--- a/assets/tklib0.7/tsw/scripts/mwutil/mwutil.tcl
++++ b/assets/tklib0.7/tsw/scripts/mwutil/mwutil.tcl
+@@ -9,7 +9,7 @@
+ #==============================================================================
+ 
+ if {[catch {package require Tk 8.4-}]} {
+-    package require Tk 8.4
++    package require Tk 8.4-
+ }
+ 
+ #
+diff --git a/assets/tksqlite0.5.13/tksqlite.tcl b/assets/tksqlite0.5.13/tksqlite.tcl
+index 81bf08b0..aa860ca8 100644
+--- a/assets/tksqlite0.5.13/tksqlite.tcl
++++ b/assets/tksqlite0.5.13/tksqlite.tcl
+@@ -120,7 +120,7 @@ ohtsuka.yoshio@gmail.com
+ #   is unicode.
+ #;#>>>
+ set VERSION 0.5.13
+-package require Tk 8.4
++package require Tk 8.4-
+ package require Tktable
+ if {[info tclversion] < 8.5} {
+ package require dict
+@@ -165,7 +165,7 @@ if {[catch {package require Trf}]} {
+ # 
+ #package provide base64 2.3.2
+ 
+-package require Tcl 8.4
++package require Tcl 8.4-
+ namespace eval ::base64 {
+ 	namespace export encode decode
+ }
+diff --git a/assets/tksvg0.14/pkgIndex.tcl b/assets/tksvg0.14/pkgIndex.tcl
+index 8da9c315..009f4eb4 100644
+--- a/assets/tksvg0.14/pkgIndex.tcl
++++ b/assets/tksvg0.14/pkgIndex.tcl
+@@ -1 +1,10 @@
+-package ifneeded tksvg 0.14 [list load libtksvg[info sharedlibextension]]
++# Tk 9 has its own svg photo format (nanosvg, same options as tksvg);
++# the tksvg 0.14 extension crashes when it replaces it, so on Tk 9
++# [package require tksvg] just uses the built-in format.
++package ifneeded tksvg 0.14 [list apply {{dir} {
++    if {[package vsatisfies [package require Tk] 9-]} {
++        package provide tksvg 0.14
++    } else {
++        load libtksvg[info sharedlibextension]
++    }
++}} $dir]
+diff --git a/assets/topcua0.5/pkgIndex.tcl b/assets/topcua0.5/pkgIndex.tcl
+index cae7a345..a23eae75 100644
+--- a/assets/topcua0.5/pkgIndex.tcl
++++ b/assets/topcua0.5/pkgIndex.tcl
+@@ -1,5 +1,5 @@
+ package ifneeded topcua 0.5 [subst {
+-    load libtopcua[info sharedlibextension] topcua
++    load libtopcua[info sharedlibextension] Topcua
+     source [list [file join $dir topcua.tcl]]
+ }]
+ 
+diff --git a/assets/treectrl2.4.2/pkgIndex.tcl b/assets/treectrl2.4.2/pkgIndex.tcl
+index 01d27a30..753e70b7 100644
+--- a/assets/treectrl2.4.2/pkgIndex.tcl
++++ b/assets/treectrl2.4.2/pkgIndex.tcl
+@@ -1,8 +1,8 @@
+-if {[catch {package require Tcl 8.6}]} return
++if {[catch {package require Tcl 8.6-}]} return
+ set script ""
+ if {![info exists ::env(TREECTRL_LIBRARY)]
+     && [file exists [file join $dir treectrl.tcl]]} {
+     append script "[list set ::treectrl_library $dir]\n"
+ }
+-append script [list load libtreectrl[info sharedlibextension] treectrl]
++append script [list load libtreectrl[info sharedlibextension] Treectrl]
+ package ifneeded treectrl 2.4.2 $script
+diff --git a/assets/trofs0.4.9/pkgIndex.tcl b/assets/trofs0.4.9/pkgIndex.tcl
+index 682a534d..75acc5cb 100644
+--- a/assets/trofs0.4.9/pkgIndex.tcl
++++ b/assets/trofs0.4.9/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+-if {![package vsatisfies [package provide Tcl] 8.5]} {return}
++if {![package vsatisfies [package provide Tcl] 8.5-]} {return}
+ package ifneeded trofs 0.4.9 [list load libtrofs[info sharedlibextension]]
+diff --git a/assets/twdbgi0.1/twDebugInspector.tcl b/assets/twdbgi0.1/twDebugInspector.tcl
+index 2847369b..56b2c630 100644
+--- a/assets/twdbgi0.1/twDebugInspector.tcl
++++ b/assets/twdbgi0.1/twDebugInspector.tcl
+@@ -4,7 +4,7 @@
+ 
+ package provide twDebugInspector 0.1
+ 
+-package require Tk 8.5
++package require Tk 8.5-
+ package require BWidget
+ package require ctext
+ 
+diff --git a/assets/ukaz2.1/ukaz.tcl b/assets/ukaz2.1/ukaz.tcl
+index 3d0314d2..4d99892b 100644
+--- a/assets/ukaz2.1/ukaz.tcl
++++ b/assets/ukaz2.1/ukaz.tcl
+@@ -1,5 +1,5 @@
+ package require snit
+-package require Tk 8.6
++package require Tk 8.6-
+ package provide ukaz 2.1
+ 
+ namespace eval ukaz {
+diff --git a/assets/vectcl0.3/pkgIndex.tcl b/assets/vectcl0.3/pkgIndex.tcl
+index 4ae0e1c9..54c90e2d 100644
+--- a/assets/vectcl0.3/pkgIndex.tcl
++++ b/assets/vectcl0.3/pkgIndex.tcl
+@@ -2,8 +2,8 @@
+ # Tcl package index file
+ #
+ package ifneeded vectcl 0.3 \
+-    "load -global libvectcl[info sharedlibextension] vectcl ; source [file join $dir vexpr.tcl]"
++    "load -global libvectcl[info sharedlibextension] Vectcl ; source [file join $dir vexpr.tcl]"
+ package ifneeded WavReader 0.1 \
+-    "load -global libWavReader[info sharedlibextension] WavReader"
++    "load -global libWavReader[info sharedlibextension] Wavreader"
+ package ifneeded vectcl::tk 0.2 \
+     "load -global libvectcltk[info sharedlibextension] Vectcltk"
+diff --git a/assets/vfs1.4.2/vfs.tcl b/assets/vfs1.4.2/vfs.tcl
+index d8819e50..7d9813d0 100644
+--- a/assets/vfs1.4.2/vfs.tcl
++++ b/assets/vfs1.4.2/vfs.tcl
+@@ -14,7 +14,7 @@
+ namespace eval ::vfs {
+     variable self    [file dirname [info script]]
+     variable redir   [info exists ::env(VFS_LIBRARY)]
+-    variable corezip [package vsatisfies [package provide Tcl] 8.6]
++    variable corezip [package vsatisfies [package provide Tcl] 8.6-]
+ }
+ 
+ if {[lsearch -exact $::auto_path $::vfs::self] < 0} {
+diff --git a/assets/vfs1.4.2/vfsUtils.tcl b/assets/vfs1.4.2/vfsUtils.tcl
+index dce94b56..6cccd57d 100644
+--- a/assets/vfs1.4.2/vfsUtils.tcl
++++ b/assets/vfs1.4.2/vfsUtils.tcl
+@@ -1,6 +1,6 @@
+ # vfsUtils.tcl --
+ 
+-package require Tcl 8.4
++package require Tcl 8.4-
+ package require vfs
+ 
+ namespace eval ::vfs {
+diff --git a/assets/vfs1.4.2/vfslib.tcl b/assets/vfs1.4.2/vfslib.tcl
+index 97669279..a62fc33a 100644
+--- a/assets/vfs1.4.2/vfslib.tcl
++++ b/assets/vfs1.4.2/vfslib.tcl
+@@ -2,7 +2,7 @@
+ # command or the tclkit zlib package with rechan to provide a memory channel
+ # and a streaming decompression channel transform.
+ 
+-package require Tcl 8.4; # vfs is all new for 8.4
++package require Tcl 8.4-; # vfs is all new for 8.4
+ package provide vfslib 1.4
+ 
+ # use zlib to define zip and crc if available
+diff --git a/assets/vfs1.4.2/zipvfs.tcl b/assets/vfs1.4.2/zipvfs.tcl
+index 61cf9c86..568f6a56 100644
+--- a/assets/vfs1.4.2/zipvfs.tcl
++++ b/assets/vfs1.4.2/zipvfs.tcl
+@@ -747,7 +747,7 @@ proc zip::_close {fd} {
+ 
+ # Implementation of stream based decompression for zip
+ if {([info commands ::rechan] ne "") || ([info commands ::chan] ne "")} {
+-    if {![catch {package require Tcl 8.6}]} {
++    if {![catch {package require Tcl 8.6-}]} {
+ 	# implementation using [zlib stream inflate] and [rechan]/[chan create]
+ 	proc ::zip::zstream_create {fd} {
+ 	    upvar #0 ::zip::_zstream_zcmd($fd) zcmd
+diff --git a/assets/vqtcl4.1/pkgIndex.tcl b/assets/vqtcl4.1/pkgIndex.tcl
+index b693b412..04ee41fb 100644
+--- a/assets/vqtcl4.1/pkgIndex.tcl
++++ b/assets/vqtcl4.1/pkgIndex.tcl
+@@ -1,4 +1,4 @@
+-package ifneeded vlerq 4.1 [list load libvqtcl[info sharedlibextension] vlerq]
++package ifneeded vlerq 4.1 [list load libvqtcl[info sharedlibextension] Vlerq]
+ package ifneeded ratcl 4.1 [list source [file join $dir ratcl.tcl]]
+ package ifneeded mklite 0.5 [list source [file join $dir mklite.tcl]]
+ package ifneeded vfs::m2m 1.8 [list source [file join $dir m2mvfs.tcl]]
+diff --git a/assets/vu2.3/pkgIndex.tcl b/assets/vu2.3/pkgIndex.tcl
+index acabda48..3c1af0ab 100644
+--- a/assets/vu2.3/pkgIndex.tcl
++++ b/assets/vu2.3/pkgIndex.tcl
+@@ -1,2 +1,2 @@
+-if {[catch {package require Tcl 8.1}]} return
++if {[catch {package require Tcl 8.1-}]} return
+ package ifneeded vu 2.3 [list load libvu[info sharedlibextension]]
+diff --git a/assets/wibble0.4/wibble.tcl b/assets/wibble0.4/wibble.tcl
+index 976eaa04..ec60cd91 100644
+--- a/assets/wibble0.4/wibble.tcl
++++ b/assets/wibble0.4/wibble.tcl
+@@ -5,7 +5,7 @@
+ # Copyright 2009-2014 Andy Goth.  mailto/andrew.m.goth/at/gmail/dot/com
+ # Available under the Tcl/Tk license.  http://tcl.tk/software/tcltk/license.html
+ 
+-package require Tcl 8.6
++package require Tcl 8.6-
+ 
+ # Define the wibble namespace.
+ namespace eval ::wibble {
+diff --git a/assets/yeti0.4.2/yeti.tcl b/assets/yeti0.4.2/yeti.tcl
+index c159cea4..afb74c7d 100644
+--- a/assets/yeti0.4.2/yeti.tcl
++++ b/assets/yeti0.4.2/yeti.tcl
+@@ -9,7 +9,7 @@
+ #
+ # ======================================================================
+ 
+-package require Tcl 8.0
++package require Tcl 8.0-
+ package require struct 2.0
+ package require Itcl
+ package provide yeti 0.4.2
+diff --git a/assets/yeti0.4.2/ylex.tcl b/assets/yeti0.4.2/ylex.tcl
+index af0cba7b..650eece4 100644
+--- a/assets/yeti0.4.2/ylex.tcl
++++ b/assets/yeti0.4.2/ylex.tcl
+@@ -9,7 +9,7 @@
+ #
+ # ======================================================================
+ 
+-package require Tcl 8.0
++package require Tcl 8.0-
+ package require Itcl
+ package provide ylex 0.4.2
+ 
+diff --git a/jni/3dcanvas/generic/c3dmain.c b/jni/3dcanvas/generic/c3dmain.c
+index f079011a..1c1c4f26 100644
+--- a/jni/3dcanvas/generic/c3dmain.c
++++ b/jni/3dcanvas/generic/c3dmain.c
+@@ -2637,8 +2637,8 @@ Canvas3d_Init(Tcl_Interp *interp)
+     /* Initialise the stubs tables. */
+ #ifdef USE_TCL_STUBS
+     if (
+-        !Tcl_InitStubs(interp, "8.3", 0) ||
+-        !Tk_InitStubs(interp, "8.3", 0)
++        !Tcl_InitStubs(interp, "8.3-", 0) ||
++        !Tk_InitStubs(interp, "8.3-", 0)
+     ) {
+         return TCL_ERROR;
+     }
+diff --git a/jni/Memchan/generic/chantest.c b/jni/Memchan/generic/chantest.c
+index 74039b36..82a498ec 100644
+--- a/jni/Memchan/generic/chantest.c
++++ b/jni/Memchan/generic/chantest.c
+@@ -21,7 +21,7 @@ Chantest_Init(Tcl_Interp *interp)
+     const char *memchan = NULL;
+ 
+ #ifdef USE_TCL_STUBS
+-    tcl = Tcl_InitStubs(interp, "8.4", 0);
++    tcl = Tcl_InitStubs(interp, "8.4-", 0);
+ #endif
+ 
+ #ifdef USE_MEMCHAN_STUBS
+diff --git a/jni/Memchan/generic/init.c b/jni/Memchan/generic/init.c
+index d5585c29..db950fd6 100644
+--- a/jni/Memchan/generic/init.c
++++ b/jni/Memchan/generic/init.c
+@@ -68,7 +68,7 @@ Buf_InitStubs(Tcl_Interp *interp, const char *version, int exact);
+ int Memchan_Init (Tcl_Interp* interp)
+ {
+ #ifndef ANDROID
+-  if (Tcl_InitStubs (interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs (interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/TclCurl/generic/tclcurl.c b/jni/TclCurl/generic/tclcurl.c
+index 138de3c0..5bc91e58 100755
+--- a/jni/TclCurl/generic/tclcurl.c
++++ b/jni/TclCurl/generic/tclcurl.c
+@@ -41,11 +41,11 @@ int
+ Tclcurl_Init (Tcl_Interp *interp) {
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp,"8.5",0)==NULL) {
++    if (Tcl_InitStubs(interp,"8.5-",0)==NULL) {
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp,"Tcl","8.5",0)==NULL) {
++    if (Tcl_PkgRequire(interp,"Tcl","8.5-",0)==NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/Tix/generic/tixInit.c b/jni/Tix/generic/tixInit.c
+index 1fa87df3..d040ba80 100644
+--- a/jni/Tix/generic/tixInit.c
++++ b/jni/Tix/generic/tixInit.c
+@@ -20,7 +20,7 @@
+  */
+ 
+ #define MIN_TCL_VERSION "8.4"
+-#define MIN_TK_VERSION  "8.4"
++#define MIN_TK_VERSION  "8.4-"
+ 
+ /*
+  * All the Tix commands implemented in C code.
+diff --git a/jni/argparse/generic/argparse.c b/jni/argparse/generic/argparse.c
+index 9f78c564..78200694 100644
+--- a/jni/argparse/generic/argparse.c
++++ b/jni/argparse/generic/argparse.c
+@@ -3020,11 +3020,11 @@ extern DLLEXPORT int Argparse_Init(Tcl_Interp *interp) {
+     /* cppcheck-suppress misra-c2012-12.2 */
+     /* cppcheck-suppress misra-c2012-10.1 */
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.6-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/bcrypt/src/library.c b/jni/bcrypt/src/library.c
+index e6a02f93..8dc5e4bb 100644
+--- a/jni/bcrypt/src/library.c
++++ b/jni/bcrypt/src/library.c
+@@ -202,7 +202,7 @@ bcrypt_CheckPasswordCmd(ClientData clientData, Tcl_Interp *interp,
+ 
+ int
+ Bcrypt_Init(Tcl_Interp *interp) {
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ 
+diff --git a/jni/blt/src/bltInit.c b/jni/blt/src/bltInit.c
+index 34513ec6..eadc6692 100644
+--- a/jni/blt/src/bltInit.c
++++ b/jni/blt/src/bltInit.c
+@@ -402,7 +402,7 @@ Blt_Init(interp)
+     int flags;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (!Tcl_InitStubs(interp, "8.4", 0)) {
++    if (!Tcl_InitStubs(interp, "8.4-", 0)) {
+ 	return TCL_ERROR;
+     }
+     Blt_MallocProcPtr = (Blt_MallocProc *)Tcl_Alloc;
+@@ -483,7 +483,7 @@ Blt_Init(interp)
+ 	Tcl_Namespace *nsPtr;
+ 
+ #ifdef USE_TK_STUBS
+-	if (!Tk_InitStubs(interp, "8.4", 0)) {
++	if (!Tk_InitStubs(interp, "8.4-", 0)) {
+ 	    return TCL_ERROR;
+ 	}
+ #else
+diff --git a/jni/expect/exp_main_sub.c b/jni/expect/exp_main_sub.c
+index 045631dd..5615f9c5 100644
+--- a/jni/expect/exp_main_sub.c
++++ b/jni/expect/exp_main_sub.c
+@@ -542,7 +542,7 @@ Tcl_Interp *interp;
+       return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_InitStubs(interp, "8.1", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.1-", 0) == NULL) {
+       return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/fswatch/fswatch.c b/jni/fswatch/fswatch.c
+index 47ef3a9f..d5bbc4f1 100644
+--- a/jni/fswatch/fswatch.c
++++ b/jni/fswatch/fswatch.c
+@@ -565,7 +565,7 @@ int Fswatch_Init(Tcl_Interp *interp)
+    if (Tcl_InitStubs(interp, TCL_VERSION, 0) == NULL)
+      return TCL_ERROR;
+ #else
+-   if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL)
++   if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL)
+      return TCL_ERROR;
+ #endif
+ 
+diff --git a/jni/imgjp2/imgjp2.c b/jni/imgjp2/imgjp2.c
+index 6136b077..246398d7 100644
+--- a/jni/imgjp2/imgjp2.c
++++ b/jni/imgjp2/imgjp2.c
+@@ -837,7 +837,8 @@ StringMatchJP2(
+     int *heightPtr,
+     Tcl_Interp *interp)
+ {
+-    int match = 0, length;
++    int match = 0;
++    Tcl_Size length;
+     opj_stream_t *stream;
+     MemUdata mud;
+     unsigned char *data;
+@@ -891,7 +892,8 @@ StringReadJP2(
+     int srcX,
+     int srcY)
+ {
+-    int result = TCL_ERROR, length;
++    int result = TCL_ERROR;
++    Tcl_Size length;
+     opj_stream_t *stream;
+     MemUdata mud;
+     unsigned char *data;
+@@ -1248,20 +1250,20 @@ DLLEXPORT
+ Imgjp2_Init(Tcl_Interp *interp)
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/mpexpr/generic/mpiface.c b/jni/mpexpr/generic/mpiface.c
+index 8776dffd..5a9bc928 100644
+--- a/jni/mpexpr/generic/mpiface.c
++++ b/jni/mpexpr/generic/mpiface.c
+@@ -72,11 +72,11 @@ Mpexpr_Init(Tcl_Interp *interp)
+     TCL_DECLARE_MUTEX(mpMutex)
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ 
+diff --git a/jni/parse_args/generic/parse_args.c b/jni/parse_args/generic/parse_args.c
+index 13a02593..facc892d 100644
+--- a/jni/parse_args/generic/parse_args.c
++++ b/jni/parse_args/generic/parse_args.c
+@@ -1108,12 +1108,12 @@ int Parse_args_Init(Tcl_Interp* interp) //{{{
+ 	Tcl_Namespace*		ns = NULL;
+ 	int					i;
+ 
+-	if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++	if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 		code = TCL_ERROR;
+ 		goto finally;
+ 	}
+ 
+-	if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++	if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 		code = TCL_ERROR;
+ 		goto finally;
+ 	}
+diff --git a/jni/pikchr/pikchr.c b/jni/pikchr/pikchr.c
+index 695c7fbc..a012b7f5 100644
+--- a/jni/pikchr/pikchr.c
++++ b/jni/pikchr/pikchr.c
+@@ -8346,11 +8346,11 @@ static int pik_tcl_command(
+ ** given in the argument */
+ int DLLEXPORT Pikchr_Init(Tcl_Interp *interp){
+ #ifdef USE_TCL_STUBS
+-  if ( Tcl_InitStubs(interp, "8.5", 0)==NULL ){
++  if ( Tcl_InitStubs(interp, "8.5-", 0)==NULL ){
+     return TCL_ERROR;
+   }
+ #else
+-  if ( Tcl_PkgRequire(interp, "Tcl", "8.5", 0)==NULL ){
++  if ( Tcl_PkgRequire(interp, "Tcl", "8.5-", 0)==NULL ){
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/pty_tcl/pty.c b/jni/pty_tcl/pty.c
+index bb83a697..b00f77c3 100644
+--- a/jni/pty_tcl/pty.c
++++ b/jni/pty_tcl/pty.c
+@@ -204,11 +204,11 @@ int
+ Pty_Init(Tcl_Interp *interp)
+ {
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #else
+-  if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++  if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/rhash/tclrhash.c b/jni/rhash/tclrhash.c
+index fd7b8619..11270743 100644
+--- a/jni/rhash/tclrhash.c
++++ b/jni/rhash/tclrhash.c
+@@ -659,11 +659,11 @@ Rhash_Init(Tcl_Interp *interp)
+     RHDATA *rhdata;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/rtext/generic/tclrtext.c b/jni/rtext/generic/tclrtext.c
+index 68725a0f..4530b90d 100644
+--- a/jni/rtext/generic/tclrtext.c
++++ b/jni/rtext/generic/tclrtext.c
+@@ -48,20 +48,20 @@ Rtext_Init(
+     Tcl_Interp* interp)		/* Tcl interpreter */
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/sdl2tk/sdl/tkSDLDefault.h b/jni/sdl2tk/sdl/tkSDLDefault.h
+index 1efb1ce6..c8013c42 100644
+--- a/jni/sdl2tk/sdl/tkSDLDefault.h
++++ b/jni/sdl2tk/sdl/tkSDLDefault.h
+@@ -405,8 +405,8 @@
+ #define DEF_MESSAGE_HIGHLIGHT		BLACK
+ #define DEF_MESSAGE_HIGHLIGHT_WIDTH	"0"
+ #define DEF_MESSAGE_JUSTIFY		"left"
+-#define DEF_MESSAGE_PADX		"-1"
+-#define DEF_MESSAGE_PADY		"-1"
++#define DEF_MESSAGE_PADX		NULL
++#define DEF_MESSAGE_PADY		NULL
+ #define DEF_MESSAGE_RELIEF		"flat"
+ #define DEF_MESSAGE_TAKE_FOCUS		"0"
+ #define DEF_MESSAGE_TEXT		""
+@@ -541,7 +541,7 @@
+ #endif
+ #define DEF_SCROLLBAR_COMMAND		""
+ #define DEF_SCROLLBAR_CURSOR		""
+-#define DEF_SCROLLBAR_EL_BORDER_WIDTH	"-1"
++#define DEF_SCROLLBAR_EL_BORDER_WIDTH	NULL
+ #define DEF_SCROLLBAR_HIGHLIGHT_BG	NORMAL_BG
+ #define DEF_SCROLLBAR_HIGHLIGHT		BLACK
+ #define DEF_SCROLLBAR_HIGHLIGHT_WIDTH	"0"
+diff --git a/jni/snack/generic/SnackMpg.c b/jni/snack/generic/SnackMpg.c
+index e4743bfd..e3fc0864 100644
+--- a/jni/snack/generic/SnackMpg.c
++++ b/jni/snack/generic/SnackMpg.c
+@@ -779,7 +779,7 @@ EXPORT(int, Snackmpg_Init)(Tcl_Interp *interp)
+     int res;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/snack/generic/SnackOgg.c b/jni/snack/generic/SnackOgg.c
+index 61bdb010..4db1b89d 100644
+--- a/jni/snack/generic/SnackOgg.c
++++ b/jni/snack/generic/SnackOgg.c
+@@ -2601,7 +2601,7 @@ EXPORT(int, Snackogg_Init)(Tcl_Interp *interp)
+   int res;
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/snack/generic/SphereFile.c b/jni/snack/generic/SphereFile.c
+index 1e946b57..bbdf77b7 100644
+--- a/jni/snack/generic/SphereFile.c
++++ b/jni/snack/generic/SphereFile.c
+@@ -326,7 +326,7 @@ EXPORT(int, Snacksphere_Init)(Tcl_Interp *interp)
+   int res;
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/snack/generic/snack.c b/jni/snack/generic/snack.c
+index 9c99dfbc..06597435 100644
+--- a/jni/snack/generic/snack.c
++++ b/jni/snack/generic/snack.c
+@@ -227,11 +227,11 @@ Snack_Init(Tcl_Interp *interp)
+   char rates[100];
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #else
+-  if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++  if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+@@ -249,7 +249,7 @@ Snack_Init(Tcl_Interp *interp)
+ 
+   if (Tcl_GetCommandInfo(interp, "button", &infoPtr) != 0) {
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+       return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/snack/generic/sound.c b/jni/snack/generic/sound.c
+index 7509f35e..94bafa08 100644
+--- a/jni/snack/generic/sound.c
++++ b/jni/snack/generic/sound.c
+@@ -153,11 +153,11 @@ Sound_Init(Tcl_Interp *interp)
+   char rates[100];
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #else
+-  if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++  if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/tbcload/cmpRead.c b/jni/tbcload/cmpRead.c
+index b2ea8a92..024c5b6b 100644
+--- a/jni/tbcload/cmpRead.c
++++ b/jni/tbcload/cmpRead.c
+@@ -2368,7 +2368,7 @@ TbcloadInit(
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (!Tcl_InitStubs(interp, "8.1", 0)) {
++    if (!Tcl_InitStubs(interp, "8.1-", 0)) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tcl-lmdb/generic/tclmdb.c b/jni/tcl-lmdb/generic/tclmdb.c
+index 5e112615..1206fb3e 100644
+--- a/jni/tcl-lmdb/generic/tclmdb.c
++++ b/jni/tcl-lmdb/generic/tclmdb.c
+@@ -2644,7 +2644,7 @@ EXTERN int Lmdb_Init(Tcl_Interp *interp)
+      * This may work with 8.0, but we are using strictly stubs here,
+      * which requires 8.1.
+      */
+-    if (Tcl_InitStubs(interp, "8.1", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.1-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+     if (Tcl_PkgProvide(interp, PACKAGE_NAME, PACKAGE_VERSION) != TCL_OK) {
+diff --git a/jni/tcl-stbimage/generic/tclstbimage.c b/jni/tcl-stbimage/generic/tclstbimage.c
+index eaa16176..400d7fb9 100644
+--- a/jni/tcl-stbimage/generic/tclstbimage.c
++++ b/jni/tcl-stbimage/generic/tclstbimage.c
+@@ -88,12 +88,12 @@ static int check_for_tk(Tcl_Interp *interp, PkgData *pkg_data) {
+         return TCL_ERROR;
+     }
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.6-", 0) == NULL) {
+         pkg_data->tk_checked = -1;
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.6-", 0) == NULL) {
+         pkg_data->tk_checked = -1;
+         return TCL_ERROR;
+     }
+@@ -1970,11 +1970,11 @@ Stbimage_Init(Tcl_Interp *interp)
+     PkgData *pkg_data;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.6-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tclJBlend/src/native/java.h b/jni/tclJBlend/src/native/java.h
+index 9205952f..52391b9a 100644
+--- a/jni/tclJBlend/src/native/java.h
++++ b/jni/tclJBlend/src/native/java.h
+@@ -150,7 +150,7 @@ TCLBLEND_EXTERN JavaInfo *	JavaGetCache(void);
+ TCLBLEND_EXTERN int		JavaWasJavaThreadInit(void);
+ TCLBLEND_EXTERN Tcl_Interp *	JavaGetInterp(JNIEnv *env, jobject interpObj);
+ TCLBLEND_EXTERN char *		JavaGetString(JNIEnv *env, jstring str,
+-			    	    int *lengthPtr);
++			    	    Tcl_Size *lengthPtr);
+ TCLBLEND_EXTERN Tcl_Obj *	JavaGetTclObj(JNIEnv *env, jobject object);
+ TCLBLEND_EXTERN jobject		JavaGetTclObject(JNIEnv *env, Tcl_Obj *objPtr,
+ 			    	    int *isLocal);
+diff --git a/jni/tclJBlend/src/native/javaCmd.c b/jni/tclJBlend/src/native/javaCmd.c
+index e7ad390e..900b3664 100644
+--- a/jni/tclJBlend/src/native/javaCmd.c
++++ b/jni/tclJBlend/src/native/javaCmd.c
+@@ -186,7 +186,7 @@ EXPORT(int,Tclblend_Init)(
+ 
+     assert(interp);
+ 
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ 
+@@ -1407,7 +1407,7 @@ ToString(
+     jobject obj)		/* Object whose string should be retrieved. */
+ {
+     jstring str;
+-    int length;
++    Tcl_Size length;
+     char *buf;
+     jobject exc;
+     JavaInfo *jcache = JavaGetCache();
+@@ -1461,7 +1461,7 @@ JavaThrowTclException(
+ 	msg = NULL;
+     } else {
+ 	Tcl_DString ds;
+-	int length;
++	Tcl_Size length;
+ 	char *p;
+ 
+ 	p = Tcl_GetStringFromObj(Tcl_GetObjResult(interp), &length);
+@@ -1498,7 +1498,7 @@ char *
+ JavaGetString(
+     JNIEnv *env,		/* Java environment pointer. */
+     jstring str,		/* String to convert. */
+-    int *lengthPtr)		/* Pointer to where length should be stored,
++    Tcl_Size *lengthPtr)		/* Pointer to where length should be stored,
+ 				 * or NULL. */
+ {
+     const char *utfstr;
+diff --git a/jni/tclJBlend/src/native/javaInterp.c b/jni/tclJBlend/src/native/javaInterp.c
+index fe508fed..e51ee0cd 100644
+--- a/jni/tclJBlend/src/native/javaInterp.c
++++ b/jni/tclJBlend/src/native/javaInterp.c
+@@ -1590,7 +1590,7 @@ Java_tcl_lang_Interp_addErrorInfo(
+     jstring string)		/* String to add to errorInfo. */
+ {
+     char *str;
+-    int length;
++    Tcl_Size length;
+     Tcl_Interp *interp = JavaGetInterp(env, interpObj);
+ 
+     if (!interp) {
+diff --git a/jni/tclJBlend/src/native/javaList.c b/jni/tclJBlend/src/native/javaList.c
+index 5cdfa866..2ba0eaf4 100644
+--- a/jni/tclJBlend/src/native/javaList.c
++++ b/jni/tclJBlend/src/native/javaList.c
+@@ -127,7 +127,8 @@ Java_tcl_lang_TclList_getElements(
+ {
+     Tcl_Obj *listPtr = *(Tcl_Obj **)&list;
+     Tcl_Obj **objvPtr;
+-    int objc, i;
++    int i;
++    Tcl_Size objc;
+     jarray array;
+     JavaInfo *jcache = JavaGetCache();
+ 
+@@ -247,7 +248,7 @@ Java_tcl_lang_TclList_listLength(
+ {
+     Tcl_Obj *listPtr = *(Tcl_Obj **)&list;
+     Tcl_Interp *interp = *(Tcl_Interp **)&interpPtr;
+-    int length = 0;
++    Tcl_Size length = 0;
+ 
+     if (!listPtr) {
+ 	ThrowNullPointerException(env, NULL);
+@@ -422,7 +423,7 @@ Java_tcl_lang_TclList_splitList(
+ {
+     Tcl_Interp *interp = *(Tcl_Interp **)&interpPtr;
+     Tcl_Obj *listPtr;
+-    int length;
++    Tcl_Size length;
+     jlong list;
+ 
+     /*
+diff --git a/jni/tclJBlend/src/native/javaObj.c b/jni/tclJBlend/src/native/javaObj.c
+index d740325f..f287f0e2 100644
+--- a/jni/tclJBlend/src/native/javaObj.c
++++ b/jni/tclJBlend/src/native/javaObj.c
+@@ -453,7 +453,7 @@ Java_tcl_lang_CObject_getString(
+     Tcl_Obj *objPtr = *(Tcl_Obj **) &obj;
+     char *str;
+     jstring result;
+-    int length;
++    Tcl_Size length;
+ 
+     if (!objPtr) {
+ 	ThrowNullPointerException(env, NULL);
+@@ -654,7 +654,8 @@ JavaBreakRef(
+     Tcl_Obj *objPtr)		/* Object to check. */
+ {
+     jobject object;
+-    int isTclList, isCObject, dummy;
++    int isTclList, isCObject;
++    Tcl_Size dummy;
+     int inst;
+     JavaInfo *jcache = JavaGetCache();
+ 
+diff --git a/jni/tclcsv/generic/tclcsv.c b/jni/tclcsv/generic/tclcsv.c
+index c7b51f57..6382d9b6 100644
+--- a/jni/tclcsv/generic/tclcsv.c
++++ b/jni/tclcsv/generic/tclcsv.c
+@@ -302,7 +302,7 @@ Tclcsv_Init(Tcl_Interp *interp)
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tclkit/tclkit/src/rechan.c b/jni/tclkit/tclkit/src/rechan.c
+index a3e294bf..d3222fed 100755
+--- a/jni/tclkit/tclkit/src/rechan.c
++++ b/jni/tclkit/tclkit/src/rechan.c
+@@ -288,7 +288,7 @@ cmd_rechan(ClientData cd_, Tcl_Interp* ip_, int objc_, Tcl_Obj*const* objv_)
+ 
+ DLLEXPORT int Rechan_Init(Tcl_Interp* interp)
+ {
+-    if (!Tcl_InitStubs(interp, "8.4", 0))
++    if (!Tcl_InitStubs(interp, "8.4-", 0))
+         return TCL_ERROR;
+     Tcl_CreateObjCommand(interp, "rechan", cmd_rechan, 0, 0);
+     return Tcl_PkgProvide(interp, "rechan", "1.0");
+diff --git a/jni/tclkit/vqtcl/generic/vlerq.c b/jni/tclkit/vqtcl/generic/vlerq.c
+index 8f346079..fac2afaa 100644
+--- a/jni/tclkit/vqtcl/generic/vlerq.c
++++ b/jni/tclkit/vqtcl/generic/vlerq.c
+@@ -6901,7 +6901,7 @@ static int MyInitStubs (Tcl_Interp *ip) {
+ 
+     tclStubsPtr = hoi->stubTable;
+ 
+-    if (Tcl_PkgRequire(ip, "Tcl", "8.1", 0) == NULL) {
++    if (Tcl_PkgRequire(ip, "Tcl", "8.1-", 0) == NULL) {
+         tclStubsPtr = NULL;
+         return 0;
+     }
+@@ -6915,7 +6915,7 @@ static int MyInitStubs (Tcl_Interp *ip) {
+     return 1;
+ }
+ #else /* !FAKE_TCL_STUBS */
+-#define MyInitStubs(ip) Tcl_InitStubs((ip), "8.4", 0)
++#define MyInitStubs(ip) Tcl_InitStubs((ip), "8.4-", 0)
+ #endif /* FAKE_TCL_STUBS */
+ #endif /* !STATIC_BUILD */
+ 
+@@ -7591,7 +7591,7 @@ static void InitShared (void) {
+ }
+ 
+ DLLEXPORT int Vlerq_Init (Tcl_Interp *interp) {
+-    if (!MyInitStubs(interp) || Tcl_PkgRequire(interp, "Tcl", "8.4", 0) == NULL)
++    if (!MyInitStubs(interp) || Tcl_PkgRequire(interp, "Tcl", "8.4-", 0) == NULL)
+         return TCL_ERROR;
+ 
+     Tcl_CreateObjCommand(interp, "vlerq", VlerqObjCmd, f_commands, NULL);
+@@ -7600,7 +7600,7 @@ DLLEXPORT int Vlerq_Init (Tcl_Interp *interp) {
+ }
+ 
+ DLLEXPORT int Vlerq_SafeInit (Tcl_Interp *interp) {
+-    if (!MyInitStubs(interp) || Tcl_PkgRequire(interp, "Tcl", "8.4", 0) == NULL)
++    if (!MyInitStubs(interp) || Tcl_PkgRequire(interp, "Tcl", "8.4-", 0) == NULL)
+         return TCL_ERROR;
+ 
+     /* UNSAFE is defined in the "opdefs_gen.h" file included above */
+diff --git a/jni/tcllibc/generated/v32_00000000000000D6.c b/jni/tcllibc/generated/v32_00000000000000D6.c
+index 1ca60d23..3801eadd 100644
+--- a/jni/tcllibc/generated/v32_00000000000000D6.c
++++ b/jni/tcllibc/generated/v32_00000000000000D6.c
+@@ -19,7 +19,7 @@
+   MyInitTclStubs (Tcl_Interp *ip)
+   {
+ #ifdef USE_TCL_INITSTUBS
+-    if (Tcl_InitStubs(ip, "8.6", 0) == NULL) {
++    if (Tcl_InitStubs(ip, "8.6-", 0) == NULL) {
+       return 0;
+     }
+ #else
+@@ -40,7 +40,7 @@
+ 
+     tclStubsPtr = hoi->stubTable;
+ 
+-    if (Tcl_PkgRequire(ip, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(ip, "Tcl", "8.6-", 0) == NULL) {
+       tclStubsPtr = NULL;
+       return 0;
+     }
+diff --git a/jni/tclmixer/src/tclmixer.c b/jni/tclmixer/src/tclmixer.c
+index 836795b3..e64dd657 100755
+--- a/jni/tclmixer/src/tclmixer.c
++++ b/jni/tclmixer/src/tclmixer.c
+@@ -1185,7 +1185,7 @@ int
+ Tclmixer_Init(Tcl_Interp *interp)
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.4", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.4-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tclparser/tclParser.c b/jni/tclparser/tclParser.c
+index d3cd5c2c..72dc77c1 100644
+--- a/jni/tclparser/tclParser.c
++++ b/jni/tclparser/tclParser.c
+@@ -94,11 +94,11 @@ int
+ Parser_Init(Tcl_Interp *interp)
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tcludp/generic/udp_tcl.c b/jni/tcludp/generic/udp_tcl.c
+index d35fb5bf..74b8337d 100755
+--- a/jni/tcludp/generic/udp_tcl.c
++++ b/jni/tcludp/generic/udp_tcl.c
+@@ -210,11 +210,11 @@ Udp_Init(Tcl_Interp *interp)
+ #endif
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.6", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tclvfs/generic/vfs.c b/jni/tclvfs/generic/vfs.c
+index d8b8ea5b..28222751 100644
+--- a/jni/tclvfs/generic/vfs.c
++++ b/jni/tclvfs/generic/vfs.c
+@@ -326,10 +326,10 @@ EXTERN int DLLEXPORT
+ Vfs_Init(
+     Tcl_Interp *interp)		/* Interpreter for application. */
+ {
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ 
+diff --git a/jni/tclxml/tclxml-libxml2.c b/jni/tclxml/tclxml-libxml2.c
+index 7b741447..eacfcde6 100755
+--- a/jni/tclxml/tclxml-libxml2.c
++++ b/jni/tclxml/tclxml-libxml2.c
+@@ -120,7 +120,7 @@ Tclxml_libxml2_Init (interp)
+   TclXML_ParserClassInfo *classinfo;
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.1", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.1-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/tclxml/tclxml.c b/jni/tclxml/tclxml.c
+index 9fee2d55..21169837 100755
+--- a/jni/tclxml/tclxml.c
++++ b/jni/tclxml/tclxml.c
+@@ -216,7 +216,7 @@ Tclxml_Init (interp)
+   ThreadSpecificData *tsdPtr;
+ 
+ #ifdef USE_TCL_STUBS
+-  if (Tcl_InitStubs(interp, "8.1", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.1-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+ #endif
+diff --git a/jni/tdom/extensions/tnc/tnc.c b/jni/tdom/extensions/tnc/tnc.c
+index 4299a8f4..12ec27ff 100644
+--- a/jni/tdom/extensions/tnc/tnc.c
++++ b/jni/tdom/extensions/tnc/tnc.c
+@@ -2974,7 +2974,7 @@ Tnc_Init (interp)
+     Tcl_Interp *interp;
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tdom/generic/dom.h b/jni/tdom/generic/dom.h
+index 45cdd84e..cffd3b32 100644
+--- a/jni/tdom/generic/dom.h
++++ b/jni/tdom/generic/dom.h
+@@ -95,7 +95,11 @@
+ # define Tcl_GetErrorLine(interp) (interp)->errorLine
+ #endif
+ 
++#if TCL_MAJOR_VERSION > 8
++#define domLength Tcl_Size
++#else
+ #define domLength int
++#endif
+ 
+ /* Since the len argument of XML_Parse() is of type int, parsing of
+  * strings has to be done in chunks anyway for Tcl 9 with its strings
+diff --git a/jni/tdom/generic/tcldom.c b/jni/tdom/generic/tcldom.c
+index c4cbbb34..00c4ce10 100644
+--- a/jni/tdom/generic/tcldom.c
++++ b/jni/tdom/generic/tcldom.c
+@@ -1248,7 +1248,8 @@ int tcldom_xpathFuncCallBack (
+                 *tmpObj, *errObj;
+     Tcl_CmdInfo  cmdInfo;
+     int          objc, rc, res, boolValue;
+-    domLength    errStrLen, listLen, i, longValue;
++    domLength    errStrLen, listLen, i;
++    int          longValue;
+     xpathResultType rstype;
+     double       doubleValue;
+     domNode     *node;
+diff --git a/jni/tdom/generic/tdominit.c b/jni/tdom/generic/tdominit.c
+index 276ddd91..68327301 100644
+--- a/jni/tdom/generic/tdominit.c
++++ b/jni/tdom/generic/tdominit.c
+@@ -69,7 +69,7 @@ Tdom_Init (
+     Tcl_UniChar uniChar[2] = { 0, 0 };
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tkhtml/hv/hv3see.c b/jni/tkhtml/hv/hv3see.c
+index 79dc094c..579ae1bf 100644
+--- a/jni/tkhtml/hv/hv3see.c
++++ b/jni/tkhtml/hv/hv3see.c
+@@ -2634,7 +2634,7 @@ Tclsee_Init(interp)
+ {
+     /* Require stubs libraries version 8.4 or greater. */
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.4", 0) == 0) {
++    if (Tcl_InitStubs(interp, "8.4-", 0) == 0) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tkhtml/oldsrc/htmlexts.c b/jni/tkhtml/oldsrc/htmlexts.c
+index 32b7e71e..c67b387d 100644
+--- a/jni/tkhtml/oldsrc/htmlexts.c
++++ b/jni/tkhtml/oldsrc/htmlexts.c
+@@ -3615,11 +3615,11 @@ Htmlexts_Init(interp)
+ {
+ #ifdef USE_TCL_STUBS
+     HtmlPostscriptPtr = 0;
+-    if (Tcl_InitStubs(interp, "8.3", 0) == 0) {
++    if (Tcl_InitStubs(interp, "8.3-", 0) == 0) {
+         return TCL_ERROR;
+     }
+ #ifndef _TCLHTML_
+-    if (Tk_InitStubs(interp, "8.3", 0) == 0) {
++    if (Tk_InitStubs(interp, "8.3-", 0) == 0) {
+         return TCL_ERROR;
+     }
+ #endif /* _TCLHTML_ */
+diff --git a/jni/tkhtml/oldsrc/htmlwidget.c b/jni/tkhtml/oldsrc/htmlwidget.c
+index 5cf6b0b8..dca20900 100644
+--- a/jni/tkhtml/oldsrc/htmlwidget.c
++++ b/jni/tkhtml/oldsrc/htmlwidget.c
+@@ -2395,10 +2395,10 @@ Tkhtml_Init(interp)
+     Tcl_Interp *interp;
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.3", 0) == 0) {
++    if (Tcl_InitStubs(interp, "8.3-", 0) == 0) {
+         return TCL_ERROR;
+     }
+-    if (Tk_InitStubs(interp, "8.3", 0) == 0) {
++    if (Tk_InitStubs(interp, "8.3-", 0) == 0) {
+         return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tkhtml/src/htmltcl.c b/jni/tkhtml/src/htmltcl.c
+index f19caf15..3e48d9f9 100644
+--- a/jni/tkhtml/src/htmltcl.c
++++ b/jni/tkhtml/src/htmltcl.c
+@@ -2953,15 +2953,15 @@ DLL_EXPORT int Tkhtml_Init(
+ ){
+     /* Require stubs libraries version 8.4 or greater. */
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.4", 0) == 0) {
++    if (Tcl_InitStubs(interp, "8.4-", 0) == 0) {
+         return TCL_ERROR;
+     }
+-    if (Tk_InitStubs(interp, "8.4", 0) == 0) {
++    if (Tk_InitStubs(interp, "8.4-", 0) == 0) {
+         return TCL_ERROR;
+     }
+ #endif
+ 
+-    if (0 == Tcl_PkgRequire(interp, "Tk", "8.4", 0)) {
++    if (0 == Tcl_PkgRequire(interp, "Tk", "8.4-", 0)) {
+         return TCL_ERROR;
+     }
+     Tcl_PkgProvide(interp, "Tkhtml", "3.0");
+diff --git a/jni/tkhtml/src/main.c b/jni/tkhtml/src/main.c
+index 97cb4f9f..b9be6834 100644
+--- a/jni/tkhtml/src/main.c
++++ b/jni/tkhtml/src/main.c
+@@ -93,8 +93,8 @@ main(
+     TK_LOCAL_MAIN_HOOK(&argc, &argv);
+ #endif
+ 
+-/* Tcl_InitStubs(0, "8.4", 0); */
+-/* Tk_InitStubs(0, "8.4", 0);  */
++/* Tcl_InitStubs(0, "8.4-", 0); */
++/* Tk_InitStubs(0, "8.4-", 0);  */
+ 
+     Tk_Main(argc, argv, TK_LOCAL_APPINIT);
+     return 0;			/* Needed only to prevent compiler warning. */
+diff --git a/jni/tkimg/base/tkimg.c b/jni/tkimg/base/tkimg.c
+index e3776687..68534e04 100644
+--- a/jni/tkimg/base/tkimg.c
++++ b/jni/tkimg/base/tkimg.c
+@@ -75,10 +75,10 @@ int Tkimg_Init(
+ 	MODULE_SCOPE int Zlibtcl_Init(Tcl_Interp *interp);
+ #endif
+ #else
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ #endif
+diff --git a/jni/tkimg/base/tkimgUtils.c b/jni/tkimg/base/tkimgUtils.c
+index 69d517b8..8abc3f16 100644
+--- a/jni/tkimg/base/tkimgUtils.c
++++ b/jni/tkimg/base/tkimgUtils.c
+@@ -101,7 +101,14 @@ const char *tkimg_GetStringFromObj(
+ 		return string;
+ 	}
+ #else /* _LANG */
+-	return Tcl_GetStringFromObj(objPtr, lengthPtr);
++	{
++		Tcl_Size n;
++		char *string = Tcl_GetStringFromObj(objPtr, &n);
++		if (lengthPtr) {
++			*lengthPtr = (int) n;
++		}
++		return string;
++	}
+ #endif /* _LANG */
+ }
+ 
+@@ -204,7 +211,7 @@ unsigned char *tkimg_GetByteArrayFromObj(
+ 	}
+ 	return (unsigned char *) string;
+ #else /* _LANG */
+-	int len;
++	Tcl_Size len;
+ 	static unsigned char emptyString[1] = { 0 };
+ 	unsigned char *result = Tcl_GetByteArrayFromObj(objPtr, &len);
+ 	if (result == NULL) {
+@@ -254,7 +261,7 @@ unsigned char *tkimg_GetByteArrayFromObj2(
+ 	}
+ 	return (unsigned char *) string;
+ #else /* _LANG */
+-	int len;
++	Tcl_Size len;
+ 	static unsigned char emptyString[1] = { 0 };
+ 	unsigned char *result = Tcl_GetByteArrayFromObj(objPtr, &len);
+ 	if (result == NULL) {
+@@ -299,5 +306,12 @@ int tkimg_ListObjGetElements(
+ 		*objc = 0;
+ 		return TCL_OK;
+ 	}
+-	return Tcl_ListObjGetElements(interp, objPtr, objc, objv);
++	{
++		Tcl_Size n;
++		int code = Tcl_ListObjGetElements(interp, objPtr, &n, objv);
++		if (code == TCL_OK) {
++			*objc = (int) n;
++		}
++		return code;
++	}
+ }
+diff --git a/jni/tkimg/bmp/bmp.c b/jni/tkimg/bmp/bmp.c
+index a7a2b5f5..38663312 100644
+--- a/jni/tkimg/bmp/bmp.c
++++ b/jni/tkimg/bmp/bmp.c
+@@ -668,7 +668,7 @@ CommonWrite(
+     /* List parameter given ? */
+     if (objc > 1) {
+         Tcl_Obj *objList;
+-        int nBytes;
++        Tcl_Size nBytes;
+         double fResX = -1, fResY = -1, fFactor = 0;
+         char unit = '\0';
+         char *c = Tcl_GetStringFromObj(objv[1], &nBytes);
+diff --git a/jni/tkimg/bmp/init.c b/jni/tkimg/bmp/init.c
+index d4d0345e..382fa655 100644
+--- a/jni/tkimg/bmp/init.c
++++ b/jni/tkimg/bmp/init.c
+@@ -135,10 +135,10 @@ Tkimgbmp_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/dted/dted.c b/jni/tkimg/dted/dted.c
+index fcb6fd32..a090f3e4 100644
+--- a/jni/tkimg/dted/dted.c
++++ b/jni/tkimg/dted/dted.c
+@@ -495,11 +495,11 @@ static int ParseFormatOpts(
+             i++;
+             if (i >= objc) {
+                 Tcl_AppendResult (interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+diff --git a/jni/tkimg/dted/init.c b/jni/tkimg/dted/init.c
+index 69971e40..136365ac 100644
+--- a/jni/tkimg/dted/init.c
++++ b/jni/tkimg/dted/init.c
+@@ -133,10 +133,10 @@ Tkimgdted_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/flir/flir.c b/jni/tkimg/flir/flir.c
+index 661d7da1..202f33f6 100644
+--- a/jni/tkimg/flir/flir.c
++++ b/jni/tkimg/flir/flir.c
+@@ -348,11 +348,11 @@ static int ParseFormatOpts(
+             i++;
+             if (i >= objc) {
+                 Tcl_AppendResult (interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+diff --git a/jni/tkimg/flir/init.c b/jni/tkimg/flir/init.c
+index 2366689e..efb6a251 100644
+--- a/jni/tkimg/flir/init.c
++++ b/jni/tkimg/flir/init.c
+@@ -133,10 +133,10 @@ Tkimgflir_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/gif/gif.c b/jni/tkimg/gif/gif.c
+index b3f6d150..8c24d2f0 100644
+--- a/jni/tkimg/gif/gif.c
++++ b/jni/tkimg/gif/gif.c
+@@ -246,7 +246,8 @@ CommonRead(
+                                  * in image being read. */
+ ) {
+     int fileWidth, fileHeight, imageWidth, imageHeight;
+-    int nBytes, index = 0, objc = 0;
++    int index = 0, objc = 0;
++    Tcl_Size nBytes;
+     Tcl_Obj **objv = NULL;
+     Tk_PhotoImageBlock block;
+     unsigned char buf[100];
+diff --git a/jni/tkimg/gif/init.c b/jni/tkimg/gif/init.c
+index 9d8254cd..9eb15e9a 100644
+--- a/jni/tkimg/gif/init.c
++++ b/jni/tkimg/gif/init.c
+@@ -133,10 +133,10 @@ Tkimggif_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/ico/ico.c b/jni/tkimg/ico/ico.c
+index d91aadd5..58806b11 100644
+--- a/jni/tkimg/ico/ico.c
++++ b/jni/tkimg/ico/ico.c
+@@ -459,11 +459,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch (index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+diff --git a/jni/tkimg/ico/init.c b/jni/tkimg/ico/init.c
+index 43ba6ff3..e947a016 100644
+--- a/jni/tkimg/ico/init.c
++++ b/jni/tkimg/ico/init.c
+@@ -133,10 +133,10 @@ Tkimgico_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/init.c b/jni/tkimg/init.c
+index 0f29d586..8c6bc50b 100644
+--- a/jni/tkimg/init.c
++++ b/jni/tkimg/init.c
+@@ -129,10 +129,10 @@ int
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/jpeg/init.c b/jni/tkimg/jpeg/init.c
+index dea41a15..133779b5 100644
+--- a/jni/tkimg/jpeg/init.c
++++ b/jni/tkimg/jpeg/init.c
+@@ -133,10 +133,10 @@ Tkimgjpeg_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/jpeg/jpeg.c b/jni/tkimg/jpeg/jpeg.c
+index fec9158e..ad908841 100644
+--- a/jni/tkimg/jpeg/jpeg.c
++++ b/jni/tkimg/jpeg/jpeg.c
+@@ -878,7 +878,7 @@ CommonWrite(
+ 		    int quality = 0;
+ 		    if (++i >= objc) {
+ 			Tcl_AppendResult(interp, "No value for option \"",
+-				Tcl_GetStringFromObj(objv[--i], (int *) NULL), "\"", (char *) NULL);
++				Tcl_GetStringFromObj(objv[--i], NULL), "\"", (char *) NULL);
+ 			return TCL_ERROR;
+ 		    }
+ 		    if (Tcl_GetIntFromObj(interp, objv[i], &quality) != TCL_OK) {
+@@ -891,7 +891,7 @@ CommonWrite(
+ 		    int smooth = 0;
+ 		    if (++i >= objc) {
+ 			Tcl_AppendResult(interp, "No value for option \"",
+-				Tcl_GetStringFromObj(objv[--i], (int *) NULL), "\"", (char *) NULL);
++				Tcl_GetStringFromObj(objv[--i], NULL), "\"", (char *) NULL);
+ 			return TCL_ERROR;
+ 		    }
+ 		    if (Tcl_GetIntFromObj(interp, objv[i], &smooth) != TCL_OK) {
+diff --git a/jni/tkimg/libjpeg/jpegtcl.c b/jni/tkimg/libjpeg/jpegtcl.c
+index 2be827c1..ae11c13b 100644
+--- a/jni/tkimg/libjpeg/jpegtcl.c
++++ b/jni/tkimg/libjpeg/jpegtcl.c
+@@ -41,7 +41,7 @@ Jpegtcl_Init (interp)
+ {
+   extern const JpegtclStubs jpegtclStubs;
+ 
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+   /* DO NOT USE PACKAGE_VERSION, USE INFO FROM jpegtcl.h INSTEAD */
+diff --git a/jni/tkimg/libpng/pngtcl.c b/jni/tkimg/libpng/pngtcl.c
+index 2f935758..12b513aa 100644
+--- a/jni/tkimg/libpng/pngtcl.c
++++ b/jni/tkimg/libpng/pngtcl.c
+@@ -42,7 +42,7 @@ Pngtcl_Init (interp)
+ {
+   extern const PngtclStubs pngtclStubs;
+ 
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+   if (Zlibtcl_InitStubs(interp, ZLIBTCL_VERSION, 1) == NULL) {
+diff --git a/jni/tkimg/libtiff/tifftcl.c b/jni/tkimg/libtiff/tifftcl.c
+index 118caef9..0c40a9b1 100644
+--- a/jni/tkimg/libtiff/tifftcl.c
++++ b/jni/tkimg/libtiff/tifftcl.c
+@@ -52,7 +52,7 @@ Tifftcl_Init (interp)
+ {
+   extern const TifftclStubs tifftclStubs;
+ 
+-  if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++  if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+     return TCL_ERROR;
+   }
+   if (Tcl_PkgProvideEx(interp, PACKAGE_NAME, PACKAGE_VERSION,
+diff --git a/jni/tkimg/pcx/init.c b/jni/tkimg/pcx/init.c
+index 2720610f..11b82093 100644
+--- a/jni/tkimg/pcx/init.c
++++ b/jni/tkimg/pcx/init.c
+@@ -133,10 +133,10 @@ Tkimgpcx_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/pcx/pcx.c b/jni/tkimg/pcx/pcx.c
+index 38e0e293..44cac74f 100644
+--- a/jni/tkimg/pcx/pcx.c
++++ b/jni/tkimg/pcx/pcx.c
+@@ -483,11 +483,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (!strncmp (optionStr, "none", strlen ("none"))) {
+diff --git a/jni/tkimg/pixmap/pixmap.c b/jni/tkimg/pixmap/pixmap.c
+index df56b837..ab754505 100644
+--- a/jni/tkimg/pixmap/pixmap.c
++++ b/jni/tkimg/pixmap/pixmap.c
+@@ -214,11 +214,34 @@ TkimgXpmConfigureMaster(
+     oldData = masterPtr->dataString;
+     oldFile = masterPtr->fileString;
+ 
++#if TK_MAJOR_VERSION > 8
++    /* Tk 9's Tk_ConfigureWidget takes objects, not strings */
++    {
++	Tcl_Obj **objv = (Tcl_Obj **) ckalloc((argc + 1) * sizeof(Tcl_Obj *));
++	int i, code;
++
++	for (i = 0; i < argc; i++) {
++	    objv[i] = Tcl_NewStringObj(argv[i], -1);
++	    Tcl_IncrRefCount(objv[i]);
++	}
++	code = Tk_ConfigureWidget(masterPtr->interp,
++		Tk_MainWindow(masterPtr->interp), configSpecs, argc, objv,
++		(char *) masterPtr, flags);
++	for (i = 0; i < argc; i++) {
++	    Tcl_DecrRefCount(objv[i]);
++	}
++	ckfree((char *) objv);
++	if (code != TCL_OK) {
++	    return TCL_ERROR;
++	}
++    }
++#else
+     if (Tk_ConfigureWidget(masterPtr->interp, Tk_MainWindow(masterPtr->interp),
+ 	    configSpecs, argc, argv, (char *) masterPtr, flags)
+ 	    != TCL_OK) {
+ 	return TCL_ERROR;
+     }
++#endif
+ 
+     if (masterPtr->dataString != NULL ||
+ 	masterPtr->fileString != NULL) {
+@@ -290,7 +313,7 @@ TkimgXpmGetData(
+ ) {
+     const char ** data = NULL;
+     int  isAllocated = 0;		/* do we need to free "data"? */
+-    int listArgc;
++    Tcl_Size listArgc;
+     const char ** listArgv = NULL;
+     int numLines;
+     int size[2];
+@@ -387,7 +410,7 @@ TkimgXpmGetDataFromString(
+ ) {
+     int quoted;
+     char * p, * list;
+-    int numLines;
++    Tcl_Size numLines;
+     const char ** data;
+ 
+     /* skip the leading blanks (leading blanks are not defined in the
+@@ -1252,10 +1275,10 @@ Tkimgpixmap_Init(
+     static int initialized = 0;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+     if (Tkimg_InitStubs(interp, TKIMG_VERSION, 0) == NULL) {
+diff --git a/jni/tkimg/png/init.c b/jni/tkimg/png/init.c
+index 289a4bc1..1eb25139 100644
+--- a/jni/tkimg/png/init.c
++++ b/jni/tkimg/png/init.c
+@@ -133,10 +133,10 @@ Tkimgpng_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/png/png.c b/jni/tkimg/png/png.c
+index 5fee982f..b2fab68d 100644
+--- a/jni/tkimg/png/png.c
++++ b/jni/tkimg/png/png.c
+@@ -164,11 +164,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+@@ -439,7 +439,7 @@ CommonReadPNG(
+     png_read_info(png_ptr,info_ptr);
+ 
+     png_get_IHDR(png_ptr, info_ptr, &info_width, &info_height, &bit_depth,
+-        &color_type, &interlace_type, (int *) NULL, (int *) NULL);
++        &color_type, &interlace_type, NULL, NULL);
+ 
+     if ((srcX + width) > (int) info_width) {
+         width = info_width - srcX;
+@@ -731,9 +731,9 @@ CommonWritePNG(
+     if (tagcount > 0) {
+         png_text_compat text;
+         for(I=0;I<tagcount;I++) {
+-            int length;
++            Tcl_Size length;
+             memset(&text, 0, sizeof(png_text_compat));
+-            text.compat.key = Tcl_GetStringFromObj(tags[2*I+1], (int *) NULL);
++            text.compat.key = Tcl_GetStringFromObj(tags[2*I+1], NULL);
+             text.compat.text = Tcl_GetStringFromObj(tags[2*I+2], &length);
+             text.compat.text_length = length;
+             if (text.compat.text_length>COMPRESS_THRESHOLD) {
+diff --git a/jni/tkimg/ppm/init.c b/jni/tkimg/ppm/init.c
+index 96c2f6e0..73b8f01d 100644
+--- a/jni/tkimg/ppm/init.c
++++ b/jni/tkimg/ppm/init.c
+@@ -133,10 +133,10 @@ Tkimgppm_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/ppm/ppm.c b/jni/tkimg/ppm/ppm.c
+index a3de2c4c..fd5e3435 100644
+--- a/jni/tkimg/ppm/ppm.c
++++ b/jni/tkimg/ppm/ppm.c
+@@ -408,11 +408,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult (interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+diff --git a/jni/tkimg/ps/init.c b/jni/tkimg/ps/init.c
+index 43fcae01..c28a9e2d 100644
+--- a/jni/tkimg/ps/init.c
++++ b/jni/tkimg/ps/init.c
+@@ -133,10 +133,10 @@ Tkimgps_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.3", 0)) {
++	if (!Tcl_InitStubs(interp, "8.3-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.3", 0)) {
++	if (!Tk_InitStubs(interp, "8.3-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/raw/init.c b/jni/tkimg/raw/init.c
+index 6208ecc9..eefe3f21 100644
+--- a/jni/tkimg/raw/init.c
++++ b/jni/tkimg/raw/init.c
+@@ -133,10 +133,10 @@ Tkimgraw_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/raw/raw.c b/jni/tkimg/raw/raw.c
+index 696d07f6..dfdc32b5 100644
+--- a/jni/tkimg/raw/raw.c
++++ b/jni/tkimg/raw/raw.c
+@@ -524,11 +524,11 @@ static int ParseFormatOpts(
+             i++;
+             if (i >= objc) {
+                 Tcl_AppendResult (interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (Tcl_GetBoolean(interp, optionStr, &boolVal) == TCL_ERROR) {
+diff --git a/jni/tkimg/sgi/init.c b/jni/tkimg/sgi/init.c
+index a7f1ddc2..96efba23 100644
+--- a/jni/tkimg/sgi/init.c
++++ b/jni/tkimg/sgi/init.c
+@@ -133,10 +133,10 @@ Tkimgsgi_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/sgi/sgi.c b/jni/tkimg/sgi/sgi.c
+index 5bf5498d..346fbb49 100644
+--- a/jni/tkimg/sgi/sgi.c
++++ b/jni/tkimg/sgi/sgi.c
+@@ -1180,11 +1180,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (!strncmp (optionStr, "none", strlen ("none"))) {
+diff --git a/jni/tkimg/sun/init.c b/jni/tkimg/sun/init.c
+index 31cb5903..df062605 100644
+--- a/jni/tkimg/sun/init.c
++++ b/jni/tkimg/sun/init.c
+@@ -135,10 +135,10 @@ Tkimgsun_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/sun/sun.c b/jni/tkimg/sun/sun.c
+index abba9ae6..12f0b978 100644
+--- a/jni/tkimg/sun/sun.c
++++ b/jni/tkimg/sun/sun.c
+@@ -797,11 +797,11 @@ static int ParseFormatOpts(
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (!strncmp (optionStr, "none", strlen ("none"))) {
+diff --git a/jni/tkimg/tga/init.c b/jni/tkimg/tga/init.c
+index 23dcc3a6..31bf4cfc 100644
+--- a/jni/tkimg/tga/init.c
++++ b/jni/tkimg/tga/init.c
+@@ -133,10 +133,10 @@ Tkimgtga_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/tga/tga.c b/jni/tkimg/tga/tga.c
+index 3dac3e87..5b468108 100644
+--- a/jni/tkimg/tga/tga.c
++++ b/jni/tkimg/tga/tga.c
+@@ -625,11 +625,11 @@ static int ParseFormatOpts(interp, format, opts)
+             }
+             if (++i >= objc) {
+                 Tcl_AppendResult(interp, "No value for option \"",
+-                        Tcl_GetStringFromObj (objv[--i], (int *) NULL),
++                        Tcl_GetStringFromObj (objv[--i], NULL),
+                         "\"", (char *) NULL);
+                 return TCL_ERROR;
+             }
+-            optionStr = Tcl_GetStringFromObj(objv[i], (int *) NULL);
++            optionStr = Tcl_GetStringFromObj(objv[i], NULL);
+             switch(index) {
+                 case 0:
+                     if (!strncmp (optionStr, "none", strlen ("none"))) {
+diff --git a/jni/tkimg/tiff/init.c b/jni/tkimg/tiff/init.c
+index e133a608..75a1b132 100644
+--- a/jni/tkimg/tiff/init.c
++++ b/jni/tkimg/tiff/init.c
+@@ -133,10 +133,10 @@ Tkimgtiff_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/tiff/tiff.c b/jni/tkimg/tiff/tiff.c
+index f495e8d8..5c207e01 100644
+--- a/jni/tkimg/tiff/tiff.c
++++ b/jni/tkimg/tiff/tiff.c
+@@ -697,7 +697,8 @@ CommonRead(
+     size_t npixels;
+     uint32 *raster;
+     int result = TCL_OK;
+-    int nBytes, index = 0, objc = 0;
++    int index = 0, objc = 0;
++    Tcl_Size nBytes;
+     Tcl_Obj **objv = NULL;
+ 
+     if (tkimg_ListObjGetElements(interp, format, &objc, &objv) != TCL_OK) {
+@@ -962,15 +963,15 @@ ParseWriteFormat(
+ 	    }
+ 	    if (++i >= objc) {
+ 		Tcl_AppendResult(interp, "No value for option \"",
+-			Tcl_GetStringFromObj(objv[--i], (int *) NULL),
++			Tcl_GetStringFromObj(objv[--i], NULL),
+ 			"\"", (char *) NULL);
+ 		return TCL_ERROR;
+ 	    }
+ 	    switch(index) {
+ 		case 0:
+-		    compression = Tcl_GetStringFromObj(objv[i], (int *) NULL); break;
++		    compression = Tcl_GetStringFromObj(objv[i], NULL); break;
+ 		case 1:
+-		    byteorder = Tcl_GetStringFromObj(objv[i], (int *) NULL); break;
++		    byteorder = Tcl_GetStringFromObj(objv[i], NULL); break;
+ 	    }
+ 	}
+ 	c = compression[0]; length = strlen(compression);
+diff --git a/jni/tkimg/window/init.c b/jni/tkimg/window/init.c
+index bcc05183..df0a75ee 100644
+--- a/jni/tkimg/window/init.c
++++ b/jni/tkimg/window/init.c
+@@ -133,10 +133,10 @@ Tkimgwindow_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/xbm/init.c b/jni/tkimg/xbm/init.c
+index 31bd539e..034a0b2a 100644
+--- a/jni/tkimg/xbm/init.c
++++ b/jni/tkimg/xbm/init.c
+@@ -133,10 +133,10 @@ Tkimgxbm_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/xpm/init.c b/jni/tkimg/xpm/init.c
+index 539729ed..ceb91619 100644
+--- a/jni/tkimg/xpm/init.c
++++ b/jni/tkimg/xpm/init.c
+@@ -133,10 +133,10 @@ Tkimgxpm_Init(
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+ #ifdef USE_TCL_STUBS
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+-	if (!Tk_InitStubs(interp, "8.5", 0)) {
++	if (!Tk_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 	if (!Tkimg_InitStubs(interp, TKIMG_VERSION, 0)) {
+diff --git a/jni/tkimg/zlib/zlibtcl.c b/jni/tkimg/zlib/zlibtcl.c
+index f9c32436..c0b35bfa 100644
+--- a/jni/tkimg/zlib/zlibtcl.c
++++ b/jni/tkimg/zlib/zlibtcl.c
+@@ -45,7 +45,7 @@ int
+ Zlibtcl_Init (
+ 	Tcl_Interp *interp /* Interpreter to initialise. */
+ ) {
+-	if (!Tcl_InitStubs(interp, "8.5", 0)) {
++	if (!Tcl_InitStubs(interp, "8.5-", 0)) {
+ 		return TCL_ERROR;
+ 	}
+ 
+diff --git a/jni/tkled/led.c b/jni/tkled/led.c
+index 89a1465d..b5cd1dcc 100644
+--- a/jni/tkled/led.c
++++ b/jni/tkled/led.c
+@@ -1338,20 +1338,20 @@ Tkled_Init(
+     Tk_Window mainWin;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tknotebook/notebook.c b/jni/tknotebook/notebook.c
+index a26d8c26..583971ca 100644
+--- a/jni/tknotebook/notebook.c
++++ b/jni/tknotebook/notebook.c
+@@ -2509,20 +2509,20 @@ DLLEXPORT int
+ Tknotebook_Init(Tcl_Interp *interp)
+ {
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tkpath/generic/path.c b/jni/tkpath/generic/path.c
+index a07acf54..93cb29f7 100644
+--- a/jni/tkpath/generic/path.c
++++ b/jni/tkpath/generic/path.c
+@@ -18,7 +18,7 @@
+ /* Keep patch level release numbers odd and set even only on release. */
+ #define TKPATH_VERSION    "0.3"
+ #define TKPATH_PATCHLEVEL "0.3.3"
+-#define TKPATH_REQUIRE    "8.5"
++#define TKPATH_REQUIRE    "8.5-"
+ 
+ MODULE_SCOPE int gAntiAlias;
+ MODULE_SCOPE int gSurfaceCopyPremultiplyAlpha;
+diff --git a/jni/tkpath/generic/tkCanvPathUtil.c b/jni/tkpath/generic/tkCanvPathUtil.c
+index a75c2b86..cc80efdf 100644
+--- a/jni/tkpath/generic/tkCanvPathUtil.c
++++ b/jni/tkpath/generic/tkCanvPathUtil.c
+@@ -47,9 +47,10 @@ CoordsForPointItems(
+         Tcl_Interp *interp,
+         Tk_PathCanvas canvas,
+         double *pointPtr, 		/* Sets or gets the point here. */
+-        int objc,
++        int objc_in,
+         Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     if (objc == 0) {
+         Tcl_Obj *obj = Tcl_NewObj();
+         Tcl_Obj *subobj = Tcl_NewDoubleObj(pointPtr[0]);
+@@ -103,9 +104,10 @@ CoordsForRectangularItems(
+         Tcl_Interp *interp,
+         Tk_PathCanvas canvas,
+         PathRect *rectPtr, 		/* Sets or gets the box here. */
+-        int objc,
++        int objc_in,
+         Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     if (objc == 0) {
+         Tcl_Obj *obj = Tcl_NewObj();
+         Tcl_Obj *subobj = Tcl_NewDoubleObj(rectPtr->x1);
+diff --git a/jni/tkpath/generic/tkCanvPimage.c b/jni/tkpath/generic/tkCanvPimage.c
+index 280f783d..dd39f837 100644
+--- a/jni/tkpath/generic/tkCanvPimage.c
++++ b/jni/tkpath/generic/tkCanvPimage.c
+@@ -671,9 +671,10 @@ PimageToPdf(Tcl_Interp *interp, Tk_PathCanvas canvas, Tk_PathItem *itemPtr,
+ 
+     if (objc > 0) {
+ 	long id;
+-	int retc, opacity, tx, ty;
++	int opacity, tx, ty;
++	Tcl_Size retc;
+ #if ZLIB_SUPPORT
+-	int zLen;
++	Tcl_Size zLen;
+ #endif
+ 	double scaleX, scaleY, dx, dy;
+ 	Tcl_Obj *pixObj, *nameObj, **retv;
+@@ -724,7 +725,7 @@ PimageToPdf(Tcl_Interp *interp, Tk_PathCanvas canvas, Tk_PathItem *itemPtr,
+ #if ZLIB_SUPPORT
+ 	if (zLen > 0) {
+ 	    Tcl_AppendPrintfToObj(obj, "/Filter /FlateDecode\n"
+-				  "/Length %d\n>>\nstream\n", zLen);
++				  "/Length %d\n>>\nstream\n", (int) zLen);
+ 	} else
+ #endif
+ 	{
+@@ -845,7 +846,7 @@ PimageToPdf(Tcl_Interp *interp, Tk_PathCanvas canvas, Tk_PathItem *itemPtr,
+ #if ZLIB_SUPPORT
+ 	if (zLen > 0) {
+ 	    Tcl_AppendPrintfToObj(obj, "/Filter /FlateDecode\n"
+-				  "/Length %d\n>>\nstream\n", zLen);
++				  "/Length %d\n>>\nstream\n", (int) zLen);
+ 	} else
+ #endif
+ 	{
+@@ -1147,7 +1148,8 @@ PathGetPathRect(
+ 				 * to list. Must be allocated! */
+ {
+     const char **argv = NULL;
+-    int i, argc;
++    int i;
++    Tcl_Size argc;
+     int result = TCL_OK;
+     double tmp[4];
+ 
+@@ -1228,7 +1230,7 @@ PathRectSetOption(
+ 			     * internal representation of value should
+ 			     * be stored, or NULL. */
+     char *list;
+-    int length;
++    Tcl_Size length;
+     Tcl_Obj *valuePtr;
+     PathRect *newPtr;
+ 
+diff --git a/jni/tkpath/generic/tkCanvPline.c b/jni/tkpath/generic/tkCanvPline.c
+index e1522dcd..0228d421 100644
+--- a/jni/tkpath/generic/tkCanvPline.c
++++ b/jni/tkpath/generic/tkCanvPline.c
+@@ -176,8 +176,9 @@ CreatePline(Tcl_Interp *interp, Tk_PathCanvas canvas, struct Tk_PathItem *itemPt
+ 
+ static int
+ ProcessCoords(Tcl_Interp *interp, Tk_PathCanvas canvas, Tk_PathItem *itemPtr,
+-        int objc, Tcl_Obj *const objv[])
++        int objc_in, Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     PlineItem *plinePtr = (PlineItem *) itemPtr;
+     PathRect *p = &plinePtr->coords;
+ 
+diff --git a/jni/tkpath/generic/tkCanvPpoly.c b/jni/tkpath/generic/tkCanvPpoly.c
+index f2e14d6a..56fede0d 100644
+--- a/jni/tkpath/generic/tkCanvPpoly.c
++++ b/jni/tkpath/generic/tkCanvPpoly.c
+@@ -575,11 +575,12 @@ CoordsForPolygonline(
+     Tcl_Interp *interp,
+     Tk_PathCanvas canvas,
+     int closed,				/* Polyline (0) or polygon (1) */
+-    int objc,
++    int objc_in,
+     Tcl_Obj *const objv[],
+     PathAtom **atomPtrPtr,
+     int *lenPtr)
+ {
++    Tcl_Size objc = objc_in;
+     PathAtom *atomPtr = *atomPtrPtr;
+ 
+     if (objc == 0) {
+@@ -621,12 +622,12 @@ CoordsForPolygonline(
+     }
+     if (objc & 1) {
+         char buf[64 + TCL_INTEGER_SPACE];
+-        sprintf(buf, "wrong # coordinates: expected an even number, got %d", objc);
++        sprintf(buf, "wrong # coordinates: expected an even number, got %d", (int) objc);
+         Tcl_SetResult(interp, buf, TCL_VOLATILE);
+         return TCL_ERROR;
+     } else if (objc < 4) {
+         char buf[64 + TCL_INTEGER_SPACE];
+-        sprintf(buf, "wrong # coordinates: expected at least 4, got %d", objc);
++        sprintf(buf, "wrong # coordinates: expected at least 4, got %d", (int) objc);
+         Tcl_SetResult(interp, buf, TCL_VOLATILE);
+         return TCL_ERROR;
+     } else {
+diff --git a/jni/tkpath/generic/tkCanvPtext.c b/jni/tkpath/generic/tkCanvPtext.c
+index 6d7d48f5..e5dfcf82 100644
+--- a/jni/tkpath/generic/tkCanvPtext.c
++++ b/jni/tkpath/generic/tkCanvPtext.c
+@@ -293,8 +293,9 @@ error:
+ static int
+ ProcessPtextCoords(Tcl_Interp *interp, Tk_PathCanvas canvas,
+     Tk_PathItem *itemPtr,
+-    int objc, Tcl_Obj *const objv[])
++    int objc_in, Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     PtextItem *ptextPtr = (PtextItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -659,7 +660,8 @@ drawptext(Tcl_Interp *interp, PtextItem *ptextPtr, Tcl_Obj *ret, Tcl_Obj *cmdl)
+ {
+     char *utf8, *token, *savep;
+     Tcl_DString ds;
+-    int i, result = TCL_OK;
++    int result = TCL_OK;
++    Tcl_Size i;
+ 
+     savep = Tcl_GetStringFromObj(ptextPtr->utf8Obj, &i);
+     utf8 = (char *) ckalloc((unsigned) i + 1);
+@@ -779,7 +781,7 @@ PtextToPdf(Tcl_Interp *interp, Tk_PathCanvas canvas, Tk_PathItem *itemPtr,
+ 	style.strokeColor = ptextPtr->headerEx.style.strokeColor;
+     }
+     if (objc > 0) {
+-	int retc;
++	Tcl_Size retc;
+ 	Tcl_Obj *gs, *cmd, **retv;
+ 
+ 	gs = TkPathExtGS(&style, NULL);
+diff --git a/jni/tkpath/generic/tkPath.c b/jni/tkpath/generic/tkPath.c
+index ed0e9707..3e3fc8f8 100644
+--- a/jni/tkpath/generic/tkPath.c
++++ b/jni/tkpath/generic/tkPath.c
+@@ -100,7 +100,7 @@ static int
+ GetPathInstruction(Tcl_Interp *interp, Tcl_Obj *const objv[], int index,
+ 		   char *c)
+ {
+-    int len;
++    Tcl_Size len;
+     int result;
+     char *str;
+ 
+@@ -467,8 +467,13 @@ TkPathParseToAtoms(Tcl_Interp *interp, Tcl_Obj *listObjPtr,
+     lastInstr = 'M';	/* If first instruction is missing it defaults to M ? */
+     relative = 0;
+ 
+-    if (Tcl_ListObjGetElements(interp, listObjPtr, lenPtr, &objv) != TCL_OK) {
+-        return TCL_ERROR;
++    {
++        Tcl_Size len;  /* Tcl 9: the length out-param is Tcl_Size, *lenPtr an int */
++
++        if (Tcl_ListObjGetElements(interp, listObjPtr, &len, &objv) != TCL_OK) {
++            return TCL_ERROR;
++        }
++        *lenPtr = (int) len;
+     }
+     len = *lenPtr;
+ 
+@@ -1288,7 +1293,7 @@ TkPathPdf(
+ 	    isLinear = (gradientPtr->type == kPathGradientTypeLinear);
+ 	}
+ 	if (mkextgs != NULL) {
+-	    int retc;
++	    Tcl_Size retc;
+ 	    long gradId, smaskId;
+ 	    char *gradAlpha = NULL;
+ 	    Tcl_Obj *gs, *cmd, **retv;
+@@ -1944,7 +1949,8 @@ PathPdfGradient(
+     long *gradId,
+     TMatrix *tmPtr)
+ {
+-    int retc, code;
++    int code;
++    Tcl_Size retc;
+     Tcl_Obj **retv;
+ 
+     if (tmPtr != NULL) {
+diff --git a/jni/tkpath/generic/tkPathGradient.c b/jni/tkpath/generic/tkPathGradient.c
+index b39605af..31d45792 100644
+--- a/jni/tkpath/generic/tkPathGradient.c
++++ b/jni/tkpath/generic/tkPathGradient.c
+@@ -81,7 +81,8 @@ static int LinTransitionSet(
+     if ((flags & TK_OPTION_NULL_OK) && objEmpty) {
+         valuePtr = NULL;
+     } else {
+-        int i, len;
++        int i;
++        Tcl_Size len;
+         Tcl_Obj **objv;
+ 
+         if (Tcl_ListObjGetElements(interp, valuePtr, &len, &objv) != TCL_OK) {
+@@ -168,7 +169,8 @@ static int RadTransitionSet(
+     if ((flags & TK_OPTION_NULL_OK) && objEmpty) {
+         valuePtr = NULL;
+     } else {
+-        int i, len;
++        int i;
++        Tcl_Size len;
+         Tcl_Obj **objv;
+ 
+         if (Tcl_ListObjGetElements(interp, valuePtr, &len, &objv) != TCL_OK) {
+@@ -301,7 +303,9 @@ StopsSet(
+     int flags)				/* Flags for the option, set Tk_SetOptions. */
+ {
+     char *internalPtr;
+-    int i, nstops, stopLen;
++    int i;
++    Tcl_Size nstops;
++    Tcl_Size stopLen;
+     int objEmpty = 0;
+     Tcl_Obj *valuePtr;
+     double offset, lastOffset, opacity;
+diff --git a/jni/tkpath/generic/tkPathStyle.c b/jni/tkpath/generic/tkPathStyle.c
+index 48a9e8e0..131378cc 100644
+--- a/jni/tkpath/generic/tkPathStyle.c
++++ b/jni/tkpath/generic/tkPathStyle.c
+@@ -60,7 +60,7 @@ int MatrixSetOption(
+                              * internal representation of value should
+                              * be stored, or NULL. */
+     char *list;
+-    int length;
++    Tcl_Size length;
+     Tcl_Obj *valuePtr;
+     TMatrix *newPtr;
+ 
+@@ -137,7 +137,8 @@ Tk_PathDash *
+ TkPathDashNew(Tcl_Interp *interp, Tcl_Obj *dashObjPtr)
+ {
+     Tk_PathDash *dashPtr;
+-    int objc, i;
++    int i;
++    Tcl_Size objc;
+     double value;
+     Tcl_Obj **objv;
+ 
+diff --git a/jni/tkpath/generic/tkPathSurface.c b/jni/tkpath/generic/tkPathSurface.c
+index c49d160c..86ae127a 100644
+--- a/jni/tkpath/generic/tkPathSurface.c
++++ b/jni/tkpath/generic/tkPathSurface.c
+@@ -451,9 +451,10 @@ typedef struct SurfGenericItem {
+ } SurfGenericItem;
+ 
+ static int
+-GetPointCoords(Tcl_Interp *interp, double *pointPtr, int objc,
++GetPointCoords(Tcl_Interp *interp, double *pointPtr, int objc_in,
+ 	       Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     if ((objc == 1) || (objc == 2)) {
+ 	double x, y;
+ 
+@@ -482,9 +483,10 @@ GetPointCoords(Tcl_Interp *interp, double *pointPtr, int objc,
+ }
+ 
+ static int
+-GetTwoPointsCoords(Tcl_Interp *interp, double *pointsPtr, int objc,
++GetTwoPointsCoords(Tcl_Interp *interp, double *pointsPtr, int objc_in,
+ 		   Tcl_Obj *const objv[])
+ {
++    Tcl_Size objc = objc_in;
+     if ((objc == 1) || (objc == 4)) {
+ 	double x1, y1, x2, y2;
+ 
+@@ -517,9 +519,10 @@ GetTwoPointsCoords(Tcl_Interp *interp, double *pointsPtr, int objc,
+ }
+ 
+ static int
+-MakePolyAtoms(Tcl_Interp *interp, int closed, int objc, Tcl_Obj *const objv[],
++MakePolyAtoms(Tcl_Interp *interp, int closed, int objc_in, Tcl_Obj *const objv[],
+ 	      PathAtom **atomPtrPtr)
+ {
++    Tcl_Size objc = objc_in;
+     PathAtom *atomPtr = NULL;
+ 
+     if (objc == 1) {
+diff --git a/jni/tkpath/generic/tkPathUtil.c b/jni/tkpath/generic/tkPathUtil.c
+index 3b40db22..0a8681fd 100644
+--- a/jni/tkpath/generic/tkPathUtil.c
++++ b/jni/tkpath/generic/tkPathUtil.c
+@@ -802,7 +802,9 @@ PathGetTMatrix(
+ {
+     const char **argv = NULL;
+     const char **rowArgv = NULL;
+-    int i, j, argc, rowArgc;
++    int i, j;
++    Tcl_Size argc;
++    Tcl_Size rowArgc;
+     int result = TCL_OK;
+     double tmp[3][2];
+ 
+@@ -1135,7 +1137,7 @@ int
+ ObjectIsEmpty(
+         Tcl_Obj *objPtr)	/* Object to test.  May be NULL. */
+ {
+-    int length;
++    Tcl_Size length;
+ 
+     if (objPtr == NULL) {
+         return 1;
+diff --git a/jni/tkpath/generic/tkpCanvArc.c b/jni/tkpath/generic/tkpCanvArc.c
+index 1b397394..46a44333 100644
+--- a/jni/tkpath/generic/tkpCanvArc.c
++++ b/jni/tkpath/generic/tkpCanvArc.c
+@@ -406,9 +406,10 @@ ArcCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     ArcItem *arcPtr = (ArcItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -431,7 +432,7 @@ ArcCoords(
+ 	    } else if (objc != 4) {
+ 		char buf[64 + TCL_INTEGER_SPACE];
+ 
+-		sprintf(buf, "wrong # coordinates: expected 4, got %d", objc);
++		sprintf(buf, "wrong # coordinates: expected 4, got %d", (int) objc);
+ 		Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 		return TCL_ERROR;
+ 	    }
+@@ -450,7 +451,7 @@ ArcCoords(
+     } else {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 4, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 4, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/tkpath/generic/tkpCanvBmap.c b/jni/tkpath/generic/tkpCanvBmap.c
+index 686f7a87..f125f715 100644
+--- a/jni/tkpath/generic/tkpCanvBmap.c
++++ b/jni/tkpath/generic/tkpCanvBmap.c
+@@ -284,9 +284,10 @@ BitmapCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     BitmapItem *bmapPtr = (BitmapItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -305,7 +306,7 @@ BitmapCoords(
+ 	    } else if (objc != 2) {
+ 		char buf[64 + TCL_INTEGER_SPACE];
+ 
+-		sprintf(buf, "wrong # coordinates: expected 2, got %d", objc);
++		sprintf(buf, "wrong # coordinates: expected 2, got %d", (int) objc);
+ 		Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 		return TCL_ERROR;
+ 	    }
+@@ -320,7 +321,7 @@ BitmapCoords(
+     } else {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/tkpath/generic/tkpCanvImg.c b/jni/tkpath/generic/tkpCanvImg.c
+index d8dcca3a..07e660cd 100644
+--- a/jni/tkpath/generic/tkpCanvImg.c
++++ b/jni/tkpath/generic/tkpCanvImg.c
+@@ -268,9 +268,10 @@ ImageCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     ImageItem *imgPtr = (ImageItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -289,7 +290,7 @@ ImageCoords(
+ 	    } else if (objc != 2) {
+ 		char buf[64];
+ 
+-		sprintf(buf, "wrong # coordinates: expected 2, got %d", objc);
++		sprintf(buf, "wrong # coordinates: expected 2, got %d", (int) objc);
+ 		Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 		return TCL_ERROR;
+ 	    }
+@@ -303,7 +304,7 @@ ImageCoords(
+     } else {
+ 	char buf[64];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/tkpath/generic/tkpCanvLine.c b/jni/tkpath/generic/tkpCanvLine.c
+index 3cd8ad39..8e179500 100644
+--- a/jni/tkpath/generic/tkpCanvLine.c
++++ b/jni/tkpath/generic/tkpCanvLine.c
+@@ -430,9 +430,10 @@ LineCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     LineItem *linePtr = (LineItem *) itemPtr;
+     int i, numPoints;
+     double *coordPtr;
+@@ -470,13 +471,13 @@ LineCoords(
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+ 	sprintf(buf, "wrong # coordinates: expected an even number, got %d",
+-		objc);
++		(int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     } else if (objc < 4) {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected at least 4, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected at least 4, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     } else {
+@@ -1034,7 +1035,8 @@ LineInsert(
+     Tcl_Obj *obj)		/* New coordinates to be inserted. */
+ {
+     LineItem *linePtr = (LineItem *) itemPtr;
+-    int length, objc, i;
++    int length, i;
++    Tcl_Size objc;
+     double *newCoordPtr, *coordPtr;
+     Tk_PathState state = itemPtr->state;
+     Tcl_Obj **objv;
+@@ -1803,7 +1805,7 @@ GetLineIndex(
+     int *indexPtr)		/* Where to store converted index. */
+ {
+     LineItem *linePtr = (LineItem *) itemPtr;
+-    int length;
++    Tcl_Size length;
+     char *string = Tcl_GetStringFromObj(obj, &length);
+ 
+     if (string[0] == 'e') {
+@@ -1947,7 +1949,7 @@ ArrowShapeOptionSetProc(
+                              * be stored, or NULL. */
+     Tcl_Obj *valuePtr;
+     Tcl_Obj **objv;
+-    int objc;
++    Tcl_Size objc;
+     double dvalue;
+ 
+     valuePtr = *value;
+diff --git a/jni/tkpath/generic/tkpCanvPoly.c b/jni/tkpath/generic/tkpCanvPoly.c
+index 879e356a..47fe9952 100644
+--- a/jni/tkpath/generic/tkpCanvPoly.c
++++ b/jni/tkpath/generic/tkpCanvPoly.c
+@@ -400,9 +400,10 @@ PolygonCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     PolygonItem *polyPtr = (PolygonItem *) itemPtr;
+     int i, numPoints;
+ 
+@@ -431,7 +432,7 @@ PolygonCoords(
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+ 	sprintf(buf, "wrong # coordinates: expected an even number, got %d",
+-		objc);
++		(int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     } else {
+@@ -1084,7 +1085,8 @@ PolygonInsert(
+     Tcl_Obj *obj)		/* New coordinates to be inserted. */
+ {
+     PolygonItem *polyPtr = (PolygonItem *) itemPtr;
+-    int length, objc, i;
++    int length, i;
++    Tcl_Size objc;
+     Tcl_Obj **objv;
+     double *newCoordPtr;
+     Tk_PathState state = itemPtr->state;
+@@ -1740,7 +1742,7 @@ GetPolygonIndex(
+     int *indexPtr)		/* Where to store converted index. */
+ {
+     PolygonItem *polyPtr = (PolygonItem *) itemPtr;
+-    int length;
++    Tcl_Size length;
+     char *string = Tcl_GetStringFromObj(obj, &length);
+ 
+     if (string[0] == 'e') {
+diff --git a/jni/tkpath/generic/tkpCanvText.c b/jni/tkpath/generic/tkpCanvText.c
+index 0994e4ee..e0716f07 100644
+--- a/jni/tkpath/generic/tkpCanvText.c
++++ b/jni/tkpath/generic/tkpCanvText.c
+@@ -372,9 +372,10 @@ TextCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     TextItem *textPtr = (TextItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -393,7 +394,7 @@ TextCoords(
+ 	    } else if (objc != 2) {
+ 		char buf[64 + TCL_INTEGER_SPACE];
+ 
+-		sprintf(buf, "wrong # coordinates: expected 2, got %d", objc);
++		sprintf(buf, "wrong # coordinates: expected 2, got %d", (int) objc);
+ 		Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 		return TCL_ERROR;
+ 	    }
+@@ -408,7 +409,7 @@ TextCoords(
+     } else {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+@@ -1033,7 +1034,8 @@ TextInsert(
+     char *string)		/* New characters to be inserted. */
+ {
+     TextItem *textPtr = (TextItem *) itemPtr;
+-    int byteIndex, byteCount, charsAdded;
++    int byteIndex, charsAdded;
++    Tcl_Size byteCount;
+     char *newStr, *text;
+     Tk_PathCanvasTextInfo *textInfoPtr = textPtr->textInfoPtr;
+ 
+@@ -1370,7 +1372,7 @@ GetTextIndex(
+ 				 * index. */
+ {
+     TextItem *textPtr = (TextItem *) itemPtr;
+-    int length;
++    Tcl_Size length;
+     int c;
+     TkPathCanvas *canvasPtr = (TkPathCanvas *) canvas;
+     Tk_PathCanvasTextInfo *textInfoPtr = textPtr->textInfoPtr;
+diff --git a/jni/tkpath/generic/tkpCanvUtil.c b/jni/tkpath/generic/tkpCanvUtil.c
+index ef2cd726..82ae7e33 100644
+--- a/jni/tkpath/generic/tkpCanvUtil.c
++++ b/jni/tkpath/generic/tkpCanvUtil.c
+@@ -631,7 +631,8 @@ TkPathAllocTagsFromObj(
+ 	Tcl_Obj *valuePtr)	/* If NULL we just create an empty Tk_PathTags struct. */
+ {
+     Tk_PathTags *tagsPtr;
+-    int objc, i, len;
++    int i, len;
++    Tcl_Size objc;
+     Tcl_Obj **objv;
+ 
+     if (ObjectIsEmpty(valuePtr)) {
+diff --git a/jni/tkpath/generic/tkpCanvWind.c b/jni/tkpath/generic/tkpCanvWind.c
+index 685e4ace..dd650ed3 100644
+--- a/jni/tkpath/generic/tkpCanvWind.c
++++ b/jni/tkpath/generic/tkpCanvWind.c
+@@ -271,9 +271,10 @@ WinItemCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1, y1, x2, y2, ... */
+ {
++    Tcl_Size objc = objc_in;
+     WindowItem *winItemPtr = (WindowItem *) itemPtr;
+ 
+     if (objc == 0) {
+@@ -291,7 +292,7 @@ WinItemCoords(
+ 	    } else if (objc != 2) {
+ 		char buf[64 + TCL_INTEGER_SPACE];
+ 
+-		sprintf(buf, "wrong # coordinates: expected 2, got %d", objc);
++		sprintf(buf, "wrong # coordinates: expected 2, got %d", (int) objc);
+ 		Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 		return TCL_ERROR;
+ 	    }
+@@ -305,7 +306,7 @@ WinItemCoords(
+     } else {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 2, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/tkpath/generic/tkpCanvas.c b/jni/tkpath/generic/tkpCanvas.c
+index 119d181c..21f09a57 100644
+--- a/jni/tkpath/generic/tkpCanvas.c
++++ b/jni/tkpath/generic/tkpCanvas.c
+@@ -1087,7 +1087,7 @@ CanvasWidgetCmd(
+ 	Tk_PathItemType *matchPtr = NULL;
+ 	Tk_PathItem *itemPtr;
+ 	char *arg;
+-	int length;
++	Tcl_Size length;
+ 
+ 	if (objc < 3) {
+ 	    Tcl_WrongNumArgs(interp, 2, objv, "type coords ?arg arg ...?");
+@@ -2343,7 +2343,7 @@ ConfigureCanvas(
+ 	canvasPtr->scrollX2 = 0;
+ 	canvasPtr->scrollY2 = 0;
+ 	if (canvasPtr->regionString != NULL) {
+-	    int argc2;
++	    Tcl_Size argc2;
+ 	    const char **argv2;
+ 
+ 	    if (Tcl_SplitList(canvasPtr->interp, canvasPtr->regionString,
+diff --git a/jni/tkpath/generic/tkpRectOval.c b/jni/tkpath/generic/tkpRectOval.c
+index da80bb1d..bfd34a98 100644
+--- a/jni/tkpath/generic/tkpRectOval.c
++++ b/jni/tkpath/generic/tkpRectOval.c
+@@ -373,9 +373,10 @@ RectOvalCoords(
+     Tk_PathCanvas canvas,	/* Canvas containing item. */
+     Tk_PathItem *itemPtr,	/* Item whose coordinates are to be read or
+ 				 * modified. */
+-    int objc,			/* Number of coordinates supplied in objv. */
++    int objc_in,			/* Number of coordinates supplied in objv. */
+     Tcl_Obj *const objv[])	/* Array of coordinates: x1,y1,x2,y2,... */
+ {
++    Tcl_Size objc = objc_in;
+     RectOvalItem *rectOvalPtr = (RectOvalItem *) itemPtr;
+ 
+     /*
+@@ -415,7 +416,7 @@ RectOvalCoords(
+     if (objc != 4) {
+ 	char buf[64 + TCL_INTEGER_SPACE];
+ 
+-	sprintf(buf, "wrong # coordinates: expected 0 or 4, got %d", objc);
++	sprintf(buf, "wrong # coordinates: expected 0 or 4, got %d", (int) objc);
+ 	Tcl_SetResult(interp, buf, TCL_VOLATILE);
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/tkpsvg/generic/tkImgPSVG.c b/jni/tkpsvg/generic/tkImgPSVG.c
+index 16c3afb7..3f33b7b2 100644
+--- a/jni/tkpsvg/generic/tkImgPSVG.c
++++ b/jni/tkpsvg/generic/tkImgPSVG.c
+@@ -189,7 +189,7 @@ FileMatchSVG(
+     int *widthPtr, int *heightPtr,
+     Tcl_Interp *interp)
+ {
+-    int length;
++    Tcl_Size length;
+     Tcl_Obj *dataObj = Tcl_NewObj();
+     const char *data;
+     RastOpts ropts;
+@@ -260,7 +260,7 @@ FileReadSVG(
+     int width, int height,
+     int srcX, int srcY)
+ {
+-    int length;
++    Tcl_Size length;
+     const char *data;
+     RastOpts ropts;
+     plutosvg_document_t *psvgDoc =
+@@ -314,7 +314,8 @@ StringMatchSVG(
+     int *widthPtr, int *heightPtr,
+     Tcl_Interp *interp)
+ {
+-    int length, testLength;
++    int testLength;
++    Tcl_Size length;
+     const char *data;
+     RastOpts ropts;
+     plutosvg_document_t *psvgDoc;
+@@ -370,7 +371,7 @@ StringReadSVG(
+     int width, int height,
+     int srcX, int srcY)
+ {
+-    int length;
++    Tcl_Size length;
+     const char *data;
+     RastOpts ropts;
+     plutosvg_document_t *psvgDoc =
+@@ -412,7 +413,7 @@ ParseSVGWithOptions(
+     RastOpts *ropts)
+ {
+     Tcl_Obj **objv = NULL;
+-    int objc = 0;
++    Tcl_Size objc = 0;
+     plutosvg_document_t *psvgDoc;
+     int parameterScaleSeen = 0;
+     static const char *const fmtOptions[] = {
+@@ -732,7 +733,7 @@ CacheSVG(
+     plutosvg_document_t *psvgDoc,
+     RastOpts *ropts)
+ {
+-    int length;
++    Tcl_Size length;
+     const char *data;
+     PSVGcache *cachePtr = GetCachePtr(interp);
+ 
+@@ -773,7 +774,7 @@ GetCachedSVG(
+     Tcl_Obj *formatObj,
+     RastOpts *ropts)
+ {
+-    int length;
++    Tcl_Size length;
+     const char *data;
+     PSVGcache *cachePtr = GetCachePtr(interp);
+     plutosvg_document_t *psvgDoc = NULL;
+@@ -931,7 +932,8 @@ RenderObjCmd(
+ {
+     char *input;
+     plutosvg_document_t *psvgDoc = NULL;
+-    int i, length, parameterScaleSeen = 0;
++    int i, parameterScaleSeen = 0;
++    Tcl_Size length;
+     static const char *const rendOptions[] = {
+ 	"-scale", "-scaletoheight", "-scaletowidth", NULL
+     };
+diff --git a/jni/tktable/generic/tkTable.c b/jni/tktable/generic/tkTable.c
+index e531b493..68099196 100644
+--- a/jni/tktable/generic/tkTable.c
++++ b/jni/tktable/generic/tkTable.c
+@@ -3628,7 +3628,8 @@ TableFetchSelection(
+     char *value, *data, *rowsep = tablePtr->rowSep, *colsep = tablePtr->colSep;
+     Tcl_HashEntry *entryPtr;
+     Tcl_HashSearch search;
+-    int length, count, lastrow=0, needcs=0, r, c, listArgc, rslen=0, cslen=0;
++    int length, count, lastrow=0, needcs=0, r, c, rslen=0, cslen=0;
++    Tcl_Size listArgc;
+     int numcols, numrows, code;
+     const char **listArgv;
+ 
+@@ -4058,18 +4059,18 @@ Tktable_Init(Tcl_Interp *interp)
+ 
+     if (
+ #ifdef USE_TCL_STUBS
+-	Tcl_InitStubs(interp, "8.5", 0)
++	Tcl_InitStubs(interp, "8.5-", 0)
+ #else
+-	Tcl_PkgRequire(interp, "Tcl", "8.5", 0)
++	Tcl_PkgRequire(interp, "Tcl", "8.5-", 0)
+ #endif
+ 	== NULL) {
+ 	return TCL_ERROR;
+     }
+     if (
+ #ifdef USE_TK_STUBS
+-	Tk_InitStubs(interp, "8.5", 0)
++	Tk_InitStubs(interp, "8.5-", 0)
+ #else
+-	Tcl_PkgRequire(interp, "Tk", "8.0", 0)
++	Tcl_PkgRequire(interp, "Tk", "8.0-", 0)
+ #endif
+ 	== NULL) {
+ 	return TCL_ERROR;
+diff --git a/jni/tktable/generic/tkTableCell.c b/jni/tktable/generic/tkTableCell.c
+index 25a6e648..bf9c6190 100644
+--- a/jni/tktable/generic/tkTableCell.c
++++ b/jni/tktable/generic/tkTableCell.c
+@@ -930,7 +930,8 @@ Table_SetCmd(ClientData clientData, Tcl_Interp *interp,
+ 	     int objc, Tcl_Obj *const objv[])
+ {
+     Table *tablePtr = (Table *)clientData;
+-    int row, col, len, i, j, max;
++    int row, col, i, j, max;
++    Tcl_Size len;
+     char *str;
+ 
+     /* sets any number of tags/indices to a given value */
+@@ -976,7 +977,7 @@ Table_SetCmd(ClientData clientData, Tcl_Interp *interp,
+ 	    }
+ 	    Tcl_SetObjResult(interp, resultPtr);
+ 	} else if (tablePtr->state == STATE_NORMAL) {
+-	    int listc;
++	    Tcl_Size listc;
+ 	    Tcl_Obj **listv;
+ 	    /* make sure there are an even number of index/list pairs */
+ 	    if (objc & 0) {
+diff --git a/jni/tktable/generic/tkTableCellSort.c b/jni/tktable/generic/tkTableCellSort.c
+index 9c2b6f23..e71c2286 100644
+--- a/jni/tktable/generic/tkTableCellSort.c
++++ b/jni/tktable/generic/tkTableCellSort.c
+@@ -96,7 +96,7 @@ TableSortCompareProc(
+ char *
+ TableCellSort(Table *tablePtr, char *str)
+ {
+-    int listArgc;
++    Tcl_Size listArgc;
+     const char **listArgv;
+     char *result;
+ 
+@@ -368,7 +368,8 @@ MergeSort(
+ Tcl_Obj *
+ TableCellSortObj(Tcl_Interp *interp, Tcl_Obj *listObjPtr)
+ {
+-    int length, i;
++    int i;
++    Tcl_Size length;
+     Tcl_Obj *sortedObjPtr, **listObjPtrs;
+     SortElement *elementArray;
+     SortElement *elementPtr;
+diff --git a/jni/tktable/generic/tkTableCmds.c b/jni/tktable/generic/tkTableCmds.c
+index 18711ea2..786076b2 100644
+--- a/jni/tktable/generic/tkTableCmds.c
++++ b/jni/tktable/generic/tkTableCmds.c
+@@ -35,7 +35,8 @@ Table_ActivateCmd(ClientData clientData, Tcl_Interp *interp,
+ {
+     Table *tablePtr = (Table *) clientData;
+     int result = TCL_OK;
+-    int row, col, templen;
++    int row, col;
++    Tcl_Size templen;
+ 
+     if (objc != 3) {
+ 	Tcl_WrongNumArgs(interp, 2, objv, "index");
+@@ -346,7 +347,8 @@ Table_BorderCmd(ClientData clientData, Tcl_Interp *interp,
+ {
+     Table *tablePtr = (Table *) clientData;
+     Tcl_HashEntry *entryPtr;
+-    int x, y, w, h, row, col, key, dummy, value, cmdIndex;
++    int x, y, h, row, col, key, dummy, value, cmdIndex;
++    Tcl_Size w;
+     char *rc = NULL;
+     Tcl_Obj *objPtr, *resultPtr;
+ 
+@@ -727,7 +729,7 @@ Table_CurvalueCmd(ClientData clientData, Tcl_Interp *interp,
+ 
+     if (objc == 3) {
+ 	char *value;
+-	int len;
++	Tcl_Size len;
+ 
+ 	value = Tcl_GetStringFromObj(objv[2], &len);
+ 	if (STREQ(value, tablePtr->activeBuf)) {
+diff --git a/jni/tktable/generic/tkTableTag.c b/jni/tktable/generic/tkTableTag.c
+index fd6d4471..ee2a3c15 100644
+--- a/jni/tktable/generic/tkTableTag.c
++++ b/jni/tktable/generic/tkTableTag.c
+@@ -658,7 +658,8 @@ Table_TagCmd(ClientData clientData, Tcl_Interp *interp,
+ 	    int objc, Tcl_Obj *const objv[])
+ {
+     Table *tablePtr = (Table *)clientData;
+-    int result = TCL_OK, cmdIndex, i, newEntry, value, len;
++    int result = TCL_OK, cmdIndex, i, newEntry, value;
++    Tcl_Size len;
+     int row, col, tagPrio, refresh = 0;
+     TableTag *tagPtr, *tag2Ptr;
+     Tcl_HashEntry *entryPtr, *scanPtr;
+diff --git a/jni/tktable/generic/tkTableUtil.c b/jni/tktable/generic/tkTableUtil.c
+index 574d7d2e..42489c5f 100644
+--- a/jni/tktable/generic/tkTableUtil.c
++++ b/jni/tktable/generic/tkTableUtil.c
+@@ -79,7 +79,7 @@ TableOptionBdSet(
+     int *bordersPtr, *bdPtr;
+     int type	= PTR2INT(clientData);
+     int result	= TCL_OK;
+-    int argc;
++    Tcl_Size argc;
+     const char **argv;
+ 
+     if ((type == BD_TABLE) && (value[0] == '\0')) {
+@@ -211,7 +211,8 @@ int
+ TableTagConfigureBd(Table *tablePtr, TableTag *tagPtr,
+ 	char *oldValue, int nullOK)
+ {
+-    int i, argc, result = TCL_OK;
++    int i, result = TCL_OK;
++    Tcl_Size argc;
+     const char **argv;
+ 
+     /*
+diff --git a/jni/tktreectrl/shellicon/shellicon.c b/jni/tktreectrl/shellicon/shellicon.c
+index 9fbb2630..893f3f46 100644
+--- a/jni/tktreectrl/shellicon/shellicon.c
++++ b/jni/tktreectrl/shellicon/shellicon.c
+@@ -729,12 +729,12 @@ DLLEXPORT int Shellicon_Init(Tcl_Interp *interp)
+ #endif
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.4", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.4-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.4", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.4-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/tkvnc/tkvnc.c b/jni/tkvnc/tkvnc.c
+index 8420250e..49af9d7d 100644
+--- a/jni/tkvnc/tkvnc.c
++++ b/jni/tkvnc/tkvnc.c
+@@ -2346,7 +2346,7 @@ Vnc_Init(
+     Tk_Window mainwin;
+ 
+ #ifdef USE_TCL_STUBS
+-    if (!Tcl_InitStubs(interp, "8.0", 0)) {
++    if (!Tcl_InitStubs(interp, "8.0-", 0)) {
+ 	return TCL_ERROR;
+     }
+ #else
+@@ -2355,7 +2355,7 @@ Vnc_Init(
+     }
+ #endif
+ #ifdef USE_TK_STUBS
+-    if (!Tk_InitStubs(interp, "8.0", 0)) {
++    if (!Tk_InitStubs(interp, "8.0-", 0)) {
+ 	return TCL_ERROR;
+     }
+ #else
+diff --git a/jni/tkzinc/generic/Attrs.c b/jni/tkzinc/generic/Attrs.c
+index 8b398ebe..0fdd1c82 100644
+--- a/jni/tkzinc/generic/Attrs.c
++++ b/jni/tkzinc/generic/Attrs.c
+@@ -168,7 +168,8 @@ ZnGetBorder(ZnWInfo     *wi,
+             ZnBorder    *border)
+ {
+   unsigned int len;
+-  int          j, largc;
++  int j;
++  Tcl_Size largc;
+   Tcl_Obj      **largv;
+   char         *str;
+ 
+diff --git a/jni/tkzinc/generic/Item.c b/jni/tkzinc/generic/Item.c
+index bacaf720..e3c3551e 100644
+--- a/jni/tkzinc/generic/Item.c
++++ b/jni/tkzinc/generic/Item.c
+@@ -347,11 +347,12 @@ ZnConfigureAttributes(ZnWInfo           *wi,
+       {
+         ZnList   new_grad_list = NULL;
+         ZnGradient       **grads;
+-        unsigned int num_grads, j, k;
++        unsigned int j, k;
++        Tcl_Size num_grads;
+         Tcl_Obj  **elems;
+ 
+         if (Tcl_ListObjGetElements(wi->interp, args[i+1],
+-                                   (int *) &num_grads, &elems) == TCL_ERROR) {
++                                   &num_grads, &elems) == TCL_ERROR) {
+           Tcl_AppendResult(wi->interp,
+                            " gradient list expected for attribute \"",
+                            Tcl_GetString(args[i]), "\"", NULL);
+@@ -464,12 +465,13 @@ ZnConfigureAttributes(ZnWInfo           *wi,
+       {
+         ZnList   new_pat_list = NULL;
+         ZnImage  *pats;
+-        unsigned int num_pats, j, k;
++        unsigned int j, k;
++        Tcl_Size num_pats;
+         Tcl_Obj  **elems;
+         ZnBool   is_bmap = True;
+ 
+         if (Tcl_ListObjGetElements(wi->interp, args[i+1],
+-                                   (int *) &num_pats, &elems) == TCL_ERROR) {
++                                   &num_pats, &elems) == TCL_ERROR) {
+           Tcl_AppendResult(wi->interp,
+                            " pattern list expected for attribute \"",
+                            Tcl_GetString(args[i]), "\"", NULL);
+@@ -524,7 +526,8 @@ ZnConfigureAttributes(ZnWInfo           *wi,
+       }
+     case ZN_CONFIG_TAG_LIST:
+       {
+-        int             num_tags, j;
++        int j;
++        Tcl_Size num_tags;
+         Tcl_Obj **elems;
+ 
+         if (Tcl_ListObjGetElements(wi->interp, args[i+1],
+@@ -701,7 +704,7 @@ ZnConfigureAttributes(ZnWInfo           *wi,
+     case ZN_CONFIG_POINT:
+       {
+         ZnPoint point;
+-        int             largc;
++        Tcl_Size largc;
+         Tcl_Obj **largv;
+         double  d;
+ 
+diff --git a/jni/tkzinc/generic/PostScript.c b/jni/tkzinc/generic/PostScript.c
+index ba9b05bf..3201c98b 100644
+--- a/jni/tkzinc/generic/PostScript.c
++++ b/jni/tkzinc/generic/PostScript.c
+@@ -300,7 +300,7 @@ ZnPostScriptCmd(ZnWInfo        *wi,
+   ps_info.prolog = 1;
+   Tcl_InitHashTable(&ps_info.fontTable, TCL_STRING_KEYS);
+   result = Tk_ConfigureWidget(wi->interp, wi->win, config_specs,
+-                              argc-2, (CONST char **) argv+2,
++                              argc-2, (Tcl_Obj *const *) argv+2,  /* TK_CONFIG_OBJS: these are objs */
+                               (char *) &ps_info,
+                               TK_CONFIG_ARGV_ONLY|TK_CONFIG_OBJS);
+   if (result != TCL_OK) {
+diff --git a/jni/tkzinc/generic/tkZinc.c b/jni/tkzinc/generic/tkZinc.c
+index 9194ef28..28cfa475 100644
+--- a/jni/tkzinc/generic/tkZinc.c
++++ b/jni/tkzinc/generic/tkZinc.c
+@@ -3636,9 +3636,11 @@ ZnParseCoordList(ZnWInfo        *wi,
+                  ZnBool         *old_format)
+ {
+   Tcl_Obj       **elems, **selems;
+-  int           i, result, num_elems, num_selems;
++  int           i, result;
++  Tcl_Size      num_elems, num_selems;
+   ZnPoint       *p;
+-  int           old_style, len;
++  int old_style;
++  Tcl_Size len;
+   char          *str;
+   double        d;
+ 
+@@ -7136,7 +7138,7 @@ Configure(Tcl_Interp            *interp,/* Used for error reporting. */
+       wi->scroll_xo = wi->scroll_yo = 0;
+       wi->scroll_xc = wi->scroll_yc = 0;
+       if (wi->region != NULL) {
+-        int      argc2;
++        Tcl_Size argc2;
+         Tcl_Obj **args2;
+ 
+         if (Tcl_ListObjGetElements(interp, wi->region, &argc2, &args2) != TCL_OK) {
+@@ -9622,9 +9624,9 @@ Tkzinc_Init(Tcl_Interp *interp) /* Used for error reporting. */
+ #ifndef PTK
+   if (
+ # ifdef USE_TCL_STUBS
+-      Tcl_InitStubs(interp, "8.5", 0)
++      Tcl_InitStubs(interp, "8.5-", 0)
+ # else
+-      Tcl_PkgRequire(interp, "Tcl", "8.5", 0)
++      Tcl_PkgRequire(interp, "Tcl", "8.5-", 0)
+ # endif
+       == NULL) {
+     return TCL_ERROR;
+@@ -9632,9 +9634,9 @@ Tkzinc_Init(Tcl_Interp *interp) /* Used for error reporting. */
+ 
+   if (
+ # ifdef USE_TK_STUBS
+-      Tk_InitStubs(interp, "8.5", 0)
++      Tk_InitStubs(interp, "8.5-", 0)
+ # else
+-      Tcl_PkgRequire(interp, "Tk", "8.5", 0)
++      Tcl_PkgRequire(interp, "Tk", "8.5-", 0)
+ # endif
+       == NULL) {
+     return TCL_ERROR;
+diff --git a/jni/tls/tls.c b/jni/tls/tls.c
+index afdb4620..dde0b0b1 100644
+--- a/jni/tls/tls.c
++++ b/jni/tls/tls.c
+@@ -2270,9 +2270,9 @@ Tls_Init(Tcl_Interp *interp)		/* Interpreter in which the package is
+ {
+     if (
+ #ifdef USE_TCL_STUBS
+-	Tcl_InitStubs(interp, "8.5", 0)
++	Tcl_InitStubs(interp, "8.5-", 0)
+ #else
+-	Tcl_PkgRequire(interp, "Tcl", "8.5", 0)
++	Tcl_PkgRequire(interp, "Tcl", "8.5-", 0)
+ #endif
+ 	== NULL) {
+ 	return TCL_ERROR;
+diff --git a/jni/topcua/topcua.c b/jni/topcua/topcua.c
+index 712c3b5f..65199f9c 100644
+--- a/jni/topcua/topcua.c
++++ b/jni/topcua/topcua.c
+@@ -23195,11 +23195,11 @@ Topcua_Init(Tcl_Interp *interp)
+     };
+ 
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+ 	return TCL_ERROR;
+     }
+ #endif
+diff --git a/jni/trf/generic/init.c b/jni/trf/generic/init.c
+index ea7edaef..16240de5 100644
+--- a/jni/trf/generic/init.c
++++ b/jni/trf/generic/init.c
+@@ -61,7 +61,7 @@ Tcl_Interp* interp;
+ #ifdef USE_TCL_STUBS
+   const char* actualVersion;
+ 
+-  actualVersion = Tcl_InitStubs(interp, "8.1", 0);
++  actualVersion = Tcl_InitStubs(interp, "8.1-", 0);
+   if (actualVersion == NULL) {
+     return TCL_ERROR;
+   }
+diff --git a/jni/trofs/generic/trofs.c b/jni/trofs/generic/trofs.c
+index e27b2830..2b8f9e5c 100644
+--- a/jni/trofs/generic/trofs.c
++++ b/jni/trofs/generic/trofs.c
+@@ -680,7 +680,8 @@ GetDirIndexFromArchive(TrofsPath *tpPtr) {
+     Tcl_Obj *archivePtr = NULL;
+     Tcl_Channel archiveChan = NULL;
+     Mount *mountPtr = tpPtr->mountPtr;
+-    int numBytes, toRead = (int) tpPtr->size;
++    int toRead = (int) tpPtr->size;
++    Tcl_Size numBytes;
+     const char *bytes;
+     Tcl_Encoding encoding;
+     Tcl_DString ds;
+@@ -815,7 +816,8 @@ CacheRootDirOfMountPoint(Mount *mountPtr) {
+ 
+ static int
+ PathInFilesystem(Tcl_Obj *pathPtr, ClientData *clientDataPtr) {
+-    int elemCount, result = -1;
++    int result = -1;
++    Tcl_Size elemCount;
+     int checkMounts = 1;
+     Tcl_Obj *normPathPtr, *pathElements, *parentPathPtr = NULL;
+     Tcl_Obj *tail = NULL;
+@@ -866,7 +868,7 @@ PathInFilesystem(Tcl_Obj *pathPtr, ClientData *clientDataPtr) {
+ 	/* Neither path nor parent is known to us (yet)
+ 	 * Check if the path has a mount as a prefix. */
+ 	Mount *mountPtr;
+-	int normPathLen;
++	Tcl_Size normPathLen;
+ 	const char *normPath = Tcl_GetStringFromObj(normPathPtr, &normPathLen);
+ 
+ 	for (mountPtr = trofsMountList; mountPtr != NULL;
+@@ -1109,8 +1111,9 @@ InternalToNormalized(ClientData clientData) {
+  */
+ 
+ static int
+-NormalizePath(Tcl_Interp *interp, Tcl_Obj *pathPtr, int nextCheckPoint) {
+-    int pathLen;
++NormalizePath(Tcl_Interp *interp, Tcl_Obj *pathPtr, int nextCheckPoint_in) {
++    Tcl_Size nextCheckPoint = nextCheckPoint_in;
++    Tcl_Size pathLen;
+     char *path = Tcl_GetStringFromObj(pathPtr, &pathLen);
+ 
+     CREW_ReadHold(&trofsMountLock);
+@@ -1751,7 +1754,8 @@ done:
+ static int
+ MatchInDirectory(	Tcl_Interp *interp, Tcl_Obj *result, Tcl_Obj *pathPtr,
+ 			const char *pattern, Tcl_GlobTypeData *types) {
+-    int i, objc, code = TCL_ERROR;
++    int i, code = TCL_ERROR;
++    Tcl_Size objc;
+     Tcl_Obj *candidates, **objv;
+     TrofsPath *tpPtr;
+ 
+@@ -2251,7 +2255,7 @@ DriverHandler(ClientData instanceData, int interestMask) {
+ static int
+ VerifyTrofsArchive(	Tcl_Interp *interp, Tcl_Obj *archive, Tcl_Channel chan,
+ 			Tcl_WideInt *offsetPtr, int *indexSizePtr) {
+-    int numBytes, code = TCL_ERROR;
++    Tcl_Size numBytes; int code = TCL_ERROR;
+     Tcl_Obj *signature = NULL;
+     Tcl_WideInt offset = Tcl_Seek(chan, (Tcl_WideInt)-12, SEEK_END);
+     unsigned char *bytes;
+@@ -2345,7 +2349,8 @@ MountObjCmd(	ClientData clientData, Tcl_Interp *interp,
+     Tcl_Obj *archive, *mountPoint;
+     Tcl_Channel chan;
+     Tcl_WideInt headerOffset = (Tcl_WideInt) 0;
+-    int indexSize = 0, numBytes, code;
++    int indexSize = 0, code;
++    Tcl_Size numBytes;
+     const char *path, *prefix = "could not mount";
+     char *buffer;
+     Mount *mountPtr;
+@@ -2380,7 +2385,7 @@ MountObjCmd(	ClientData clientData, Tcl_Interp *interp,
+ 
+     /* Check mountpoint */
+     if (3 == objc) {
+-	int length;
++	Tcl_Size length;
+ 
+ 	mountPoint = objv[2];
+ 	Tcl_GetStringFromObj(mountPoint, &length);
+@@ -2576,7 +2581,7 @@ Unmount(const char *path, int numBytes) {
+ static int
+ UnmountObjCmd(	ClientData clientData, Tcl_Interp *interp,
+ 		int objc, Tcl_Obj *const objv[]) {
+-    int numBytes;
++    Tcl_Size numBytes;
+     const char *path;
+ 
+     if (objc != 2) {
+diff --git a/jni/vu/generic/pkgInit.c b/jni/vu/generic/pkgInit.c
+index 7b4909b2..0ad32d9d 100644
+--- a/jni/vu/generic/pkgInit.c
++++ b/jni/vu/generic/pkgInit.c
+@@ -33,18 +33,18 @@ Vu_Init(Tcl_Interp *interp)
+ 
+     if (
+ #ifdef USE_TCL_STUBS
+-	Tcl_InitStubs(interp, "8.5", 0)
++	Tcl_InitStubs(interp, "8.5-", 0)
+ #else
+-	Tcl_PkgRequire(interp, "Tcl", "8.5", 0)
++	Tcl_PkgRequire(interp, "Tcl", "8.5-", 0)
+ #endif
+ 	== NULL) {
+ 	return TCL_ERROR;
+     }
+     if (
+ #ifdef USE_TK_STUBS
+-	Tk_InitStubs(interp, "8.5", 0)
++	Tk_InitStubs(interp, "8.5-", 0)
+ #else
+-	Tcl_PkgRequire(interp, "Tk", "8.5", 0)
++	Tcl_PkgRequire(interp, "Tk", "8.5-", 0)
+ #endif
+ 	== NULL) {
+ 	return TCL_ERROR;
+diff --git a/jni/vu/generic/tkBargraph.c b/jni/vu/generic/tkBargraph.c
+index ef8e8dbe..468fa389 100644
+--- a/jni/vu/generic/tkBargraph.c
++++ b/jni/vu/generic/tkBargraph.c
+@@ -148,7 +148,7 @@ typedef struct {
+     Tk_Font Atkfont;		/* alabel text font, or NULL. */
+     GC alabGC;			/* GC for drawing alabels. */
+     char *alabelstr;		/* The "a" complex labels, as a string */
+-    int n_alabels;		/* number of "a" complex labels */
++    Tcl_Size n_alabels;	/* number of "a" complex labels */
+     char **alabels;		/* The "a" complex labels, as a list. */
+     int alabelPixels;		/* Number of pixels required for
+ 				 * widest alabel  */
+@@ -158,7 +158,7 @@ typedef struct {
+     Tk_Font Btkfont;		/* blabel text font, or NULL. */
+     GC blabGC;			/* GC for drawing blabels. */
+     char *blabelstr;		/* The "b" complex labels, as a string */
+-    int n_blabels;		/* number of "b" complex labels */
++    Tcl_Size n_blabels;	/* number of "b" complex labels */
+     char **blabels;		/* The "b" complex labels, as a list. */
+     int blabelPixels;		/* Number of pixels required for
+ 				 * widest blabel */
+@@ -852,7 +852,7 @@ ComputeBargraphGeometry(
+     Tk_FontMetrics fm, afm, bfm;
+     char *s;
+     const char **elt;
+-    int nelt;
++    Tcl_Size nelt;
+     Tcl_Interp *interp = bgPtr->interp;
+ 
+     Tk_GetFontMetrics(bgPtr->tkfont, &fm);
+@@ -1211,7 +1211,8 @@ DisplayAlabels(Bargraph *bgPtr)
+     int boolv, awidth;
+ 
+     const char *s, **elt;
+-    int i, nelt;
++    int i;
++    Tcl_Size nelt;
+     double d;
+     Tcl_Interp *interp = bgPtr->interp;
+     Tk_FontMetrics afm;
+@@ -1280,7 +1281,8 @@ DisplayBlabels(Bargraph *bgPtr)
+     Tk_Window tkwin = bgPtr->tkwin;
+     int boolv, bwidth;
+     const char *s, **elt;
+-    int i, nelt;
++    int i;
++    Tcl_Size nelt;
+     double d;
+     Tcl_Interp *interp = bgPtr->interp;
+     Tk_FontMetrics bfm;
+diff --git a/jni/vu/generic/tkCanvBarchart.c b/jni/vu/generic/tkCanvBarchart.c
+index 5cacdcd2..f9d47921 100644
+--- a/jni/vu/generic/tkCanvBarchart.c
++++ b/jni/vu/generic/tkCanvBarchart.c
+@@ -348,7 +348,7 @@ ConfigureBarchart(
+     Display *display = Tk_Display(Tk_CanvasTkwin(canvas));
+ 
+     if (Tk_ConfigureWidget(interp, tkwin, configSpecs, objc,
+-	    (const char **) objv,
++	    objv,
+ 	    (char *) barPtr, flags|TK_CONFIG_OBJS) != TCL_OK) {
+ 	return TCL_ERROR;
+     }
+@@ -943,7 +943,7 @@ ParseBarchartValues(
+     int offset)                 /* Not used. */
+ {
+     BarchartItem *barPtr = (BarchartItem *) recordPtr;
+-    int argc;
++    Tcl_Size argc;
+     const char **argv = NULL;
+ 
+     if (Tcl_SplitList(interp, value, &argc, &argv) != TCL_OK) {
+diff --git a/jni/vu/generic/tkCanvSticker.c b/jni/vu/generic/tkCanvSticker.c
+index c9f4e81c..3b7f1f3f 100644
+--- a/jni/vu/generic/tkCanvSticker.c
++++ b/jni/vu/generic/tkCanvSticker.c
+@@ -421,7 +421,7 @@ ConfigureSticker(
+ 
+     tkwin = Tk_CanvasTkwin(canvas);
+     if (Tk_ConfigureWidget(interp, tkwin, configSpecs, objc,
+-	    (const char **) objv,
++	    objv,
+ 	    (char *) stickerPtr, flags|TK_CONFIG_OBJS) != TCL_OK) {
+ 	return TCL_ERROR;
+     }
+diff --git a/jni/vu/generic/tkCanvStripchart.c b/jni/vu/generic/tkCanvStripchart.c
+index 6dc3af64..2526d42f 100644
+--- a/jni/vu/generic/tkCanvStripchart.c
++++ b/jni/vu/generic/tkCanvStripchart.c
+@@ -380,7 +380,7 @@ ConfigureStripchart(
+     Display *display = Tk_Display(Tk_CanvasTkwin(canvas));
+ 
+     if (Tk_ConfigureWidget(interp, tkwin, configSpecs, objc,
+-	    (const char **) objv,
++	    objv,
+ 	    (char *) stripPtr, flags|TK_CONFIG_OBJS) != TCL_OK) {
+ 	return TCL_ERROR;
+     }
+@@ -1058,7 +1058,7 @@ ParseStripchartValues(
+     int offset)                 /* Not used. */
+ {
+     StripchartItem *stripPtr = (StripchartItem *) recordPtr;
+-    int argc;
++    Tcl_Size argc;
+     const char **argv = NULL;
+ 
+     if (Tcl_SplitList(interp, value, &argc, &argv) != TCL_OK) {
+diff --git a/jni/vu/generic/tkDial.c b/jni/vu/generic/tkDial.c
+index a3a83491..afab38f4 100644
+--- a/jni/vu/generic/tkDial.c
++++ b/jni/vu/generic/tkDial.c
+@@ -821,7 +821,8 @@ DialWidgetObjCmd(
+ 				 (char *) Tcl_GetHashValue(entryPtr), -1);
+ 	    }
+ 	} else {
+-	    int i, new, len, constrain = 0, startArg = 2;
++	    int i, new, constrain = 0, startArg = 2;
++	    Tcl_Size len;
+ 	    char *str, tagStr[TCL_DOUBLE_SPACE];
+ 
+ 	    str = Tcl_GetStringFromObj(objv[2], &len);
+diff --git a/jni/vu/generic/tkPie.c b/jni/vu/generic/tkPie.c
+index 49bb41c4..54091e4f 100644
+--- a/jni/vu/generic/tkPie.c
++++ b/jni/vu/generic/tkPie.c
+@@ -275,7 +275,7 @@ static int		Pie_RaiseElt(TkPie *piePtr, TkPieElt *eltPtr,
+ 				TkPieElt *aboveThis);
+ static int		ConfigurePieElt(Tcl_Interp *interp,
+ 				TkPie *piePtr, TkPieElt *eltPtr,
+-				int argc, const char **argv, int flags);
++				int objc, Tcl_Obj *const objv[], int flags);
+ 
+ /*
+  * ---------------------------------------------------------------
+@@ -530,17 +530,9 @@ PieWidgetObjCmd(
+ 				      (char *) eltPtr, Tcl_GetString(objv[3]),
+ 				      0);
+ 	} else {
+-	    int i;
+-	    const char **argv;
+-
+-	    argv = (const char **) ckalloc((objc - 3 + 1) * sizeof(char *));
+-	    for (i = 0; i < objc-3; i++) {
+-		argv[i] = Tcl_GetString(objv[i+3]);
+-	    }
+-	    argv[i] = NULL;
+-	    result = ConfigurePieElt(interp, piePtr, eltPtr, objc-3, argv,
++	    /* Tk 9: Tk_ConfigureWidget takes the objs themselves */
++	    result = ConfigurePieElt(interp, piePtr, eltPtr, objc-3, objv+3,
+ 				     new ? 0 : TK_CONFIG_ARGV_ONLY);
+-	    ckfree((char *) argv);
+ 	}
+ 	break;
+     }
+@@ -1588,15 +1580,15 @@ ConfigurePieElt(
+      Tcl_Interp *interp,
+      TkPie *piePtr,
+      TkPieElt *eltPtr,
+-     int argc,
+-     const char **argv,
++     int objc,
++     Tcl_Obj *const objv[],
+      int flags)
+ {
+     double value = eltPtr->value;
+ 
+     /* slice has fg, label, value, explode, && name, gc, prev, next */
+     if (Tk_ConfigureWidget(interp, piePtr->tkwin, pieEltConfig,
+-			   argc, argv, (char *) eltPtr, flags) != TCL_OK)
++			   objc, objv, (char *) eltPtr, flags) != TCL_OK)
+ 	return TCL_ERROR;
+ 
+     if (eltPtr->label == NULL) {
+diff --git a/jni/zint/backend_tcl/zint.c b/jni/zint/backend_tcl/zint.c
+index a04341f4..25fd1102 100644
+--- a/jni/zint/backend_tcl/zint.c
++++ b/jni/zint/backend_tcl/zint.c
+@@ -600,11 +600,11 @@ EXPORT int Zint_Init(Tcl_Interp *interp)
+     int * tkFlagPtr;
+     /*------------------------------------------------------------------------*/
+ #ifdef USE_TCL_STUBS
+-    if (Tcl_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tcl_InitStubs(interp, "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tcl", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tcl", "8.5-", 0) == NULL) {
+         return TCL_ERROR;
+     }
+ #endif
+@@ -727,12 +727,12 @@ static int CheckForTk(Tcl_Interp *interp, int *tkFlagPtr)
+         return TCL_ERROR;
+     }
+ #ifdef USE_TK_STUBS
+-    if (Tk_InitStubs(interp, "8.5", 0) == NULL) {
++    if (Tk_InitStubs(interp, "8.5-", 0) == NULL) {
+         *tkFlagPtr = -1;
+         return TCL_ERROR;
+     }
+ #else
+-    if (Tcl_PkgRequire(interp, "Tk", "8.5", 0) == NULL) {
++    if (Tcl_PkgRequire(interp, "Tk", "8.5-", 0) == NULL) {
+         *tkFlagPtr = -1;
+         return TCL_ERROR;
+     }
+@@ -749,7 +749,7 @@ static int Encode(Tcl_Interp *interp, int usePhoto, int objc,
+     struct zint_symbol *my_symbol;
+     Tcl_DString dsInput;
+     char *pStr = NULL;
+-    int lStr;
++    Tcl_Size lStr;
+     Tcl_Encoding hZINTEncoding;
+     int rotate_angle=0;
+     int fError = 0;
+@@ -1338,7 +1338,7 @@ static int Encode(Tcl_Interp *interp, int usePhoto, int objc,
+                 Tcl_Obj *poParam;
+                 struct zint_structapp structapp = { 0, 0, "" };
+                 char *pStructAppId = NULL;
+-                int lStructAppId = 0;
++                Tcl_Size lStructAppId = 0;
+                 if (TCL_OK != Tcl_ListObjLength(interp,
+                     objv[optionPos+1], &lStr)) {
+                     fError = 1;
+@@ -1519,8 +1519,11 @@ static int Encode(Tcl_Interp *interp, int usePhoto, int objc,
+             if (!fError) {
+                 for (seg_no = 1; seg_no < seg_count; seg_no++) {
+                     if ((my_symbol->input_mode & 0x07) == DATA_MODE) {
++                        Tcl_Size segLen;  /* Tcl 9: Tcl_Size out-param; zint_seg.length is an int */
++
+                         segs[seg_no].source = (unsigned char *) Tcl_GetByteArrayFromObj(pSegDataObjs[seg_no],
+-                            &segs[seg_no].length);
++                            &segLen);
++                        segs[seg_no].length = (int) segLen;
+                         if (segs[seg_no].source == NULL) {
+                             segs[seg_no].source = (unsigned char *) &segs[seg_no].source;
+                             segs[seg_no].length = 0;
