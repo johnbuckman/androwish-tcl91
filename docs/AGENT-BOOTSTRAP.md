@@ -383,11 +383,11 @@ Nothing is broken. Remaining items, none urgent:
    placeholder.
 3. ~~Tcl/Tk 9.1 final~~ — done: 1.0b0 is on 9.1.0 (§12).
 4. **Other ABIs** — arm64-v8a only.
-7. **Packages that don't load on Tcl 9** — see §13. Only Expect still crashes
-   the app (its channel type must be `TCL_CHANNEL_VERSION_5`). Load failures
+7. **Packages that don't load on Tcl 9** — see §13 and §14. None crashes the
+   app any more (Expect was the last). Load failures
    left: nsf/nx/XOTcl, Itcl/Itk, Thread, Tclx, Ffidl, Tix, and what needs them.
 8. **`int*`→`Tcl_Size*` in the rest of the extensions** — over a thousand
-   call sites (snack, BLT, tktreectrl, Tix, Tclx, …). Each one can abort the app
+   call sites (snack, tktreectrl, Tix, Tclx, …; BLT is done, §14). Each one can abort the app
    with `stack corruption detected`. `scripts/fix_tclsize.py` does most of a
    module from clang's output (§13).
 9. **Tktable** — disabled; 2.11 uses the string `Tk_ConfigureWidget`. Port 2.12.
@@ -554,3 +554,73 @@ crashed), Tk 6,961 / 160.
 Most remaining test failures are the device, not the port: no `tclsh` to
 `exec`, no network for http, shared storage for fCmd, `info frame` depth, and
 standard channels that are `none`.
+
+---
+
+## 14. BLT and Expect on Tcl 9 (after 1.0b1, not yet released)
+
+1.0b1's BLT loaded and drew an empty graph, but adding an element, closing a
+graph, or `blt::table` crashed the app. Three separate bugs, plus one in the
+port's own label cache. All in `patches/build-tree/blt-tcl9.diff`.
+
+1. **Tcl 9 dropped `_ANSI_ARGS_`, and `blt.h` falls back to `()`.** Every BLT
+   prototype became an unprototyped declaration, so calls lost argument
+   conversion: `Blt_InitHashTable(&t, BLT_ONE_WORD_KEYS)` passed the `int` -1
+   to a `size_t` parameter, the table got a garbage key type, and the first
+   lookup in `blt::table` crashed. The fallback is now `x`. Restoring the
+   prototypes exposed no new type errors. (Expect's headers have a `()`
+   fallback too, but only for compilers without `__STDC__`, so clang keeps
+   Expect's prototypes.)
+2. **`Blt_ConfigureWidget` passed strings to Tk 9's object-only
+   `Tk_ConfigureWidget`.** All of BLT's widgets and components configure
+   through it, which is why an empty graph worked and an element with
+   `-xdata` crashed. It now wraps the strings in `Tcl_Obj`s (same bug as
+   tkimg's pixmap, §13).
+3. **26 `int*`→`Tcl_Size*` sites**, from the strict build and
+   `fix_tclsize.py`. One needed a hand fix: in `bltSwitch.c` the retyped
+   `count` was also passed to `Tcl_GetInt`, so `Tcl_SplitList` got its own
+   `Tcl_Size`.
+4. **The port's `-cachelabels` sprite blit** (from BLT-faster) crashed the
+   graph2 demo. Before the first layout a tick label's anchor can be about
+   `INT_MAX`; `XCopyArea` to that point overflows SDL's blit clipping. Labels
+   outside the 16-bit X coordinate range now go to `Blt_DrawText`, which
+   clips. `option add *cacheLabels 0` was the diagnosis: graph2 ran without
+   the cache.
+
+The remaining strict-build errors in BLT are `const` qualifiers and two
+`bltImage.c` array-pointer types that pass the same address. Harmless.
+
+### Results (debug build, emulator-5560)
+
+- Every demo in `assets/blt2.4/demos` runs: graph1–7, barchart1/3/4/5,
+  spline, stripchart1.
+- Graph, barchart and stripchart with data and vectors, closed and recreated;
+  `blt::table` with children; `blt::bitmap`: no crash.
+- `emulator-smoke.sh`: passed.
+
+### Expect
+
+Expect was the last package that took the app down in the sweep.
+`patches/build-tree/expect-tcl9.diff`.
+
+1. **Its channel type had the Tcl 7 layout.** `exp_chan.c` picks the
+   version-2 layout `#ifdef TCL_CHANNEL_VERSION_2`; Tcl 9 doesn't define it,
+   so Expect got the older layout, with `ExpBlockModeProc` in the version slot,
+   and `Tcl_CreateChannel` panicked. There is now a Tcl 9 branch: version 5,
+   `closeProc` NULL, and an `ExpClose2Proc` that returns `EINVAL` for a
+   half-close and otherwise calls `ExpCloseProc`.
+2. **16 `int*`→`Tcl_Size*` sites.** `fix_tclsize.py` did 14. The others: the
+   `Exp_*ObjCmd` functions that rebuild `objv` take `int objc_in` and work on a
+   `Tcl_Size objc` copy; `Dbg.c` passed `(int *)0` as `TclFindElement`'s size;
+   `send` passes an `int` temporary to Expect's own `exp_cook(char *, int *)`.
+
+On the device, `spawn /system/bin/sh`, `expect`, `exp_send`, `close`/`wait`
+and `exp_open` all work. With Tk loaded, use `exp_send`: Tk owns `send`.
+
+### Results (debug build, emulator-5560)
+
+- Package sweep: **755 load, 128 fail, 0 crash the app** (1.0b1: 754 / 128 /
+  1). The failure list is identical to 1.0b1's; Expect moved from crashing to
+  loading.
+- `emulator-smoke.sh`: passed. All 13 BLT demos still run.
+

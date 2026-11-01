@@ -1,0 +1,364 @@
+diff --git a/jni/blt/src/blt.h b/jni/blt/src/blt.h
+index b580796e..5d0859e3 100644
+--- a/jni/blt/src/blt.h
++++ b/jni/blt/src/blt.h
+@@ -47,7 +47,8 @@
+ #endif
+ 
+ #ifndef _ANSI_ARGS_
+-#   define _ANSI_ARGS_(x)       ()
++/* Tcl 9 dropped _ANSI_ARGS_; keep the prototypes, or calls lose argument conversion */
++#   define _ANSI_ARGS_(x)       x
+ #endif
+ 
+ #include <bltVector.h>
+diff --git a/jni/blt/src/bltArrayObj.c b/jni/blt/src/bltArrayObj.c
+index 001b31c9..fa99178a 100644
+--- a/jni/blt/src/bltArrayObj.c
++++ b/jni/blt/src/bltArrayObj.c
+@@ -58,7 +58,7 @@ SetArrayFromAny(interp, objPtr)
+     CONST Tcl_ObjType *oldTypePtr;
+     char *string;
+     int isNew;
+-    int nElem;
++    Tcl_Size nElem;
+     int i;
+ 
+     if (objPtr->typePtr == &arrayObjType) {
+diff --git a/jni/blt/src/bltBitmap.c b/jni/blt/src/bltBitmap.c
+index 5803066c..46b42eb7 100644
+--- a/jni/blt/src/bltBitmap.c
++++ b/jni/blt/src/bltBitmap.c
+@@ -461,7 +461,7 @@ AsciiToData(interp, elemList, width, height, bitsPtr)
+     } format;
+     int i;		/*  */
+     CONST char **valueArr;
+-    int nValues;
++    Tcl_Size nValues;
+ 
+     /* First time through initialize the ascii->hex translation table */
+     if (!initialized) {
+@@ -528,7 +528,7 @@ ParseListData(interp, string, widthPtr, heightPtr, bitsPtr)
+ {
+     char *p;
+     CONST char **elemArr;
+-    int nElem;
++    Tcl_Size nElem;
+     int width, height;
+     int result;
+     int arraySize;
+@@ -539,7 +539,7 @@ ParseListData(interp, string, widthPtr, heightPtr, bitsPtr)
+     }
+     if (nElem == 2) {
+ 	CONST char **dimArr;
+-	int nDim;
++	Tcl_Size nDim;
+ 	
+ 	if (Tcl_SplitList(interp, elemArr[0], &nDim, &dimArr) != TCL_OK) {
+ 	    goto error;
+diff --git a/jni/blt/src/bltConfig.c b/jni/blt/src/bltConfig.c
+index cd2aaa45..2d288998 100644
+--- a/jni/blt/src/bltConfig.c
++++ b/jni/blt/src/bltConfig.c
+@@ -585,7 +585,7 @@ StringToPad(clientData, interp, tkwin, string, widgRec, offset)
+     int offset;			/* Offset of pad in widget */
+ {
+     Blt_Pad *padPtr = (Blt_Pad *)(widgRec + offset);
+-    int nElem;
++    Tcl_Size nElem;
+     int pad, result;
+     CONST char **padArr;
+ 
+@@ -693,7 +693,7 @@ StringToShadow(clientData, interp, tkwin, string, widgRec, offset)
+     colorPtr = NULL;
+     dropOffset = 0;
+     if ((string != NULL) && (string[0] != '\0')) {
+-	int nElem;
++	Tcl_Size nElem;
+ 	CONST char **elemArr;
+ 
+ 	if (Tcl_SplitList(interp, string, &nElem, &elemArr) != TCL_OK) {
+@@ -816,7 +816,7 @@ GetDashes(interp, string, dashesPtr)
+ 	dashesPtr->values[3] = 2;
+ 	dashesPtr->values[4] = 0;
+     } else {
+-	int nValues;
++	Tcl_Size nValues;
+ 	CONST char **strArr;
+ 	long int value;
+ 	int i;
+@@ -1081,7 +1081,7 @@ StringToList(clientData, interp, tkwin, string, widgRec, offset)
+ {
+     CONST char ***listPtr = (CONST char ***)(widgRec + offset);
+     CONST char **elemArr;
+-    int nElem;
++    Tcl_Size nElem;
+ 
+     if (*listPtr != NULL) {
+ 	Blt_Free(*listPtr);
+@@ -1360,8 +1360,27 @@ Blt_ConfigureWidget(interp, tkwin, specs, argc, argv, widgRec, flags)
+ 	    strcpy(valuesIn[i], value);
+ 	}
+     }
++#if TK_MAJOR_VERSION >= 9
++    /* Tk 9's Tk_ConfigureWidget takes objects, not strings */
++    {
++	Tcl_Obj **objv;
++
++	objv = (Tcl_Obj **) Tcl_Alloc((argc + 1) * sizeof(Tcl_Obj *));
++	for (i = 0; i < argc; i++) {
++	    objv[i] = Tcl_NewStringObj(argv[i], -1);
++	    Tcl_IncrRefCount(objv[i]);
++	}
++	result = Tk_ConfigureWidget(interp, tkwin, specs, argc, objv,
++			widgRec, flags);
++	for (i = 0; i < argc; i++) {
++	    Tcl_DecrRefCount(objv[i]);
++	}
++	Tcl_Free((char *) objv);
++    }
++#else
+     result = Tk_ConfigureWidget(interp, tkwin, specs, argc, argv,
+ 		    widgRec, flags);
++#endif
+     if ((result == TCL_OK) && (nSpecs > 0)) {
+ 	cachedSpecs = Blt_GetCachedSpecs(interp, specs);
+ 	for (i = 0, specPtr = cachedSpecs; i < nSpecs; specPtr++, i++) {
+diff --git a/jni/blt/src/bltGrAxis.c b/jni/blt/src/bltGrAxis.c
+index d3ec9b68..cf1927eb 100644
+--- a/jni/blt/src/bltGrAxis.c
++++ b/jni/blt/src/bltGrAxis.c
+@@ -565,7 +565,7 @@ StringToFormat(clientData, interp, tkwin, string, widgRec, offset)
+ {
+     Axis *axisPtr = (Axis *)(widgRec);
+     CONST char **argv;
+-    int argc;
++    Tcl_Size argc;
+ 
+     if (axisPtr->limitsFormats != NULL) {
+ 	Blt_Free(axisPtr->limitsFormats);
+@@ -724,7 +724,7 @@ StringToTicks(clientData, interp, tkwin, string, widgRec, offset)
+     nTicks = 0;
+     ticksPtr = NULL;
+     if ((string != NULL) && (*string != '\0')) {
+-	int nExprs;
++	Tcl_Size nExprs;
+ 	CONST char **exprArr;
+ 
+ 	if (Tcl_SplitList(interp, string, &nExprs, &exprArr) != TCL_OK) {
+@@ -834,7 +834,7 @@ StringToLoose(clientData, interp, tkwin, string, widgRec, offset)
+ {
+     Axis *axisPtr = (Axis *)(widgRec);
+     int i;
+-    int argc;
++    Tcl_Size argc;
+     CONST char **argv;
+     int values[2];
+ 
+@@ -2673,14 +2673,20 @@ DrawAxis(graphPtr, drawable, axisPtr)
+ 		Blt_TranslateAnchor((int)labelPtr->anchorPos.x,
+ 		    (int)labelPtr->anchorPos.y, clPtr->textW, clPtr->textH,
+ 		    axisPtr->tickTextStyle.anchor, &tlx, &tly);
+-		XCopyArea(graphPtr->display, clPtr->pixmap, drawable,
+-		    graphPtr->drawGC, 0, 0, clPtr->width, clPtr->height,
+-		    tlx - clPtr->pad, tly - clPtr->pad);
+-	    } else {
+-		Blt_DrawText(graphPtr->tkwin, drawable, labelPtr->string,
+-		    &axisPtr->tickTextStyle, (int)labelPtr->anchorPos.x,
+-		    (int)labelPtr->anchorPos.y);
++		/* Before the first layout the anchor can be garbage (~INT_MAX),
++		 * and SDL's blit clipping overflows on that.  Leave such labels
++		 * to Blt_DrawText, which clips. */
++		if ((tlx >= -32768) && (tlx <= 32767) &&
++		    (tly >= -32768) && (tly <= 32767)) {
++		    XCopyArea(graphPtr->display, clPtr->pixmap, drawable,
++			graphPtr->drawGC, 0, 0, clPtr->width, clPtr->height,
++			tlx - clPtr->pad, tly - clPtr->pad);
++		    continue;
++		}
+ 	    }
++	    Blt_DrawText(graphPtr->tkwin, drawable, labelPtr->string,
++		&axisPtr->tickTextStyle, (int)labelPtr->anchorPos.x,
++		(int)labelPtr->anchorPos.y);
+ 	}
+     }
+     if ((axisPtr->nSegments > 0) && (axisPtr->lineWidth > 0)) {	
+@@ -3929,7 +3935,7 @@ UseOp(graphPtr, axisPtr, argc, argv)
+     CONST char **argv;
+ {
+     Blt_Chain *chainPtr;
+-    int nNames;
++    Tcl_Size nNames;
+     CONST char **names;
+     Blt_ChainLink *linkPtr;
+     int i;
+diff --git a/jni/blt/src/bltGrElem.c b/jni/blt/src/bltGrElem.c
+index 62cc165a..d196f1c6 100644
+--- a/jni/blt/src/bltGrElem.c
++++ b/jni/blt/src/bltGrElem.c
+@@ -101,7 +101,7 @@ GetPenStyle(graphPtr, string, type, stylePtr)
+     Pen *penPtr;
+     Tcl_Interp *interp = graphPtr->interp;
+     CONST char **elemArr;
+-    int nElem;
++    Tcl_Size nElem;
+ 
+     elemArr = NULL;
+     if (Tcl_SplitList(interp, string, &nElem, &elemArr) != TCL_OK) {
+@@ -306,7 +306,7 @@ EvalExprList(interp, list, nElemPtr, arrayPtr)
+     int *nElemPtr;
+     double **arrayPtr;
+ {
+-    int nElem;
++    Tcl_Size nElem;
+     CONST char **elemArr;
+     double *array;
+     int result;
+@@ -715,7 +715,7 @@ Blt_StringToStyles(clientData, interp, tkwin, string, widgRec, offset)
+     Element *elemPtr = (Element *)(widgRec);
+     PenStyle *stylePtr;
+     CONST char **elemArr;
+-    int nStyles;
++    Tcl_Size nStyles;
+     int i;
+     size_t size = (size_t)clientData;
+ 
+@@ -1243,7 +1243,7 @@ RebuildDisplayList(graphPtr, newList)
+     Graph *graphPtr;		/* Graph widget record */
+     char *newList;		/* Tcl list of element names */
+ {
+-    int nNames;			/* Number of names found in Tcl name list */
++    Tcl_Size nNames;			/* Number of names found in Tcl name list */
+     CONST char **nameArr;	/* Broken out array of element names */
+     int i;
+     Element *elemPtr;		/* Element information record */
+diff --git a/jni/blt/src/bltGrLine.c b/jni/blt/src/bltGrLine.c
+index 80df2458..c724927d 100644
+--- a/jni/blt/src/bltGrLine.c
++++ b/jni/blt/src/bltGrLine.c
+@@ -995,7 +995,7 @@ StringToBitmap(interp, tkwin, symbolPtr, string)
+ {
+     Pixmap bitmap, mask;
+     CONST char **elemArr;
+-    int nElems;
++    Tcl_Size nElems;
+     int result;
+ 
+     if (Tcl_SplitList(interp, string, &nElems, &elemArr) != TCL_OK) {
+diff --git a/jni/blt/src/bltGrMarker.c b/jni/blt/src/bltGrMarker.c
+index f9262a55..4ee0d779 100644
+--- a/jni/blt/src/bltGrMarker.c
++++ b/jni/blt/src/bltGrMarker.c
+@@ -1288,7 +1288,7 @@ StringToCoordinates(clientData, interp, tkwin, string, widgRec, offset)
+     int offset;			/* Not used. */
+ {
+     Marker *markerPtr = (Marker *)widgRec;
+-    int nExprs;
++    Tcl_Size nExprs;
+     CONST char **exprArr;
+     int result;
+ 
+diff --git a/jni/blt/src/bltGrMisc.c b/jni/blt/src/bltGrMisc.c
+index 8e455ea9..43996126 100644
+--- a/jni/blt/src/bltGrMisc.c
++++ b/jni/blt/src/bltGrMisc.c
+@@ -279,7 +279,7 @@ StringToColorPair(clientData, interp, tkwin, string, widgRec, offset)
+ 
+     sample.fgColor = sample.bgColor = NULL;
+     if ((string != NULL) && (*string != '\0')) {
+-	int nColors;
++	Tcl_Size nColors;
+ 	CONST char **colors;
+ 	int result;
+ 
+diff --git a/jni/blt/src/bltPs.c b/jni/blt/src/bltPs.c
+index ebae7fb1..d1bc8ed6 100644
+--- a/jni/blt/src/bltPs.c
++++ b/jni/blt/src/bltPs.c
+@@ -1187,7 +1187,7 @@ Blt_FontToPostScript(tokenPtr, font)
+ 	fontInfo = (char *)Tcl_GetVar2(interp, tokenPtr->fontVarName, fontName,
+ 	       0);
+ 	if (fontInfo != NULL) {
+-	    int nProps;
++	    Tcl_Size nProps;
+ 	    CONST char **propArr = NULL;
+ 
+ 	    if (Tcl_SplitList(interp, fontInfo, &nProps, &propArr) == TCL_OK) {
+diff --git a/jni/blt/src/bltSwitch.c b/jni/blt/src/bltSwitch.c
+index 37b8d47c..7da72a61 100644
+--- a/jni/blt/src/bltSwitch.c
++++ b/jni/blt/src/bltSwitch.c
+@@ -199,9 +199,13 @@ DoSwitch(interp, specPtr, string, record)
+ 	    break;
+ 
+ 	case BLT_SWITCH_LIST:
+-	    if (Tcl_SplitList(interp, string, &count, (CONST char ***)ptr) 
+-		!= TCL_OK) {
+-		return TCL_ERROR;
++	    {
++		Tcl_Size nElem;
++
++		if (Tcl_SplitList(interp, string, &nElem, (CONST char ***)ptr)
++		    != TCL_OK) {
++		    return TCL_ERROR;
++		}
+ 	    }
+ 	    break;
+ 
+diff --git a/jni/blt/src/bltTable.c b/jni/blt/src/bltTable.c
+index bc44977a..948e60b3 100644
+--- a/jni/blt/src/bltTable.c
++++ b/jni/blt/src/bltTable.c
+@@ -298,7 +298,7 @@ StringToLimits(clientData, interp, tkwin, string, widgRec, offset)
+ {
+     Limits *limitsPtr = (Limits *)(widgRec + offset);
+     CONST char **elemArr;
+-    int nElem;
++    Tcl_Size nElem;
+     int limArr[3];
+     Tk_Window winArr[3];
+     int flags;
+diff --git a/jni/blt/src/bltVecObjCmd.c b/jni/blt/src/bltVecObjCmd.c
+index f1ad7743..cfa189d9 100644
+--- a/jni/blt/src/bltVecObjCmd.c
++++ b/jni/blt/src/bltVecObjCmd.c
+@@ -195,7 +195,7 @@ AppendOp(vPtr, interp, objc, objv)
+ 	if (v2Ptr != NULL) {
+ 	    result = AppendVector(vPtr, v2Ptr);
+ 	} else {
+-	    int nElem;
++	    Tcl_Size nElem;
+ 	    Tcl_Obj **elemObjArr;
+ 
+ 	    if (Tcl_ListObjGetElements(interp, objv[i], &nElem, &elemObjArr) 
+@@ -1498,7 +1498,7 @@ SetOp(vPtr, interp, objc, objv)
+ {
+     int result;
+     VectorObject *v2Ptr;
+-    int nElem;
++    Tcl_Size nElem;
+     Tcl_Obj **elemObjArr;
+ 
+     /* The source can be either a list of numbers or another vector.  */
+@@ -1725,7 +1725,7 @@ SortOp(vPtr, interp, objc, objv)
+ 
+     reverse = FALSE;
+     if (objc > 2) {
+-	int length;
++	Tcl_Size length;
+ 
+ 	string = Tcl_GetStringFromObj(objv[2], &length);
+ 	if (string[0] == '-') {
+diff --git a/jni/blt/src/bltWinop.c b/jni/blt/src/bltWinop.c
+index 0c0f04a0..25f918ae 100644
+--- a/jni/blt/src/bltWinop.c
++++ b/jni/blt/src/bltWinop.c
+@@ -514,7 +514,7 @@ ConvolveOp(clientData, interp, argc, argv)
+     Tk_PhotoHandle srcPhoto, destPhoto;
+     Blt_ColorImage srcImage, destImage;
+     Filter2D filter;
+-    int nValues;
++    Tcl_Size nValues;
+     CONST char **valueArr;
+     double *kernel;
+     double value, sum;

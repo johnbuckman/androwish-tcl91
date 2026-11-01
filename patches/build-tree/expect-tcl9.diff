@@ -1,0 +1,233 @@
+diff --git a/jni/expect/Dbg.c b/jni/expect/Dbg.c
+index 3a97b361..83fd4028 100644
+--- a/jni/expect/Dbg.c
++++ b/jni/expect/Dbg.c
+@@ -397,7 +397,7 @@ char *argv[];
+ #if TCL_MAJOR_VERSION >= 8
+ 					      -1,
+ #endif
+-				&elementPtr,&nextPtr,(int *)0,(int *)0);
++				&elementPtr,&nextPtr,(Tcl_Size *)0,(int *)0);
+ 			if (*elementPtr == '\0') wrap = TRUE;
+ 			else if (*nextPtr == '\0') wrap = FALSE;
+ 			else wrap = TRUE;
+@@ -442,7 +442,7 @@ Tcl_Obj *objv[];
+ {
+     char **argv;
+     int argc;
+-    int len;
++    Tcl_Size len;
+     argv = (char **)ckalloc(objc+1 * sizeof(char *));
+     for (argc=0 ; argc<objc ; argc++) {
+ 	argv[argc] = Tcl_GetStringFromObj(objv[argc],&len);
+diff --git a/jni/expect/exp_chan.c b/jni/expect/exp_chan.c
+index 70873812..ea967863 100644
+--- a/jni/expect/exp_chan.c
++++ b/jni/expect/exp_chan.c
+@@ -56,6 +56,41 @@ static int		ExpGetHandleProc _ANSI_ARGS_((ClientData instanceData,
+  * This structure describes the channel type structure for Expect-based IO:
+  */
+ 
++#if TCL_MAJOR_VERSION >= 9
++/*
++ * Tcl 9 only takes TCL_CHANNEL_VERSION_5 with a close2Proc.  Without this
++ * branch, Tcl 9 (which has no TCL_CHANNEL_VERSION_2) got the Tcl 7 layout
++ * below, with ExpBlockModeProc in the version slot, and panicked.
++ */
++static int
++ExpClose2Proc(ClientData instanceData, Tcl_Interp *interp, int flags)
++{
++    if ((flags & (TCL_CLOSE_READ | TCL_CLOSE_WRITE)) != 0) {
++	return EINVAL;
++    }
++    return ExpCloseProc(instanceData, interp);
++}
++
++Tcl_ChannelType expChannelType = {
++    "exp",				/* Type name. */
++    TCL_CHANNEL_VERSION_5,
++    NULL,				/* Close proc (unused). */
++    ExpInputProc,			/* Input proc. */
++    (Tcl_DriverOutputProc *) ExpOutputProc,	/* Output proc. */
++    NULL,				/* Seek proc (unused). */
++    NULL,				/* Set option proc. */
++    NULL,				/* Get option proc. */
++    ExpWatchProc,			/* Initialize notifier. */
++    ExpGetHandleProc,			/* Get OS handles out of channel. */
++    ExpClose2Proc,			/* Close2 proc */
++    ExpBlockModeProc,			/* Set blocking/nonblocking mode.*/
++    NULL,				/* Flush proc. */
++    NULL,				/* Handler proc. */
++    NULL,				/* Wide seek proc. */
++    NULL,				/* Thread action proc. */
++    NULL,				/* Truncate proc. */
++};
++#else
+ Tcl_ChannelType expChannelType = {
+     "exp",				/* Type name. */
+ #ifdef TCL_CHANNEL_VERSION_2
+@@ -83,6 +118,7 @@ Tcl_ChannelType expChannelType = {
+     NULL,				/* Close2 proc */
+ #endif
+ };
++#endif /* TCL_MAJOR_VERSION >= 9 */
+ 
+ typedef struct ThreadSpecificData {
+     /*
+diff --git a/jni/expect/exp_command.c b/jni/expect/exp_command.c
+index 64909e0d..581ff4ec 100644
+--- a/jni/expect/exp_command.c
++++ b/jni/expect/exp_command.c
+@@ -1844,7 +1844,7 @@ exp_i_parse_states(
+ {
+     struct ExpState *esPtr;
+     char *p = i->value;
+-    int argc;
++    Tcl_Size argc;
+     char **argv;
+     int j;
+ 
+@@ -1984,7 +1984,7 @@ Exp_SendObjCmd(
+     int send_style = SEND_STYLE_PLAIN;
+     int want_cooked = TRUE;
+     char *string = NULL;		/* string to send */
+-    int len = -1;		/* length of string to send */
++    Tcl_Size len = -1;		/* length of string to send */
+     int zeros;		/* count of how many ascii zeros to send */
+ 
+     char *chanName = 0;
+@@ -2120,7 +2120,12 @@ Exp_SendObjCmd(
+ 	    rc = TCL_ERROR;
+ 	    goto finish;
+ 	}
+-	if (want_cooked) string = exp_cook(string,&len);
++	if (want_cooked) {
++	    int cookedLen = (int) len;	/* exp_cook takes an int* */
++
++	    string = exp_cook(string,&cookedLen);
++	    len = cookedLen;
++	}
+ 
+ 	switch (send_style) {
+ 	    case SEND_STYLE_PLAIN:
+@@ -2493,7 +2498,7 @@ Exp_ExitObjCmd(
+ 	    objc--;
+ 	    objv++;
+ 	    if (objc) {
+-		int len;
++		Tcl_Size len;
+ 		char* act = Tcl_GetStringFromObj (objv[0], &len);
+ 
+ 		if (exp_onexit_action)
+diff --git a/jni/expect/exp_inter.c b/jni/expect/exp_inter.c
+index 472fcf0f..fbfb3dc2 100644
+--- a/jni/expect/exp_inter.c
++++ b/jni/expect/exp_inter.c
+@@ -714,9 +714,10 @@ int
+ Exp_InteractObjCmd(
+     ClientData clientData,
+     Tcl_Interp *interp,
+-    int objc,
++    int objc_in,
+     Tcl_Obj *CONST initial_objv[])		/* Argument objects. */
+ {
++    Tcl_Size objc = objc_in;
+     ThreadSpecificData *tsdPtr = TCL_TSD_INIT(&dataKey);
+ 
+     Tcl_Obj *CONST *objv_copy;	/* original, for error messages */
+diff --git a/jni/expect/exp_trap.c b/jni/expect/exp_trap.c
+index 4a623b3c..cf6e6f04 100644
+--- a/jni/expect/exp_trap.c
++++ b/jni/expect/exp_trap.c
+@@ -304,7 +304,7 @@ Exp_TrapObjCmd(ClientData clientData,
+ 	       Tcl_Obj *CONST objv[])
+ {
+ 	char *action = 0;
+-	int n;		/* number of signals in list */
++	Tcl_Size n;		/* number of signals in list */
+ 	Tcl_Obj **list;	/* list of signals */
+ 	char *arg;
+ 	int len;	/* length of action */
+@@ -511,7 +511,7 @@ int oldcode;
+ 
+ 		if (eip) {
+ 		  /* odd that Tcl doesn't have a call that does all this at once */
+-		  int len;
++		  Tcl_Size len;
+ 		  char *s = Tcl_GetStringFromObj(eip,&len);
+ 		  Tcl_AddObjErrorInfo(interp,s,len);
+ 		  Tcl_DecrRefCount(eip);
+diff --git a/jni/expect/expect.c b/jni/expect/expect.c
+index d17519a1..a330ce47 100644
+--- a/jni/expect/expect.c
++++ b/jni/expect/expect.c
+@@ -285,7 +285,8 @@ exp_eval_with_one_arg(
+     CONST char *p;
+     CONST char *next;
+     int rc;
+-    int bytesLeft, numWords;
++    int numWords;
++    Tcl_Size bytesLeft;
+     Tcl_Parse parse;
+ 
+     /*
+@@ -502,7 +503,7 @@ parse_expect_args(
+ 		{
+ 		    Tcl_Obj* g;
+ 		    Tcl_UniChar* str;
+-		    int strlen;
++		    Tcl_Size strlen;
+ 
+ 		    str = Tcl_GetUnicodeFromObj (objv[i], &strlen);
+ 		    g = exp_retoglob (str, strlen);
+@@ -864,7 +865,7 @@ eval_case_string(
+ 	expDiagLog("\"? ");
+ 
+ 	if (e->gate) {
+-	    int plen;
++	    Tcl_Size plen;
+ 	    Tcl_UniChar* pat = Tcl_GetUnicodeFromObj(e->gate,&plen);
+ 
+ 	    expDiagLog("Gate \"");
+@@ -927,7 +928,7 @@ eval_case_string(
+ 	expDiagLogU(expPrintify(Tcl_GetString(e->pat)));
+ 	expDiagLog("\"? ");
+ 	if (str) {
+-	    int plen;
++	    Tcl_Size plen;
+ 	    Tcl_UniChar* pat = Tcl_GetUnicodeFromObj(e->pat,&plen);
+ 
+ 	    match = Exp_StringCaseMatch(str,numchars, pat, plen,
+@@ -944,7 +945,7 @@ eval_case_string(
+ 	}
+ 	expDiagLogU(no);
+     } else if (e->use == PAT_EXACT) {
+-	int patLength;
++	Tcl_Size patLength;
+ 	char *pat = Tcl_GetStringFromObj(e->pat, &patLength);
+ 	Tcl_UniChar *p;
+ 
+@@ -1396,9 +1397,10 @@ int
+ Exp_ExpectGlobalObjCmd(
+     ClientData clientData,
+     Tcl_Interp *interp,
+-    int objc,
++    int objc_in,
+     Tcl_Obj *CONST objv[])		/* Argument objects. */
+ {
++    Tcl_Size objc = objc_in;
+     int result = TCL_OK;
+     struct exp_i *exp_i, **eip;
+     struct exp_state_list *slPtr;   /* temp for interating over state_list */
+@@ -2542,9 +2544,10 @@ int
+ Exp_ExpectObjCmd(
+     ClientData clientData,
+     Tcl_Interp *interp,
+-    int objc,
++    int objc_in,
+     Tcl_Obj *CONST objv[])		/* Argument objects. */
+ {
++    Tcl_Size objc = objc_in;
+     int cc;			/* number of chars returned in a single read */
+ 				/* or negative EXP_whatever */
+     ExpState *esPtr = 0;
