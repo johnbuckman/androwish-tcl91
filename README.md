@@ -7,10 +7,11 @@ from its bundled **Tcl/Tk 8.6.10** to **Tcl/Tk 9.1.0** (the 9.1 release; the 0.1
 Upstream AndroWish (both the `trunk` and `wtf-8-experiment` Fossil branches) ships Tcl/Tk 8.6.10,
 and there is no Tk-9-on-SDL upstream.
 
-> **Status: 1.0b1 (beta), on the Tcl/Tk 9.1.0 release.** A signed arm64 APK boots on Android to an
+> **Status: 1.0b2 (beta), on the Tcl/Tk 9.1.0 release.** A signed arm64 APK boots on Android to an
 > interactive Tcl console with a **Demos** menu, and all eight demos run. All 84 native libraries build.
-> 754 bundled packages load, and Tcl's and Tk's own test suites run on the device with no regressions
-> against 1.0b0. (1.0b0 and the 0.1-alpha claimed the demos launched; only the widget demo did.)
+> 755 bundled packages load and none crashes the app; BLT and Expect work as of 1.0b2. Tcl's and Tk's
+> own test suites run on the device. (1.0b0 and the 0.1-alpha claimed the demos launched; only the
+> widget demo did.)
 
 Part of the [johnbuckman.github.io/tcltk](https://johnbuckman.github.io/tcltk/) collection ·
 [project page](https://johnbuckman.github.io/tcltk/androwish-tcl91.html).
@@ -31,8 +32,8 @@ Tk, SDL2 or AndroWish sources; those are supplied from upstream.
 | `patches/jni-tcl/` | ndk-build module config for Tcl 9.1 (`Android.mk`, `tcl-config.mk`, `srclist.mk`) |
 | `patches/jni-sdl2tk/` | ndk-build module config + regenerated source list for Tk 9.1; `sdl/tk-9.1.0-backend.diff` is the backend change 9.1.0 needed |
 | `patches/build-tree/1.0b1.diff` | Every 1.0b1 change to the AndroWish tree: extension Tcl 9 fixes, package indexes, the Demos menu |
-| `patches/build-tree/expect-tcl9.diff` | Expect on Tcl 9, after 1.0b1: version-5 channel type, `Tcl_Size` |
-| `patches/build-tree/blt-tcl9.diff` | BLT on Tcl 9, after 1.0b1: prototypes, object `Tk_ConfigureWidget`, `Tcl_Size`, the label-cache guard |
+| `patches/build-tree/expect-tcl9.diff` | Expect on Tcl 9 (1.0b2): version-5 channel type, `Tcl_Size` |
+| `patches/build-tree/blt-tcl9.diff` | BLT on Tcl 9 (1.0b2): prototypes, object `Tk_ConfigureWidget`, `Tcl_Size`, the label-cache guard |
 | `scripts/` | Tcl 9.1 module regeneration, a native Tcl/ABI assertion test, an on-device regression smoke test, an on-device package-load sweep, Tcl's and Tk's test suites run on the device, a config-macro audit, and `fix_tclsize.py` (the `int*`→`Tcl_Size*` fixer) |
 
 ## Port structure
@@ -112,12 +113,12 @@ See [Releases](https://github.com/johnbuckman/androwish-tcl91/releases) for a si
 ## Known limitations
 
 - **Not every bundled package loads on Tcl 9 yet.** `scripts/emulator-pkgsweep.sh` tries every
-  package: 755 load, 128 fail, and none crashes the app (since 1.0b1, which had 754 / 128 and
-  Expect crashing). The failures are mostly nsf/nx/XOTcl (32), Tclx, Ffidl, Tix, Itcl/Itk and
+  package: 755 load, 128 fail, and none crashes the app (1.0b1: 754 / 128, and Expect
+  crashed). The failures are mostly nsf/nx/XOTcl (32), Tclx, Ffidl, Tix, Itcl/Itk and
   Thread, and the packages that need them. (1.0b0: 113 load, 192 fail, 7 crash.)
 - **Some extensions still pass `int*` where Tcl 9 wants `Tcl_Size*`.** That corrupts the stack, and
   the app aborts with `stack corruption detected`. 1.0b1 fixed the extensions that load (tdom, tkimg,
-  imgjp2, tkpsvg, tkpath, tkzinc, zint, vu, trofs, tclJBlend), and BLT since; over a thousand call
+  imgjp2, tkpsvg, tkpath, tkzinc, zint, vu, trofs, tclJBlend), and 1.0b2 fixed BLT and Expect; over a thousand call
   sites remain in others (snack, tktreectrl, Tix, Tclx, …). `scripts/fix_tclsize.py` fixes most of them from
   clang's `-Werror=incompatible-pointer-types` output.
 - **Tktable is disabled.** Tktable 2.11 calls Tk 9's `Tk_ConfigureWidget` with strings and crashes.

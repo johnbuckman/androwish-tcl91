@@ -198,6 +198,12 @@ Released v1.0b1 (Tcl/Tk 9.1.0, versionCode 3):
 - 32,452,095 bytes, 84 native libraries
 - same certificate again
 
+Released v1.0b2 (BLT and Expect fixed, versionCode 4):
+- sha256 `e0e91ad91186f415223f7998b23187a9ed006115da3ba7cf419b1b835f8ad80f`
+- md5 `1b0d28e6c415aaa94f718e585ec871fd`
+- 32,451,745 bytes, 84 native libraries
+- same certificate again; installs over 1.0b1 as an update
+
 ---
 
 ## 5. The four release-notes bugs — current truth
@@ -557,7 +563,7 @@ standard channels that are `none`.
 
 ---
 
-## 14. BLT and Expect on Tcl 9 (after 1.0b1, not yet released)
+## 14. BLT and Expect on Tcl 9 (release 1.0b2)
 
 1.0b1's BLT loaded and drew an empty graph, but adding an element, closing a
 graph, or `blt::table` crashed the app. Three separate bugs, plus one in the
@@ -590,7 +596,7 @@ port's own label cache. All in `patches/build-tree/blt-tcl9.diff`.
 The remaining strict-build errors in BLT are `const` qualifiers and two
 `bltImage.c` array-pointer types that pass the same address. Harmless.
 
-### Results (debug build, emulator-5560)
+### Results (debug build, emulator-5560; the 1.0b2 release build was retested on both emulators)
 
 - Every demo in `assets/blt2.4/demos` runs: graph1–7, barchart1/3/4/5,
   spline, stripchart1.
@@ -617,10 +623,21 @@ Expect was the last package that took the app down in the sweep.
 On the device, `spawn /system/bin/sh`, `expect`, `exp_send`, `close`/`wait`
 and `exp_open` all work. With Tk loaded, use `exp_send`: Tk owns `send`.
 
-### Results (debug build, emulator-5560)
+### Results (debug build, emulator-5560; the 1.0b2 release build was retested on both emulators)
 
 - Package sweep: **755 load, 128 fail, 0 crash the app** (1.0b1: 754 / 128 /
   1). The failure list is identical to 1.0b1's; Expect moved from crashing to
   loading.
 - `emulator-smoke.sh`: passed. All 13 BLT demos still run.
+
+### 1.0b2 release build
+
+`versionCode 4`, `versionName "1.0b2"` in `build.gradle` (not in the patch
+files; nothing else in it changed). On both emulators (API 31 420 dpi, API 34
+320 dpi; on 5580 installed as an update over 1.0b1): smoke 15/15, the BLT
+checks 13/13, the Expect checks 6/6, BLT demos graph1, graph2, barchart1 and
+stripchart1 run. The demos, the package sweep and the test suites were not
+rerun on the release build: its native libraries are byte-identical to the
+debug build's that ran them (libblt and libexpect are the ones that changed
+since 1.0b1).
 
