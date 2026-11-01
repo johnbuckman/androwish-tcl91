@@ -1,5 +1,8 @@
 # sdl2tk → Tk 9.1b0 graft — recipe & status
 
+> **Update 2026-11-01:** now on Tk **9.1.0**: the stock 9.1b0→9.1.0 diff was applied on top of this graft, with two backend fixes (`AGENT-BOOTSTRAP.md` §12).
+
+
 Goal: AndroWish's SDL2/AGG Xlib-emulation Tk backend, re-based onto **stock Tk 9.1b0** generic sources.
 
 ## Approach that worked (empirical compile-and-fix, NOT patch-replay)

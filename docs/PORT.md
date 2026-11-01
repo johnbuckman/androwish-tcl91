@@ -1,5 +1,8 @@
 # androwish-tcl91 — porting AndroWish to Tcl/Tk 9.1
 
+> **Update 2026-11-01:** the port is now on the Tcl/Tk **9.1.0** release (1.0b0). This document records the original 9.1b0 work; for the 9.1.0 move see `AGENT-BOOTSTRAP.md` §12.
+
+
 **Goal:** Build AndroWish (Tcl/Tk on Android, SDL/AGG X11-emulation backend) on **Tcl/Tk 9.1b0**
 (2026-06-30 beta), heading toward the 9.1 release. Ship a signed, installable **0.1 alpha APK**
 with the full AndroWish "batteries included" extension set. New public repo `androwish-tcl91`,

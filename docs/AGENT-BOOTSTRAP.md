@@ -153,6 +153,12 @@ Released v0.1-alpha:
 Consider bumping `versionCode`/`versionName` per build in future so this cannot
 recur by inspection alone.
 
+Released v1.0b0 (Tcl/Tk 9.1.0, versionCode 2):
+- sha256 `722e00a9566a9b4353e63a3e35a4738fe269af8180ae98d5820a8f96b27d8aeb`
+- md5 `c6fc624c46ef90b624df551c8efcb77a`
+- 32,155,127 bytes
+- signed with the same certificate as v0.1-alpha, so it installs over it
+
 ---
 
 ## 5. The four release-notes bugs — current truth
@@ -336,9 +342,11 @@ Nothing is broken. Remaining items, none urgent:
    and two API levels.
 2. **Cosmetic:** default app icon; the main `.` window is an empty grey
    placeholder.
-3. **Tcl/Tk 9.1 final** — currently 9.1b0. Rebuild + v0.2 when it lands. Run
-   `scripts/tclcfg-audit.sh` as part of that.
+3. ~~Tcl/Tk 9.1 final~~ — done: 1.0b0 is on 9.1.0 (§12).
 4. **Other ABIs** — arm64-v8a only.
+7. **Packages that don't load on Tcl 9** — see §12's sweep baseline. The 7
+   that crash the app (Tcl_Panic) are the most urgent; Expect's is its
+   channel type (`TCL_CHANNEL_VERSION_5` required).
 5. Consider per-build `versionCode` bumps (§4).
 6. Upstream candidate, not yet reported: the pixel-size-12 XLFD bug exists in
    upstream AndroWish 8.6 too, masked there because 8.6 ships the fonts so the
@@ -351,3 +359,74 @@ Nothing is broken. Remaining items, none urgent:
 - The keystore passphrase must never appear in the public repo. Secret-scan
   before every push.
 - The build tree must never be pushed anywhere.
+
+---
+
+## 12. Moving to Tcl/Tk 9.1.0 (2026-11-01, release 1.0b0)
+
+The port tracked 9.1b0. Going to the 9.1.0 release did not need a re-graft:
+the build tree already carries every Android/SDL change, so the stock
+9.1b0→9.1.0 delta was applied on top of it.
+
+```sh
+E=~/androwish-tcl91-work/engine91          # tcl9.1b0 tk9.1b0 tcl9.1.0 tk9.1.0 side by side
+gh release download core-9-1-0 --repo tcltk/tcl --pattern tcl910-src.zip
+gh release download core-9-1-0 --repo tcltk/tk  --pattern tk910-src.zip
+diff -ruN tcl9.1b0 tcl9.1.0 -x tests -x doc -x win -x macosx -x .github -x pkgs -x tools  > tcl.diff
+diff -ruN tk9.1b0  tk9.1.0  -x tests -x doc -x win -x macosx -x .github                  > tk.diff
+# rewrite the headers to a/ b/, then:
+cd build-tree/jni/tcl    && patch -p1 --batch < tcl.diff        # only README/changes.md reject
+cd build-tree/jni/sdl2tk && patch -p1 --batch < tk-generic-library-only.diff
+```
+
+- **Tk's `unix/` hunks were left out**: sdl2tk doesn't compile `unix/`, it
+  has `sdl/`. Read them anyway, since several `sdl/` files are copies of
+  `unix/` ones. Two applied (`long long` return type, the NULL-family font
+  guard); the rest are `int`→`bool` tidying and X11 `_NET_WM_STATE` code.
+- **`tcl/pkgs` was left alone** (Thread 2.8.5, Itcl 4.2.0, sqlite 3.53.3,
+  TDBC 1.1.1 are AndroWish's own copies, not the 9.1 tarball's).
+- New source: `generic/tclGrapheme.c` → added to `jni/tcl/srclist.mk`.
+  `tkUnicodeKeysyms.h` is new but unused on this platform.
+- `tcl-config.mk`: `tclcfg-audit.sh` found nothing new (configure.ac only
+  changed the patch level).
+
+Two Tk 9.1.0 interface changes broke the sdl backend
+(`patches/jni-sdl2tk/sdl/tk-9.1.0-backend.diff`):
+
+1. `Tk_GetUserInactiveTime` now returns `long long` (compile error,
+   `conflicting types`, in `sdl/tkSDL.c`).
+2. `generic/tkPointer.c` now calls `TkpGetEventTime()` instead of
+   `TkpGetMS()` (link error, undefined symbol). Stock X11 never compiles
+   `tkPointer.c`; Windows and macOS each define it. sdl's returns
+   `TkpGetMS()`, the clock it used before.
+
+Do a clean native build after a version bump (`rm -rf obj/local/arm64-v8a`):
+`tcl.h` changed, and every extension includes it.
+
+Warnings new with 9.1.0: `XIDProc` is typedef'd by both Tk's headers and
+`xlib/X11/Xlib.h` (same type; `-Wtypedef-redefinition`, legal C11), seen in
+blt, tkzinc, snack, tkpsvg and tk. Harmless.
+
+### Verification for 1.0b0
+
+| Check | Result |
+| --- | --- |
+| `emulator-smoke.sh` | 15/15 on emulator-5580 (API 34, 320 dpi) and emulator-5560 (API 31, 420 dpi) |
+| `tcltest-main.c` | 0 failures |
+| `tclcfg-audit.sh` | no new macros |
+| `info patchlevel` / `$tk_patchLevel` on device | 9.1.0 / 9.1.0 |
+| Native libraries in the APK | the same 84 as v0.1-alpha |
+| `emulator-pkgsweep.sh` | 113 load, 192 fail, 7 crash the app: **identical to v0.1-alpha** |
+
+The package sweep is new with 1.0b0, so the beta was never checked this way.
+Its baseline (both builds):
+- 86 fail on version: the package index asks for `Tcl 8.5`/`8.6`/`8.1`
+  (41 / 14 / 16) or `Tk 8.x`. `package require Tcl 8.5` means 8.5 ≤ v < 9.
+- ~50 fail with `cannot find symbol "<name>_Init"`: nsf/nx (32), tdom (12),
+  vlerq, topcua, vectcl, tdbc.
+- 7 crash the app: Expect (`channel type exp must be version
+  TCL_CHANNEL_VERSION_5`), awdark, awlight, fsdialog, ttk::icons,
+  ttk::theme::awdark, ttk::theme::awlight.
+- Downgrading to compare builds: `adb install -r -d <old.apk>` works on the
+  emulators (same signing key).
+

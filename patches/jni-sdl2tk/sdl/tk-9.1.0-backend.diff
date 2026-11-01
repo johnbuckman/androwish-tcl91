@@ -1,0 +1,66 @@
+diff --git a/sdl/SdlTkInt.c b/sdl/SdlTkInt.c
+index ddc718cd..a935f088 100644
+--- a/sdl/SdlTkInt.c
++++ b/sdl/SdlTkInt.c
+@@ -5049,6 +5049,23 @@ TkpGetMS(void)
+     return SdlTkX.time_count;
+ }
+ 
++/*
++ *----------------------------------------------------------------------
++ *
++ * TkpGetEventTime --
++ *
++ *	Time stamp for synthesized events (Tk 9.1: tkPointer.c). Same clock
++ *	as TkpGetMS, which tkPointer.c called before 9.1.0.
++ *
++ *----------------------------------------------------------------------
++ */
++
++unsigned long
++TkpGetEventTime(void)
++{
++    return TkpGetMS();
++}
++
+ /* NOTE: If this changes, update XAllocColor */
+ unsigned long
+ TkpGetPixel(XColor *color)
+diff --git a/sdl/tkSDL.c b/sdl/tkSDL.c
+index 3ead8456..a14bef9a 100644
+--- a/sdl/tkSDL.c
++++ b/sdl/tkSDL.c
+@@ -195,12 +195,12 @@ TkpBuildRegionFromAlphaData(
+  *----------------------------------------------------------------------
+  */
+ 
+-long
++long long
+ Tk_GetUserInactiveTime(
+     Display *display)		/* The display for which to query the inactive
+ 				 * time. */
+ {
+-    long inactiveTime = -1;
++    long long inactiveTime = -1;
+ #ifdef HAVE_XSS
+     int eventBase, errorBase, major, minor;
+ 
+diff --git a/sdl/tkSDLFont.c b/sdl/tkSDLFont.c
+index fb696150..6ac1fbe3 100644
+--- a/sdl/tkSDLFont.c
++++ b/sdl/tkSDLFont.c
+@@ -2814,6 +2814,14 @@ IdentifySymbolEncodings(
+     const char *const *aliases;
+     const char *const *symbolClass;
+ 
++    if (faPtr->fa.family == NULL) {
++	/*
++	 * TkFontParseXLFD() leaves the family NULL for a wildcard field, which
++	 * the X server can return, e.g. "????".  [Bug 2236352]
++	 */
++
++	return 0;
++    }
+     symbolClass = TkFontGetSymbolClass();
+     for (i = 0; symbolClass[i] != NULL; i++) {
+ 	if (strcasecmp(faPtr->fa.family, symbolClass[i]) == 0) {

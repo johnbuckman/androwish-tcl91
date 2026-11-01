@@ -1,11 +1,11 @@
 #!/bin/bash
-# Regenerate AndroWish's jni/tcl module for Tcl 9.1b0 (Android/ndk-build) and build libtcl.so (arm64).
+# Regenerate AndroWish's jni/tcl module for Tcl 9.1 (Android/ndk-build) and build libtcl.so (arm64).
 # Produces a self-contained ndk-build project proving the Tcl 9.1 core cross-compiles + links for Android.
 #
-# Prereqs: NDK r27d, and the Tcl 9.1b0 source tree extracted at $TCLSRC.
-# Usage: TCLSRC=~/androwish-tcl91-work/engine91/tcl9.1b0 OUT=~/androwish-tcl91-work/ndk-tcl91 ./gen-tcl91-android-module.sh
+# Prereqs: NDK r27d, and the Tcl 9.1 source tree extracted at $TCLSRC.
+# Usage: TCLSRC=~/androwish-tcl91-work/engine91/tcl9.1.0 OUT=~/androwish-tcl91-work/ndk-tcl91 ./gen-tcl91-android-module.sh
 set -e
-TCLSRC="${TCLSRC:-$HOME/androwish-tcl91-work/engine91/tcl9.1b0}"
+TCLSRC="${TCLSRC:-$HOME/androwish-tcl91-work/engine91/tcl9.1.0}"
 OUT="${OUT:-$HOME/androwish-tcl91-work/ndk-tcl91}"
 NDK="${NDK:-$HOME/Library/Android/sdk/ndk/27.3.13750724}"
 HERE="$(cd "$(dirname "$0")/.." && pwd)"   # repo root
